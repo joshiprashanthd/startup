@@ -1,0 +1,8 @@
+{
+  "env": {
+    "MONGO_USER": "testBoy",
+    "MONGO_PASSWORD": "Hiddewolf",
+    "MONGO_DATABASE": "collabs",
+    "NODE_ENV": "development"
+  }
+}
