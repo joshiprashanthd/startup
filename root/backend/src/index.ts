@@ -19,7 +19,6 @@ const app = express();
 
 app.disable("x-powered-by");
 app.use(session);
-
 const server = new ApolloServer({
 	typeDefs: TypeDefs,
 	resolvers: Resolvers,
