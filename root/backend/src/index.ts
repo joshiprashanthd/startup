@@ -4,10 +4,11 @@ import mongoose from "mongoose";
 
 //local
 import { TypeDefs, Resolvers } from "./Types";
+import session from "./utils/session";
 
 mongoose
 	.connect(
-		`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.vuqtk.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`,
+		`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.vuqtk.mongodb.net/${process.env.MONGO_DATABASE}?retryWrites=true&w=majority`,
 		{ useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false }
 	)
 	.then(() => {
@@ -17,10 +18,15 @@ mongoose
 const app = express();
 
 app.disable("x-powered-by");
-
+app.use(session);
 const server = new ApolloServer({
 	typeDefs: TypeDefs,
-	resolvers: Resolvers
+	resolvers: Resolvers,
+	context: async ({ req, res }) => {
+		return {
+			req
+		};
+	}
 });
 
 server.applyMiddleware({ app });
