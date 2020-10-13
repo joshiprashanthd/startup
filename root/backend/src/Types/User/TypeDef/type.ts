@@ -9,5 +9,7 @@ export default gql`
 		password: String
 		handler: String!
 		bio: String!
+		isOnline: Boolean!
+		lastActive: Date
 	}
 ` as DocumentNode;
