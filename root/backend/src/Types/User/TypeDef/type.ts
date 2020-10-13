@@ -4,8 +4,10 @@ import { DocumentNode } from "graphql";
 export default gql`
 	type User {
 		id: ID!
+		name: String!
 		email: String!
 		password: String
 		handler: String!
+		bio: String!
 	}
 ` as DocumentNode;
