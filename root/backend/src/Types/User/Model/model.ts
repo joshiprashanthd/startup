@@ -1,4 +1,4 @@
-import mongoose, { Model, Document, Query, Types } from "mongoose";
+import mongoose from "mongoose";
 import { hash } from "bcrypt";
 
 // local
