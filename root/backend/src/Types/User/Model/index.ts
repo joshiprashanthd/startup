@@ -1,2 +1,3 @@
-export { default as User } from "./model";
+import User from "./model";
 export { IUserDocument, IUserModel, IUser } from "./types";
+export default User;
