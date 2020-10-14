@@ -1,6 +1,6 @@
 import mongoose, { Document, Query, Model } from "mongoose";
 
-export interface User {
+export interface IUser {
 	email: string;
 	password: string;
 	handler: string;
@@ -8,7 +8,7 @@ export interface User {
 	lastActive?: Date;
 }
 
-interface UserBaseDocument extends User, Document {
+interface IUserBaseDocument extends IUser, Document {
 	email: string;
 	password: string;
 	handler: string;
@@ -16,6 +16,6 @@ interface UserBaseDocument extends User, Document {
 	lastActive?: Date;
 }
 
-export interface UserDocument extends UserBaseDocument {}
+export interface IUserDocument extends IUserBaseDocument {}
 
-export interface UserModel extends Model<UserDocument> {}
+export interface IUserModel extends Model<IUserDocument> {}
