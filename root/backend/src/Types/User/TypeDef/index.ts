@@ -6,3 +6,5 @@ import FragmentDef from "./fragment";
 import TypeDef from "./type";
 
 export default [InputDef, QueryDef, MutationDef, TypeDef];
+
+export { UserType, LooseUserInput, StrictUserInput } from "./types";
