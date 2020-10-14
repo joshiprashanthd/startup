@@ -1,6 +1,5 @@
-import User from "../model";
+import { User } from "../Model";
 
 export default {
-  Subscription: {
-  },
-}
+	Subscription: {}
+};

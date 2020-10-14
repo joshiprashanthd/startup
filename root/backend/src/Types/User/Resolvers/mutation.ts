@@ -1,4 +1,4 @@
-import User from "../model";
+import { User } from "../Model/";
 
 export default {
 	Mutation: {

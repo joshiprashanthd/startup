@@ -1,7 +1,7 @@
-import User from "../model";
+import { User } from "../Model";
 
 export default {
-  Query: {
-    users: async () => await User.find({})
-  },
-}
+	Query: {
+		users: async () => await User.find({})
+	}
+};
