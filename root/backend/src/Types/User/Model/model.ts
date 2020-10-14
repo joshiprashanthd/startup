@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { hash } from "bcrypt";
 
 // local
-import { StringRequired } from "../../virtual_types";
+import { BooleanRequired, StringRequired } from "../../virtual_types";
 import { IUserDocument, IUserModel } from "./types";
 
 const Schema = mongoose.Schema;
@@ -13,7 +13,10 @@ const UserSchema = new Schema(
 		password: StringRequired,
 		handler: StringRequired,
 		name: StringRequired,
-		lastActive: Date
+		bio: StringRequired,
+		birthDate: Date,
+		lastActive: Date,
+		isOnline: { ...BooleanRequired, default: false }
 	},
 	{ timestamps: true }
 );
