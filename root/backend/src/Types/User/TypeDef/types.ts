@@ -3,17 +3,15 @@ export interface StrictUserInput {
 	password: string;
 	handler: string;
 	name: string;
-	bio: string;
-	lastActive: Date | null;
 }
 
 export interface LooseUserInput {
 	userId: string;
-	handler: string | null;
-	email: string | null;
-	password: string | null;
-	name: string | null;
-	bio: string | null;
+	handler?: string;
+	email?: string;
+	password?: string;
+	name?: string;
+	bio?: string;
 }
 
 export interface UserType {
@@ -24,5 +22,5 @@ export interface UserType {
 	handler: string;
 	bio: string;
 	isOnline: boolean;
-	lastActive: Date;
+	lastActive?: Date;
 }
