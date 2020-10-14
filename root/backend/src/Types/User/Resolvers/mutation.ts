@@ -1,4 +1,4 @@
-import { User } from "../Model";
+import User from "../Model";
 import { StrictUserInput } from "../TypeDef";
 
 export default {
