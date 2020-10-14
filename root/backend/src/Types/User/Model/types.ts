@@ -5,7 +5,10 @@ export interface IUser {
 	password: string;
 	handler: string;
 	name: string;
+	bio: string;
+	birthDate: Date;
 	lastActive?: Date;
+	isOnline: Boolean;
 }
 
 interface IUserBaseDocument extends IUser, Document {
@@ -13,7 +16,10 @@ interface IUserBaseDocument extends IUser, Document {
 	password: string;
 	handler: string;
 	name: string;
+	bio: string;
+	birthDate: Date;
 	lastActive?: Date;
+	isOnline: Boolean;
 }
 
 export interface IUserDocument extends IUserBaseDocument {}
