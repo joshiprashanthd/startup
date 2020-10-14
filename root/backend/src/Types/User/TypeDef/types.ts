@@ -1,11 +1,11 @@
-export interface StrictUserInput {
+export interface IStrictUserInput {
 	email: string;
 	password: string;
 	handler: string;
 	name: string;
 }
 
-export interface LooseUserInput {
+export interface ILooseUserInput {
 	userId: string;
 	handler?: string;
 	email?: string;
@@ -14,7 +14,7 @@ export interface LooseUserInput {
 	bio?: string;
 }
 
-export interface UserType {
+export interface IUserType {
 	id: string;
 	name: string;
 	email: string;
