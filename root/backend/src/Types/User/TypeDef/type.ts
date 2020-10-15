@@ -9,6 +9,7 @@ export default gql`
 		password: String
 		handler: String!
 		bio: String!
+		birthDate: Date!
 		isOnline: Boolean!
 		lastActive: Date
 	}

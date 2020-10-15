@@ -8,13 +8,16 @@ export default gql`
 		handler: String!
 		name: String!
 		bio: String!
-		lastActive: Date
+		birthDate: Date!
 	}
 
 	input LooseUserInput {
 		userId: ID!
+		name: String
 		email: String
 		password: String
 		handler: String
+		bio: String
+		birthDate: Date
 	}
 ` as DocumentNode;
