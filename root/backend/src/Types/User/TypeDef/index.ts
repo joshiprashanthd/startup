@@ -7,4 +7,4 @@ import TypeDef from "./type";
 
 export default [InputDef, QueryDef, MutationDef, TypeDef];
 
-export { UserType, LooseUserInput, StrictUserInput } from "./types";
+export { IUserType, ILooseUserInput, IStrictUserInput } from "./types";
