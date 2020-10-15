@@ -1,4 +1,6 @@
-import mongoose, { Document, Query, Model } from "mongoose";
+import { Document, Model, NativeDate } from "mongoose";
+
+type Nullable<T> = T | null;
 
 export interface IUser {
 	email: string;
@@ -7,19 +9,13 @@ export interface IUser {
 	name: string;
 	bio: string;
 	birthDate: Date;
-	lastActive?: Date;
+	lastActive: Nullable<Date>;
 	isOnline: Boolean;
 }
 
 interface IUserBaseDocument extends IUser, Document {
-	email: string;
-	password: string;
-	handler: string;
-	name: string;
-	bio: string;
-	birthDate: Date;
-	lastActive?: Date;
-	isOnline: Boolean;
+	birthDate: NativeDate;
+	lastActive: Nullable<NativeDate>;
 }
 
 export interface IUserDocument extends IUserBaseDocument {}

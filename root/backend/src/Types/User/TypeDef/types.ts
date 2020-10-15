@@ -1,8 +1,12 @@
+type Nullable<T> = T | null;
+
 export interface IStrictUserInput {
 	email: string;
 	password: string;
 	handler: string;
 	name: string;
+	bio: string;
+	birthDate: Date;
 }
 
 export interface ILooseUserInput {
@@ -12,6 +16,7 @@ export interface ILooseUserInput {
 	password?: string;
 	name?: string;
 	bio?: string;
+	birthDate?: Date;
 }
 
 export interface IUserType {
@@ -21,6 +26,7 @@ export interface IUserType {
 	password: string;
 	handler: string;
 	bio: string;
+	birthDate: Date;
 	isOnline: boolean;
-	lastActive?: Date;
+	lastActive: Nullable<Date>;
 }
