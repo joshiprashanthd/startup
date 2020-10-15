@@ -15,7 +15,7 @@ const UserSchema = new Schema(
 		name: StringRequired,
 		bio: StringRequired,
 		birthDate: Date,
-		lastActive: Date,
+		lastActive: { type: Date, default: null },
 		isOnline: { ...BooleanRequired, default: false }
 	},
 	{ timestamps: true }
