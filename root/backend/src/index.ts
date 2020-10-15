@@ -5,10 +5,11 @@ import mongoose from "mongoose";
 //local
 import { TypeDefs, Resolvers } from "./Types";
 import session from "./utils/session";
+import MongoConfig from "./utils/env/mongo.config";
 
 mongoose
 	.connect(
-		`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.vuqtk.mongodb.net/${process.env.MONGO_DATABASE}?retryWrites=true&w=majority`,
+		`mongodb+srv://${MongoConfig.mongoUserName}:${MongoConfig.mongoUserPassword}@cluster0.vuqtk.mongodb.net/${MongoConfig.mongoDatabaseName}?retryWrites=true&w=majority`,
 		{ useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false }
 	)
 	.then(() => {
@@ -22,6 +23,11 @@ app.use(session);
 const server = new ApolloServer({
 	typeDefs: TypeDefs,
 	resolvers: Resolvers,
+	playground: {
+		settings: {
+			"request.credentials": "include"
+		}
+	},
 	context: async ({ req, res }) => {
 		return {
 			req
