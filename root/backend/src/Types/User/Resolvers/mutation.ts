@@ -1,15 +1,18 @@
-import User from "../Model";
-import { StrictUserInput } from "../TypeDef";
+import User from "../Model/model";
+import { IStrictUserInput } from "../TypeDef";
 
 export default {
 	Mutation: {
 		createUser: async (
 			parent: any,
-			args: { input: StrictUserInput },
+			args: { input: IStrictUserInput },
 			context: any,
 			info: any
 		) => {
-			return User.create(args.input);
+			console.log(args.input);
+			const user = await User.create<IStrictUserInput>(args.input);
+			console.log(user);
+			return user;
 		}
 	}
 };
