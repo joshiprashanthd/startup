@@ -1,9 +1,12 @@
-import { AuthenticationError } from "apollo-server-express";
-
 // local
 import User from "../Model/model";
 import { IStrictUserInput } from "../TypeDef";
-import SessionConfig from "../../../utils/config/session.config";
+import {
+	ensureSignedIn,
+	ensureSignedOut,
+	attemptSignIn,
+	attemptSignOut
+} from "../../../helpers/functions/authentication";
 
 export default {
 	Mutation: {
@@ -22,36 +25,13 @@ export default {
 			{ req },
 			info: any
 		) => {
-			if (req.session.userId) {
-				throw new AuthenticationError("You must be signed out.");
-			}
-
-			const user = await User.findOne({ email: email });
-
-			if (!user) {
-				throw new AuthenticationError("Cannot find email");
-			}
-
-			if (!(await user.comparePassword(password))) {
-				throw new AuthenticationError("Incorrect password.");
-			}
-
-			req.session.userId = user.id;
-			return user;
+			ensureSignedOut(req);
+			return attemptSignIn(email, password, req);
 		},
 
 		signOut: async (parent: any, args: any, { req, res }, info: any) => {
-			if (!req.session.userId) {
-				throw new AuthenticationError("You must be signed in!");
-			}
-
-			return new Promise((resolve, reject) => {
-				req.session.destroy(err => {
-					if (err) reject(err);
-					res.clearCookie(SessionConfig.sessionName);
-					resolve(true);
-				});
-			});
+			ensureSignedIn(req);
+			return attemptSignOut(req, res);
 		}
 	}
 };
