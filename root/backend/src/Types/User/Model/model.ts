@@ -2,7 +2,10 @@ import mongoose from "mongoose";
 import { compare, hash } from "bcrypt";
 
 // local
-import { BooleanRequired, StringRequired } from "../../virtual_types";
+import {
+	BooleanRequired,
+	StringRequired
+} from "../../../helpers/virtual_types";
 import { IUser, IUserDocument, IUserModel } from "./types";
 
 const Schema = mongoose.Schema;
