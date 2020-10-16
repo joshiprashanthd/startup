@@ -30,12 +30,13 @@ const server = new ApolloServer({
 	},
 	context: async ({ req, res }) => {
 		return {
-			req
+			req,
+			res
 		};
 	}
 });
 
-server.applyMiddleware({ app });
+server.applyMiddleware({ app, cors: false });
 
 app.listen({ port: 4000 }, () => {
 	console.log(`Server ready at http://localhost:4000${server.graphqlPath}`);
