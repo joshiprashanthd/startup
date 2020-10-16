@@ -2,10 +2,11 @@ import mongoose from "mongoose";
 import connectMongo from "connect-mongo";
 import session from "express-session";
 import SessionConfig from "./env/session.config";
+import MongoConfig from "./env/mongo.config";
 
 const MongoStore = connectMongo(session);
 const connection = mongoose.createConnection(
-	`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.vuqtk.mongodb.net/${process.env.MONGO_DATABASE}?retryWrites=true&w=majority`,
+	`mongodb+srv://${MongoConfig.mongoUserName}:${MongoConfig.mongoUserPassword}@cluster0.vuqtk.mongodb.net/${MongoConfig.mongoDatabaseName}?retryWrites=true&w=majority`,
 	{ useUnifiedTopology: true, useNewUrlParser: true }
 );
 
@@ -26,7 +27,7 @@ const mySession = session({
 	resave: true,
 	saveUninitialized: false,
 	cookie: {
-		maxAge: parseInt(SessionConfig.sessionSecret)
+		maxAge: parseInt(SessionConfig.sessionLifetime)
 	}
 });
 
