@@ -3,7 +3,7 @@ import { AuthenticationError } from "apollo-server-express";
 // local
 import User from "../Model/model";
 import { IStrictUserInput } from "../TypeDef";
-import SessionConfig from "../../../utils/env/session.config";
+import SessionConfig from "../../../utils/config/session.config";
 
 export default {
 	Mutation: {

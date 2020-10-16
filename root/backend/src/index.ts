@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 //local
 import { TypeDefs, Resolvers } from "./Types";
 import session from "./utils/session";
-import MongoConfig from "./utils/env/mongo.config";
+import MongoConfig from "./utils/config/mongo.config";
 
 mongoose
 	.connect(
