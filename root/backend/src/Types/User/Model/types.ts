@@ -18,6 +18,8 @@ interface IUserBaseDocument extends IUser, Document {
 	lastActive: Nullable<NativeDate>;
 }
 
-export interface IUserDocument extends IUserBaseDocument {}
+export interface IUserDocument extends IUserBaseDocument {
+	comparePassword(password: string): Promise<boolean>;
+}
 
 export interface IUserModel extends Model<IUserDocument> {}

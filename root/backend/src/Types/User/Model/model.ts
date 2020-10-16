@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
-import { hash } from "bcrypt";
+import { compare, hash } from "bcrypt";
 
 // local
 import { BooleanRequired, StringRequired } from "../../virtual_types";
-import { IUserDocument, IUserModel } from "./types";
+import { IUser, IUserDocument, IUserModel } from "./types";
 
 const Schema = mongoose.Schema;
 
-const UserSchema = new Schema(
+const UserSchema = new Schema<IUserDocument>(
 	{
 		email: StringRequired,
 		password: StringRequired,
@@ -26,5 +26,9 @@ UserSchema.pre<IUserDocument>("save", async function () {
 		this.password = await hash(this.password, 15);
 	}
 });
+
+UserSchema.methods.comparePassword = function (password: string) {
+	return compare(password, this.password);
+};
 
 export default mongoose.model<IUserDocument, IUserModel>("User", UserSchema);
