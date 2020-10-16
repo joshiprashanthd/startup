@@ -1,7 +1,7 @@
 import { AuthenticationError } from "apollo-server-express";
 
 //local
-import User from "../../Types/User/Model/model";
+import User from "../../entities/User/Model/model";
 import { SessionConfig } from "../../utils/config";
 
 export const ensureSignedIn = req => {
