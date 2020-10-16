@@ -3,7 +3,7 @@ import express from "express";
 import mongoose from "mongoose";
 
 //local
-import { TypeDefs, Resolvers } from "./Types";
+import { TypeDefs, Resolvers } from "./entities";
 import session from "./utils/session";
 import { MongoConfig } from "./utils/config";
 
