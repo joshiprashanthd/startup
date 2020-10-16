@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 import connectMongo from "connect-mongo";
 import session from "express-session";
-import SessionConfig from "./config/session.config";
-import MongoConfig from "./config/mongo.config";
+import { SessionConfig } from "./config";
+import { MongoConfig } from "./config";
 
 const MongoStore = connectMongo(session);
 const connection = mongoose.createConnection(
