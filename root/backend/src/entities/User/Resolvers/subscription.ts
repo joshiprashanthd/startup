@@ -1,4 +1,4 @@
-import User from "../Model/model";
+import { User } from "../model";
 
 export default {
 	Subscription: {}

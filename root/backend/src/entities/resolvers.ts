@@ -1,4 +1,4 @@
-import { UserResolvers } from "./User";
-import { CustomScalarResolvers } from "./CustomScalars";
+import { UserResolvers } from "./user";
+import { CustomScalarResolvers } from "./customScalars";
 
 export default [UserResolvers, CustomScalarResolvers];

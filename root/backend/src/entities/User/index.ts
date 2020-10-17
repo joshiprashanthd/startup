@@ -1,2 +1,2 @@
-export { default as UserResolvers } from "./Resolvers";
-export { default as UserTypeDef } from "./TypeDef";
+export { default as UserResolvers } from "./resolvers";
+export { default as UserTypeDef } from "./typedef";

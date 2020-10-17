@@ -1,6 +1,6 @@
 // local
-import { User } from "../Model";
-import { IStrictUserInput } from "../TypeDef";
+import { User } from "../model";
+import { IStrictUserInput } from "../typedef";
 import {
 	ensureSignedIn,
 	ensureSignedOut,
