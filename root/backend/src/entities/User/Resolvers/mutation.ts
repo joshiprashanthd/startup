@@ -7,6 +7,7 @@ import {
 	attemptSignIn,
 	attemptSignOut
 } from "../../../helpers/functions/authentication";
+import { mapUser } from "../mapper";
 
 export default {
 	Mutation: {
@@ -16,7 +17,7 @@ export default {
 			context: any,
 			info: any
 		) => {
-			return await User.create<IStrictUserInput>(args.input);
+			return mapUser(await User.create<IStrictUserInput>(args.input));
 		},
 
 		signIn: async (
@@ -26,7 +27,7 @@ export default {
 			info: any
 		) => {
 			ensureSignedOut(req);
-			return attemptSignIn(email, password, req);
+			return mapUser(await attemptSignIn(email, password, req));
 		},
 
 		signOut: async (parent: any, args: any, { req, res }, info: any) => {
