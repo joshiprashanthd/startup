@@ -1,4 +1,4 @@
-import { AuthenticationError } from "apollo-server-express";
+import { ApolloError, AuthenticationError } from "apollo-server-express";
 
 //local
 import { User } from "../../entities/user/model";
@@ -31,13 +31,28 @@ export const attemptSignIn = async (
 			"Incorrect password or email. Please try again."
 		);
 
+	const result = await User.findByIdAndUpdate(
+		user.id,
+		{ isOnline: true },
+		(err, res) => {
+			if (err) throw new ApolloError(err);
+		}
+	);
+
 	req.session.userId = user.id;
 
-	return user;
+	return result;
 };
 
 export const attemptSignOut = (req: any, res: any) => {
 	return new Promise((resolve, reject) => {
+		User.updateOne(
+			{ _id: req.session.userId },
+			{ isOnline: false },
+			(err, res) => {
+				if (err) reject(err);
+			}
+		);
 		req.session.destroy(err => {
 			if (err) reject(err);
 			res.clearCookie(SessionConfig.sessionName);
