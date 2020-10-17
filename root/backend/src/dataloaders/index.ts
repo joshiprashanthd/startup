@@ -1,4 +1,3 @@
-import DataLoader from "dataloader";
 import UserLoader from "./user";
 
 export interface IDataloaders {
