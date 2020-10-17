@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 import { TypeDefs, Resolvers } from "./entities";
 import session from "./utils/session";
 import { MongoConfig } from "./utils/config";
+import dataloaders from "./dataloaders";
 
 mongoose
 	.connect(
@@ -36,7 +37,8 @@ const server = new ApolloServer({
 	context: async ({ req, res }) => {
 		return {
 			req,
-			res
+			res,
+			dataloaders
 		};
 	}
 });
