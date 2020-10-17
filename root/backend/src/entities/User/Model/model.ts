@@ -2,24 +2,20 @@ import mongoose from "mongoose";
 import { compare, hash } from "bcrypt";
 
 // local
-import {
-	BooleanRequired,
-	StringRequired
-} from "../../../helpers/virtual_types";
-import { IUser, IUserDocument, IUserModel } from "./types";
+import { IUserDocument, IUserModel } from "./types";
 
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema<IUserDocument>(
 	{
-		email: StringRequired,
-		password: StringRequired,
-		handler: StringRequired,
-		name: StringRequired,
-		bio: StringRequired,
+		email: { type: String, required: true },
+		password: { type: String, required: true },
+		handler: { type: String, required: true },
+		name: { type: String, required: true },
+		bio: { type: String, required: true },
 		birthDate: Date,
 		lastActive: { type: Date, default: null },
-		isOnline: { ...BooleanRequired, default: false }
+		isOnline: { type: Boolean, required: true, default: false }
 	},
 	{ timestamps: true }
 );
