@@ -13,7 +13,12 @@ mongoose
 		{ useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false }
 	)
 	.then(() => {
-		console.log("[DATABASE] CONNECTED TO DATABASE");
+		console.log("[MONGOOSE] CONNECTED TO DATABASE");
+	})
+	.catch(reason => {
+		console.log(
+			`[MONGOOSE] Error connecting to database. \nREASON : ${reason}`
+		);
 	});
 
 const app = express();

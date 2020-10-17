@@ -10,6 +10,10 @@ const connection = mongoose.createConnection(
 	{ useUnifiedTopology: true, useNewUrlParser: true }
 );
 
+connection.on("error", function (err) {
+	console.log("[MONGOSTORE] Error connecting to MongoStore");
+});
+
 const store = new MongoStore({
 	mongooseConnection: connection,
 	collection: "sessions"
