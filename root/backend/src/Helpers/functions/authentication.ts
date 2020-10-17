@@ -21,10 +21,15 @@ export const attemptSignIn = async (
 ) => {
 	const user = await User.findOne({ email });
 
-	if (!user) throw new AuthenticationError("Cannot find email");
+	if (!user)
+		throw new AuthenticationError(
+			"Incorrect password or email. Please try again"
+		);
 
 	if (!(await user.comparePassword(password)))
-		throw new AuthenticationError("Incorrect password.");
+		throw new AuthenticationError(
+			"Incorrect password or email. Please try again."
+		);
 
 	req.session.userId = user.id;
 
