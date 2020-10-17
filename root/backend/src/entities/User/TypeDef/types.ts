@@ -23,7 +23,7 @@ export interface IUserType {
 	id: string;
 	name: string;
 	email: string;
-	password: string;
+	password: Nullable<string>;
 	handler: string;
 	bio: string;
 	birthDate: Date;
