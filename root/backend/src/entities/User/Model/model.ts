@@ -15,7 +15,8 @@ const UserSchema = new Schema<IUserDocument>(
 		bio: { type: String, required: true },
 		birthDate: Date,
 		lastActive: { type: Date, default: null },
-		isOnline: { type: Boolean, required: true, default: false }
+		isOnline: { type: Boolean, required: true, default: false },
+		verifiedAccount: { type: Boolean, require: true, default: false }
 	},
 	{ timestamps: true }
 );
