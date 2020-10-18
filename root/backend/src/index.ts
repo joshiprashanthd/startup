@@ -7,6 +7,7 @@ import { TypeDefs, Resolvers } from "./entities";
 import session from "./utils/session";
 import { MongoConfig } from "./utils/config";
 import dataloaders from "./dataloaders";
+import routes from "./routes";
 
 mongoose
 	.connect(
@@ -23,9 +24,10 @@ mongoose
 	});
 
 const app = express();
-
 app.disable("x-powered-by");
+app.use("/", routes);
 app.use(session);
+
 const server = new ApolloServer({
 	typeDefs: TypeDefs,
 	resolvers: Resolvers,
