@@ -10,7 +10,8 @@ export interface IUser {
 	bio: string;
 	birthDate: Date;
 	lastActive: Nullable<Date>;
-	isOnline: Boolean;
+	isOnline: boolean;
+	verifiedAccount: boolean;
 }
 
 interface IUserBaseDocument extends IUser, Document {
