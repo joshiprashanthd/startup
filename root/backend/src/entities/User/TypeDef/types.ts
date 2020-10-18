@@ -29,4 +29,5 @@ export interface IUserType {
 	birthDate: Date;
 	isOnline: boolean;
 	lastActive: Nullable<Date>;
+	verifiedAccount: boolean;
 }

@@ -12,5 +12,6 @@ export default gql`
 		birthDate: Date!
 		isOnline: Boolean!
 		lastActive: Date
+		verifiedAccount: Boolean!
 	}
 ` as DocumentNode;
