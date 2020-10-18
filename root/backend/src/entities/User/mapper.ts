@@ -9,8 +9,9 @@ export const mapUser = (user: IUserDocument): IUserType => ({
 	password: null,
 	bio: user.bio,
 	birthDate: user.birthDate,
-	isOnline: user.isOnline as boolean,
-	lastActive: user.lastActive
+	isOnline: user.isOnline,
+	lastActive: user.lastActive,
+	verifiedAccount: user.verifiedAccount
 });
 
 export const mapUsers = (users: IUserDocument[]): IUserType[] =>
