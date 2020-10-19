@@ -1,5 +1,11 @@
 import { RootTypeDef } from "./root";
 import { UserTypeDef } from "./user";
-import { CustomScalarTypeDefs } from "./customScalars";
+import { FieldTypeDef } from "./field";
+import { CustomScalarTypeDef } from "./customScalars";
 
-export default [...RootTypeDef, ...UserTypeDef, CustomScalarTypeDefs];
+export default [
+	CustomScalarTypeDef,
+	...RootTypeDef,
+	...UserTypeDef,
+	...FieldTypeDef
+];
