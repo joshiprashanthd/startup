@@ -7,7 +7,6 @@ export default gql`
 		password: String!
 		handler: String!
 		name: String!
-		bio: String!
 		birthDate: Date!
 	}
 
@@ -17,7 +16,6 @@ export default gql`
 		email: String
 		password: String
 		handler: String
-		bio: String
 		birthDate: Date
 	}
 ` as DocumentNode;

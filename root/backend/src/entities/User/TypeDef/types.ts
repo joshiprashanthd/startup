@@ -5,7 +5,6 @@ export interface IStrictUserInput {
 	password: string;
 	handler: string;
 	name: string;
-	bio: string;
 	birthDate: Date;
 }
 
@@ -15,7 +14,6 @@ export interface ILooseUserInput {
 	email?: string;
 	password?: string;
 	name?: string;
-	bio?: string;
 	birthDate?: Date;
 }
 
