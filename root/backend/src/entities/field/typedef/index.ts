@@ -1,6 +1,7 @@
 import InputDef from "./input";
 import TypeDef from "./type";
 import MutationDef from "./mutation";
+import QueryDef from "./query";
 
 export {
 	IFieldType,
@@ -9,4 +10,4 @@ export {
 	ILooseFieldInput
 } from "./types";
 
-export default [InputDef, TypeDef, MutationDef];
+export default [InputDef, TypeDef, QueryDef, MutationDef];
