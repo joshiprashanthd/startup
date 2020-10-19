@@ -9,7 +9,7 @@ async function batchFields(ids: string[]): Promise<IFieldDocument[]> {
 	const Field = mongoose.model("Field");
 	const fields = await Field.find({ _id: { $in: ids } });
 	const groupedFields = groupBy(field => field.id, fields);
-	return map(id => groupedFields[id], ids);
+	return map(id => groupedFields[id][0], ids);
 }
 
 export default () => new Dataloader<string, IFieldDocument>(batchFields);
