@@ -16,7 +16,8 @@ const UserSchema = new Schema<IUserDocument>(
 		birthDate: Date,
 		lastActive: { type: Date, default: null },
 		isOnline: { type: Boolean, required: true, default: false },
-		verifiedAccount: { type: Boolean, require: true, default: false }
+		verifiedAccount: { type: Boolean, require: true, default: false },
+		interests: [{ type: Schema.Types.ObjectId, ref: "Field" }]
 	},
 	{ timestamps: true }
 );

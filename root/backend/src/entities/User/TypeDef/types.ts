@@ -1,3 +1,6 @@
+import { IField } from "../../field/model";
+import { IFieldIdInput } from "../../field/typedef";
+
 type Nullable<T> = T | null;
 
 export interface IStrictUserInput {
@@ -15,6 +18,7 @@ export interface ILooseUserInput {
 	password?: string;
 	name?: string;
 	birthDate?: Date;
+	interests?: IFieldIdInput[];
 }
 
 export interface IUserType {
@@ -28,4 +32,5 @@ export interface IUserType {
 	isOnline: boolean;
 	lastActive: Nullable<Date>;
 	verifiedAccount: boolean;
+	interests: Nullable<IField[]>;
 }

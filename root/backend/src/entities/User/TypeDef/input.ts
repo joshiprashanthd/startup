@@ -17,5 +17,6 @@ export default gql`
 		password: String
 		handler: String
 		birthDate: Date
+		interests: [FieldIdInput!]
 	}
 ` as DocumentNode;

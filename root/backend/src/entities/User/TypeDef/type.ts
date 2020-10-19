@@ -13,5 +13,6 @@ export default gql`
 		isOnline: Boolean!
 		lastActive: Date
 		verifiedAccount: Boolean!
+		interests: [Field!]
 	}
 ` as DocumentNode;
