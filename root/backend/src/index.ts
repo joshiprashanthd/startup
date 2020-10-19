@@ -8,6 +8,7 @@ import session from "./utils/session";
 import { MongoConfig } from "./utils/config";
 import dataloaders from "./dataloaders";
 import routes from "./routes";
+import { IContext } from "./types";
 
 mongoose
 	.connect(
@@ -36,7 +37,7 @@ const server = new ApolloServer({
 			"request.credentials": "include"
 		}
 	},
-	context: async ({ req, res }) => {
+	context: async ({ req, res }): Promise<IContext> => {
 		return {
 			req,
 			res,
