@@ -5,8 +5,8 @@ import nodemailer from "nodemailer";
 import emailer from "../../../utils/emailer";
 import { TokenConfig } from "../../../utils/config";
 import { Token } from "../../token/model";
-import { User } from "../model";
-import { IStrictUserInput } from "../typedef";
+import { IUserDocument, User } from "../model";
+import { ILooseUserInput, IStrictUserInput } from "../typedef";
 import {
 	ensureSignedIn,
 	ensureSignedOut,
@@ -14,6 +14,7 @@ import {
 	attemptSignOut
 } from "../../../helpers/functions/authentication";
 import { mapUser } from "../mapper";
+import { ApolloError } from "apollo-server-express";
 
 export default {
 	Mutation: {
@@ -55,6 +56,29 @@ export default {
 			});
 
 			return mapUser(user);
+		},
+
+		editUser: async (
+			parent: any,
+			args: { input: ILooseUserInput },
+			{ req },
+			info: any
+		) => {
+			ensureSignedIn(req);
+
+			const user = await User.findById(args.input.userId);
+
+			if (!user) {
+				throw new ApolloError("User not found.");
+			}
+
+			delete args.input["userId"];
+
+			await user.updateOne(args.input, (err, raw) => {
+				if (err) throw new ApolloError(err);
+			});
+
+			return mapUser(Object.assign(user, args.input));
 		},
 
 		signIn: async (
