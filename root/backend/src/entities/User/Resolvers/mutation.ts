@@ -5,7 +5,7 @@ import nodemailer from "nodemailer";
 import emailer from "../../../utils/emailer";
 import { TokenConfig } from "../../../utils/config";
 import { Token } from "../../token/model";
-import { IUserDocument, User } from "../model";
+import { User } from "../model";
 import { ILooseUserInput, IStrictUserInput } from "../typedef";
 import {
 	ensureSignedIn,
@@ -15,13 +15,14 @@ import {
 } from "../../../helpers/functions/authentication";
 import { mapUser } from "../mapper";
 import { ApolloError } from "apollo-server-express";
+import { IContext } from "../../../types";
 
 export default {
 	Mutation: {
 		createUser: async (
 			parent: any,
 			args: { input: IStrictUserInput },
-			context: any,
+			context: IContext,
 			info: any
 		) => {
 			const user = await User.create<IStrictUserInput>(args.input);
@@ -55,16 +56,16 @@ export default {
 				token: token
 			});
 
-			return mapUser(user);
+			return mapUser(user, context);
 		},
 
 		editUser: async (
 			parent: any,
 			args: { input: ILooseUserInput },
-			{ req },
+			context: IContext,
 			info: any
 		) => {
-			ensureSignedIn(req);
+			ensureSignedIn(context);
 
 			const user = await User.findById(args.input.userId);
 
@@ -74,26 +75,33 @@ export default {
 
 			delete args.input["userId"];
 
-			await user.updateOne(args.input, (err, raw) => {
+			const doc = {
+				...args.input,
+				interests:
+					args.input.interests &&
+					args.input.interests.map(interest => interest.fieldId)
+			};
+
+			await user.updateOne(doc, (err, raw) => {
 				if (err) throw new ApolloError(err);
 			});
 
-			return mapUser(Object.assign(user, args.input));
+			return mapUser(Object.assign(user, doc), context);
 		},
 
 		signIn: async (
 			parent: any,
 			{ email, password }: { email: string; password: string },
-			{ req },
+			context: IContext,
 			info: any
 		) => {
-			ensureSignedOut(req);
-			return mapUser(await attemptSignIn(email, password, req));
+			ensureSignedOut(context);
+			return mapUser(await attemptSignIn(email, password, context), context);
 		},
 
-		signOut: async (parent: any, args: any, { req, res }, info: any) => {
-			ensureSignedIn(req);
-			return attemptSignOut(req, res);
+		signOut: async (parent: any, args: any, context: IContext, info: any) => {
+			ensureSignedIn(context);
+			return attemptSignOut(context);
 		}
 	}
 };
