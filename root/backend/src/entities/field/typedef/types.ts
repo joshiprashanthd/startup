@@ -1,3 +1,5 @@
+import { IField } from "../model";
+
 export interface IFieldType {
 	id: string;
 	name: string;
@@ -9,7 +11,7 @@ export interface IFieldIdInput {
 	fieldId: string;
 }
 
-export interface IStrictFieldInput {
+export interface IStrictFieldInput extends Pick<IField, keyof IField> {
 	name: string;
 	description: string;
 	color: string;
