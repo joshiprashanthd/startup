@@ -1,7 +1,8 @@
-import { AuthDirective, GuestDirective } from "./definitions";
+import { AuthDirective, GuestDirective, PrivateDirective } from "./definitions";
 
 export { default as DirectivesTypeDef } from "./typedef";
 export default {
 	auth: AuthDirective,
-	guest: GuestDirective
+	guest: GuestDirective,
+	private: PrivateDirective
 };
