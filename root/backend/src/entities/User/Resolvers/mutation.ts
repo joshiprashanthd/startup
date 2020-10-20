@@ -24,6 +24,7 @@ export default {
 			context: IContext,
 			info: any
 		) => {
+<<<<<<< HEAD
 			ensureSignedOut(context);
 
 			const { error, value } = ValidationSchema.validate(args.input);
@@ -32,6 +33,8 @@ export default {
 				throw new ValidationError(error.message);
 			}
 
+=======
+>>>>>>> custom-directive
 			const user = await User.create(args.input);
 
 			const [token, mailInfo] = await sendVerificationEmail(user);
@@ -53,20 +56,6 @@ export default {
 			context: IContext,
 			info: any
 		) => {
-			ensureSignedIn(context);
-
-			const { error, value } = ValidationSchema.validate({
-				handler: args.input.handler,
-				name: args.input.name,
-				password: args.input.password,
-				email: args.input.email,
-				birthDate: args.input.birthDate
-			});
-
-			if (error) {
-				throw new ValidationError(error.message);
-			}
-
 			const user = await User.findById(args.input.userId);
 
 			if (!user) {
@@ -95,12 +84,10 @@ export default {
 			context: IContext,
 			info: any
 		) => {
-			ensureSignedOut(context);
 			return mapUser(await attemptSignIn(email, password, context), context);
 		},
 
 		signOut: async (parent: any, args: any, context: IContext, info: any) => {
-			ensureSignedIn(context);
 			return attemptSignOut(context);
 		}
 	}
