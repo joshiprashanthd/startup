@@ -1,1 +1,1 @@
-export { default as RootTypeDef } from "./TypeDef";
+export { default as RootTypeDef } from "./typedef";
