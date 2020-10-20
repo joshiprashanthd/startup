@@ -1,9 +1,10 @@
 import { IField } from "../../field/model";
 import { IFieldIdInput } from "../../field/typedef";
+import { IUser } from "../model";
 
 type Nullable<T> = T | null;
 
-export interface IStrictUserInput {
+export interface IStrictUserInput extends Pick<IUser, keyof IUser> {
 	email: string;
 	password: string;
 	handler: string;

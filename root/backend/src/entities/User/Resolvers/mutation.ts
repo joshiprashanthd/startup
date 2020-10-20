@@ -26,7 +26,7 @@ export default {
 		) => {
 			ensureSignedOut(context);
 
-			const user = await User.create<IStrictUserInput>(args.input);
+			const user = await User.create(args.input);
 
 			const [token, mailInfo] = await sendVerificationEmail(user);
 
