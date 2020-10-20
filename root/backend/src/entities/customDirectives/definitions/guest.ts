@@ -7,7 +7,7 @@ export default class GuestDirective extends SchemaDirectiveVisitor {
 	public visitFieldDefinition(field: GraphQLField<any, any>) {
 		const { resolve = defaultFieldResolver } = field;
 		field.resolve = async function (...args) {
-			const [_, context] = args;
+			const [_, __, context] = args;
 			ensureSignedOut(context as IContext);
 			return resolve.apply(this, args);
 		};

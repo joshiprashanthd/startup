@@ -7,7 +7,7 @@ export default class AuthDirective extends SchemaDirectiveVisitor {
 	public visitFieldDefinition(field: GraphQLField<any, any>) {
 		const { resolve = defaultFieldResolver } = field;
 		field.resolve = async function (...args) {
-			const [_, context] = args;
+			const [_, __, context] = args;
 			ensureSignedIn(context as IContext);
 			return resolve.apply(this, args);
 		};
