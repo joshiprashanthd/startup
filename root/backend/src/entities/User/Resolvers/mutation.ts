@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+import { ApolloError, ValidationError } from "apollo-server-express";
 import nodemailer from "nodemailer";
 
 // local
@@ -12,9 +12,9 @@ import {
 	attemptSignOut
 } from "../../../helpers/functions/authentication";
 import { mapUser } from "../mapper";
-import { ApolloError } from "apollo-server-express";
 import { IContext } from "../../../types";
 import { sendVerificationEmail } from "../../../helpers/functions/sendVerificationEmail";
+import { ValidationSchema } from "../validation";
 
 export default {
 	Mutation: {
@@ -25,6 +25,12 @@ export default {
 			info: any
 		) => {
 			ensureSignedOut(context);
+
+			const { error, value } = ValidationSchema.validate(args.input);
+
+			if (error) {
+				throw new ValidationError(error.message);
+			}
 
 			const user = await User.create(args.input);
 
@@ -48,6 +54,18 @@ export default {
 			info: any
 		) => {
 			ensureSignedIn(context);
+
+			const { error, value } = ValidationSchema.validate({
+				handler: args.input.handler,
+				name: args.input.name,
+				password: args.input.password,
+				email: args.input.email,
+				birthDate: args.input.birthDate
+			});
+
+			if (error) {
+				throw new ValidationError(error.message);
+			}
 
 			const user = await User.findById(args.input.userId);
 
