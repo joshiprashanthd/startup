@@ -27,7 +27,7 @@ export interface IUserType {
 	email: string;
 	password: Nullable<string>;
 	handler: string;
-	bio: string;
+	bio: Nullable<string>;
 	birthDate: Date;
 	isOnline: boolean;
 	lastActive: Nullable<Date>;

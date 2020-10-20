@@ -7,7 +7,7 @@ export interface IUser {
 	password: string;
 	handler: string;
 	name: string;
-	bio: string;
+	bio: Nullable<string>;
 	birthDate: Date;
 	lastActive: Nullable<Date>;
 	isOnline: boolean;

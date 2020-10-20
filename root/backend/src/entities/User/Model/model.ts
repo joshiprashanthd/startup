@@ -12,7 +12,7 @@ const UserSchema = new Schema<IUserDocument>(
 		password: { type: String, required: true },
 		handler: { type: String, required: true },
 		name: { type: String, required: true },
-		bio: { type: String, required: true },
+		bio: String,
 		birthDate: Date,
 		lastActive: { type: Date, default: null },
 		isOnline: { type: Boolean, required: true, default: false },
