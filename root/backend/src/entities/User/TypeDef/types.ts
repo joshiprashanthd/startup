@@ -25,7 +25,7 @@ export interface ILooseUserInput {
 export interface IUserType {
 	id: string;
 	name: string;
-	email: string;
+	email: Nullable<string>;
 	password: Nullable<string>;
 	handler: string;
 	bio: Nullable<string>;
