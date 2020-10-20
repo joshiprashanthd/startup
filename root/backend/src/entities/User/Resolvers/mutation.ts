@@ -2,8 +2,6 @@ import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
 
 // local
-import emailer from "../../../utils/emailer";
-import { TokenConfig } from "../../../utils/config";
 import { Token } from "../../token/model";
 import { User } from "../model";
 import { ILooseUserInput, IStrictUserInput } from "../typedef";
@@ -16,6 +14,7 @@ import {
 import { mapUser } from "../mapper";
 import { ApolloError } from "apollo-server-express";
 import { IContext } from "../../../types";
+import { sendVerificationEmail } from "../../../helpers/functions/sendVerificationEmail";
 
 export default {
 	Mutation: {
@@ -25,28 +24,11 @@ export default {
 			context: IContext,
 			info: any
 		) => {
+			ensureSignedOut(context);
+
 			const user = await User.create<IStrictUserInput>(args.input);
 
-			const token = jwt.sign(
-				{ userId: user.id, email: user.email },
-				TokenConfig.tokenSecret,
-				{ expiresIn: parseInt(TokenConfig.tokenExpiry) }
-			);
-
-			const transporter = await emailer();
-			const mailInfo = await transporter.sendMail({
-				from: '"Prashant Joshi (CEO)" <no-reply@collabs.com>',
-				to: `${user.email}`,
-				subject: "Please verify your email address",
-				html: `
-				<h1>Thank you for registering</h1>
-				<p>Verify your email by clicking on this link</p>
-				<br>
-				<a href="http:localhost:4000/auth/verify-email/${user.id}-${token}">
-					Verify you email
-				</a>
-				`
-			});
+			const [token, mailInfo] = await sendVerificationEmail(user);
 
 			console.log(nodemailer.getTestMessageUrl(mailInfo));
 
