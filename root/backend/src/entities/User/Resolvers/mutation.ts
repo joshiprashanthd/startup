@@ -6,8 +6,6 @@ import { Token } from "../../token/model";
 import { User } from "../model";
 import { ILooseUserInput, IStrictUserInput } from "../typedef";
 import {
-	ensureSignedIn,
-	ensureSignedOut,
 	attemptSignIn,
 	attemptSignOut
 } from "../../../helpers/functions/authentication";
