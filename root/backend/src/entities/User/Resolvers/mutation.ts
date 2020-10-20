@@ -24,8 +24,6 @@ export default {
 			context: IContext,
 			info: any
 		) => {
-			ensureSignedOut(context);
-
 			const user = await User.create(args.input);
 
 			const [token, mailInfo] = await sendVerificationEmail(user);
@@ -47,8 +45,6 @@ export default {
 			context: IContext,
 			info: any
 		) => {
-			ensureSignedIn(context);
-
 			const user = await User.findById(args.input.userId);
 
 			if (!user) {
@@ -77,12 +73,10 @@ export default {
 			context: IContext,
 			info: any
 		) => {
-			ensureSignedOut(context);
 			return mapUser(await attemptSignIn(email, password, context), context);
 		},
 
 		signOut: async (parent: any, args: any, context: IContext, info: any) => {
-			ensureSignedIn(context);
 			return attemptSignOut(context);
 		}
 	}
