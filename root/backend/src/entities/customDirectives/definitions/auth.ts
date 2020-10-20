@@ -3,7 +3,7 @@ import { defaultFieldResolver, GraphQLField } from "graphql";
 import { ensureSignedIn } from "../../../helpers/functions/authentication";
 import { IContext } from "../../../types";
 
-class AuthDirective extends SchemaDirectiveVisitor {
+export default class AuthDirective extends SchemaDirectiveVisitor {
 	public visitFieldDefinition(field: GraphQLField<any, any>) {
 		const { resolve = defaultFieldResolver } = field;
 		field.resolve = async function (...args) {
