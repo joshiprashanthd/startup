@@ -17,7 +17,7 @@ export const mapUser = (
 	name: user.name,
 	email: user.email,
 	handler: user.handler,
-	password: null,
+	password: user.password,
 	bio: user.bio,
 	birthDate: user.birthDate,
 	isOnline: user.isOnline,
