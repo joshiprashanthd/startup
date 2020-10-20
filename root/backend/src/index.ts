@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 
 //local
 import { TypeDefs, Resolvers } from "./entities";
+import SchemaDirectives from "./entities/customDirectives";
 import session from "./utils/session";
 import { MongoConfig } from "./utils/config";
 import dataloaders from "./dataloaders";
@@ -32,6 +33,7 @@ app.use(session);
 const server = new ApolloServer({
 	typeDefs: TypeDefs,
 	resolvers: Resolvers,
+	schemaDirectives: SchemaDirectives,
 	playground: {
 		settings: {
 			"request.credentials": "include"
