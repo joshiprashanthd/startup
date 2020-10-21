@@ -2,8 +2,8 @@ import jwt from "jsonwebtoken";
 
 //local
 import { IUserDocument } from "../../entities/user/model";
-import { TokenConfig } from "../../utils/config";
-import emailer from "../../utils/emailer";
+import { TokenConfig } from "../../config";
+import emailer from "../emailer";
 
 export const sendVerificationEmail = async (user: IUserDocument) => {
 	const token = jwt.sign(

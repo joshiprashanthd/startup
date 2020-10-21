@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 //local
-import { TokenConfig } from "../../../utils/config";
+import { TokenConfig } from "../../../config";
 import { ITokenDocument, ITokenModel } from "./types";
 
 const Schema = mongoose.Schema;

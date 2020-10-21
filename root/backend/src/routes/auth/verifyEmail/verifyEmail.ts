@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import { Token } from "../../../entities/token/model";
 
 //local
-import { TokenConfig } from "../../../utils/config";
+import { TokenConfig } from "../../../config";
 
 export default async function (req, res, next) {
 	const { tokenDoc, user } = req;

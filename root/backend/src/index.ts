@@ -5,8 +5,8 @@ import mongoose from "mongoose";
 //local
 import { TypeDefs, Resolvers } from "./entities";
 import SchemaDirectives from "./entities/customDirectives";
-import session from "./utils/session";
-import { MongoConfig } from "./utils/config";
+import session from "./session";
+import { MongoConfig } from "./config";
 import dataloaders from "./dataloaders";
 import routes from "./routes";
 import { IContext } from "./types";

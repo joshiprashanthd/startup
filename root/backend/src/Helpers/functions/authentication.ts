@@ -3,7 +3,7 @@ import { ApolloError, AuthenticationError } from "apollo-server-express";
 //local
 import { User } from "../../entities/user/model";
 import { IContext } from "../../types";
-import { SessionConfig } from "../../utils/config";
+import { SessionConfig } from "../../config";
 
 export const ensureSignedIn = (context: IContext) => {
 	if (!context.req.session.userId)
