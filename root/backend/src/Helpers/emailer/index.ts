@@ -1,15 +1,11 @@
 import nodemailer from "nodemailer";
+import { GmailConfig } from "../../config";
 
-export default async function () {
-	const testAccount = await nodemailer.createTestAccount();
-
-	return nodemailer.createTransport({
-		host: "smtp.ethereal.email",
-		port: 587,
-		secure: false,
-		auth: {
-			user: testAccount.user,
-			pass: testAccount.pass
-		}
-	});
-}
+export default nodemailer.createTransport({
+	service: "gmail",
+	sender: GmailConfig.gmailSender,
+	auth: {
+		user: GmailConfig.gmailUser,
+		pass: GmailConfig.gmailPassword
+	}
+});

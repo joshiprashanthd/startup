@@ -1,4 +1,4 @@
-import { ApolloError, ValidationError } from "apollo-server-express";
+import { ApolloError } from "apollo-server-express";
 import nodemailer from "nodemailer";
 
 // local
@@ -23,9 +23,7 @@ export default {
 		) => {
 			const user = await User.create(args.input);
 
-			const [token, mailInfo] = await sendVerificationEmail(user);
-
-			console.log(nodemailer.getTestMessageUrl(mailInfo));
+			const token = sendVerificationEmail(user);
 
 			const tokenDoc = Token.create<any>({
 				userId: user.id,
