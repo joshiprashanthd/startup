@@ -8,9 +8,30 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema<IUserDocument>(
 	{
-		email: { type: String, required: true },
+		email: {
+			type: String,
+			required: true,
+			validate: {
+				validator: async email =>
+					(await mongoose
+						.model<IUserDocument, IUserModel>("User")
+						.findOne({ email })) === null,
+				message: props => `Email ${props} is already registered.`
+			}
+		},
 		password: { type: String, required: true },
-		handler: { type: String, required: true },
+		handler: {
+			type: String,
+			required: true,
+			validate: {
+				validator: async handler =>
+					(await mongoose
+						.model<IUserDocument, IUserModel>("User")
+						.findOne({ handler })) === null,
+				message: props =>
+					`Handler ${props} is already exist. Choose a different one.`
+			}
+		},
 		name: { type: String, required: true },
 		bio: String,
 		birthDate: Date,
