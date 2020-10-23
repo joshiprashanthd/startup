@@ -20,7 +20,7 @@ export const attemptSignIn = async (
 	password: string,
 	context: IContext
 ) => {
-	const user = await User.findOne({ email });
+	const user = await User.findOne({ "accountInfo.email": email });
 
 	if (!user)
 		throw new AuthenticationError(
