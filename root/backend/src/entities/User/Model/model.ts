@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
 import { compare, hash } from "bcrypt";
 
 // local
@@ -8,49 +8,51 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema<IUserDocument>(
 	{
-		email: {
-			type: String,
-			required: true,
-			validate: {
-				validator: async email =>
-					(await mongoose
-						.model<IUserDocument, IUserModel>("User")
-						.findOne({ email })) === null,
-				message: props => `Email ${props} is already registered.`
-			}
+		accountInfo: {
+			email: { type: String, required: true },
+			password: { type: String, required: true },
+			name: { type: String, required: true },
+			handler: { type: String, required: true },
+			verifiedEmail: { type: Boolean, default: false }
 		},
-		password: { type: String, required: true },
-		handler: {
-			type: String,
-			required: true,
-			validate: {
-				validator: async handler =>
-					(await mongoose
-						.model<IUserDocument, IUserModel>("User")
-						.findOne({ handler })) === null,
-				message: props =>
-					`Handler ${props} is already exist. Choose a different one.`
-			}
+		personalInfo: {
+			bio: { type: String, default: null },
+			birthDate: { type: Date, required: true },
+			interests: [{ type: Schema.Types.ObjectId, ref: "Field" }]
 		},
-		name: { type: String, required: true },
-		bio: String,
-		birthDate: Date,
-		lastActive: { type: Date, default: null },
-		isOnline: { type: Boolean, required: true, default: false },
-		verifiedAccount: { type: Boolean, require: true, default: false },
-		interests: [{ type: Schema.Types.ObjectId, ref: "Field" }]
+		status: {
+			isOnline: { type: Boolean, required: true, default: false },
+			lastActive: { type: Date, default: null }
+		}
 	},
-	{ timestamps: true }
+	{ timestamps: true, versionKey: "schemaVersion" }
 );
 
+// hooks
 UserSchema.pre<IUserDocument>("save", async function () {
-	if (this.isModified("password")) {
-		this.password = await hash(this.password, 15);
+	if (this.isModified("accountInfo.password")) {
+		this.accountInfo.password = await hash(this.accountInfo.password, 12);
 	}
 });
 
+// instance methods
 UserSchema.methods.comparePassword = function (password: string) {
-	return compare(password, this.password);
+	return compare(password, this.accountInfo.password);
 };
+
+// validators
+UserSchema.path("accountInfo.handler").validate(async function (value: string) {
+	return (
+		(await mongoose.model("User").findOne({ "accountInfo.handler": value })) ===
+		null
+	);
+}, "Handler `{VALUE}` already exist");
+
+UserSchema.path("accountInfo.email").validate(async function (value) {
+	return (
+		(await mongoose.model("User").findOne({ "accountInfo.email": value })) ===
+		null
+	);
+}, "Email `{VALUE}` already registered.");
 
 export default mongoose.model<IUserDocument, IUserModel>("User", UserSchema);

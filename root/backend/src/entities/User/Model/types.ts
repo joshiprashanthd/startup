@@ -2,23 +2,29 @@ import { Document, Model, NativeDate, Schema, Types } from "mongoose";
 
 type Nullable<T> = T | null;
 
-export interface IUser {
-	email: string;
-	password: string;
-	handler: string;
-	name: string;
-	bio: Nullable<string>;
-	birthDate: Date;
-	lastActive: Nullable<Date>;
-	isOnline: boolean;
-	verifiedAccount: boolean;
-	interests: string[];
+export interface IAccountInfo {
+	email?: string;
+	password?: string;
+	handler?: string;
+	name?: string;
+	verifiedEmail?: boolean;
 }
 
-interface IUserBaseDocument extends IUser, Document {
-	interests: Types.Array<string>;
-	birthDate: NativeDate;
-	lastActive: Nullable<NativeDate>;
+export interface IPersonalInfo {
+	bio?: string;
+	birthDate?: NativeDate;
+	interests?: Types.Array<string> | string[];
+}
+
+export interface IStatus {
+	isOnline?: boolean;
+	lastActive?: Nullable<NativeDate>;
+}
+
+export interface IUserBaseDocument extends Document {
+	accountInfo?: IAccountInfo;
+	personalInfo?: IPersonalInfo;
+	status?: IStatus;
 }
 
 export interface IUserDocument extends IUserBaseDocument {
