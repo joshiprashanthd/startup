@@ -1,37 +1,41 @@
 import { IField } from "../../field/model";
 import { IFieldIdInput } from "../../field/typedef";
-import { IUser } from "../model";
 
 type Nullable<T> = T | null;
 
-export interface IStrictUserInput extends Pick<IUser, keyof IUser> {
-	email: string;
-	password: string;
-	handler: string;
-	name: string;
-	birthDate: Date;
+export interface IStrictUserInput {
+	accountInfo: Omit<IAccountInfo, "verifiedEmail">;
 }
 
 export interface ILooseUserInput {
-	userId: string;
-	handler?: string;
-	email?: string;
-	password?: string;
-	name?: string;
-	birthDate?: Date;
-	interests?: IFieldIdInput[];
+	userId: IUser["id"];
+	accountInfo?: Omit<Partial<IAccountInfo>, "verifiedEmail">;
+	personalInfo?: Partial<IPersonalInfo>;
 }
 
-export interface IUserType {
-	id: string;
+// base IUser
+interface IAccountInfo {
 	name: string;
 	email: Nullable<string>;
 	password: Nullable<string>;
 	handler: string;
+	verifiedEmail: boolean;
+}
+
+interface IPersonalInfo {
 	bio: Nullable<string>;
-	birthDate: Date;
+	birthDate: Nullable<Date>;
+	interests: Nullable<IField[]> | IFieldIdInput[] | (() => Promise<IField[]>);
+}
+
+interface IStatusInfo {
+	lastOnline: Nullable<Date>;
 	isOnline: boolean;
-	lastActive: Nullable<Date>;
-	verifiedAccount: boolean;
-	interests: Nullable<IField[]>;
+}
+
+export interface IUser {
+	id: string;
+	accountInfo: IAccountInfo;
+	personalInfo: IPersonalInfo;
+	status: IStatusInfo;
 }

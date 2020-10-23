@@ -2,21 +2,33 @@ import { gql } from "apollo-server-express";
 import { DocumentNode } from "graphql";
 
 export default gql`
-	input StrictUserInput {
+	input StrictUserAccountInfoInput {
 		email: String!
 		password: String!
 		handler: String!
 		name: String!
-		birthDate: Date!
+	}
+
+	input StrictUserInput {
+		accountInfo: StrictUserAccountInfoInput!
+	}
+
+	input LooseUserPersonalInfoInput {
+		bio: String
+		birthDate: Date
+		interests: [FieldIdInput!]
+	}
+
+	input LooseUserAccountInfoInput {
+		email: String
+		password: String
+		handler: String
+		name: String
 	}
 
 	input LooseUserInput {
 		userId: ID!
-		name: String
-		email: String
-		password: String
-		handler: String
-		birthDate: Date
-		interests: [FieldIdInput!]
+		accountInfo: LooseUserAccountInfoInput
+		personalInfo: LooseUserPersonalInfoInput
 	}
 ` as DocumentNode;

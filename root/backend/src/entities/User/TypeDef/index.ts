@@ -7,4 +7,4 @@ import TypeDef from "./type";
 
 export default [InputDef, QueryDef, MutationDef, TypeDef];
 
-export { IUserType, ILooseUserInput, IStrictUserInput } from "./types";
+export { IUser, ILooseUserInput, IStrictUserInput } from "./types";
