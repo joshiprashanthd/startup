@@ -1,37 +1,35 @@
+import { PartialDeep } from "type-fest";
+
+//local
 import { IContext } from "../../types";
 import { mapFields } from "../field/mapper";
 import { IFieldDocument } from "../field/model";
-import { IFieldType } from "../field/typedef";
 import { IUserDocument } from "./Model";
-import { IUserType } from "./TypeDef";
-
-interface IMapUserType extends Omit<IUserType, "interests"> {
-	interests: () => Promise<(IFieldType | Error)[]>;
-}
+import { IUser } from "./typedef";
 
 export const mapUser = (
 	user: IUserDocument,
 	context: IContext
-): IMapUserType => ({
+): PartialDeep<IUser> => ({
 	id: user.id,
-	name: user.name,
-	email: user.email,
-	handler: user.handler,
-	password: user.password,
-	bio: user.bio,
-	birthDate: user.birthDate,
-	isOnline: user.isOnline,
-	lastActive: user.lastActive,
-	verifiedAccount: user.verifiedAccount,
-	interests: async () =>
-		mapFields(
-			(await context.dataloaders.fieldLoader.loadMany(
-				user.interests
-			)) as IFieldDocument[]
-		)
+	accountInfo: {
+		...user.accountInfo
+	},
+	personalInfo: {
+		...user.personalInfo,
+		interests: async () =>
+			mapFields(
+				(await context.dataloaders.fieldLoader.loadMany(
+					user.personalInfo.interests
+				)) as IFieldDocument[]
+			)
+	},
+	status: {
+		...user.status
+	}
 });
 
 export const mapUsers = (
 	users: IUserDocument[],
 	context: IContext
-): IMapUserType[] => users.map(user => mapUser(user, context));
+): PartialDeep<IUser>[] => users.map(user => mapUser(user, context));
