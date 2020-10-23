@@ -1,9 +1,8 @@
 import { ApolloError } from "apollo-server-express";
-import nodemailer from "nodemailer";
 
 // local
 import { Token } from "../../token/model";
-import { User } from "../model";
+import { IUserDocument, User } from "../model";
 import { ILooseUserInput, IStrictUserInput } from "../typedef";
 import {
 	attemptSignIn,
@@ -12,6 +11,7 @@ import {
 import { mapUser } from "../mapper";
 import { IContext } from "../../../types";
 import { sendVerificationEmail } from "../../../helpers/functions/sendVerificationEmail";
+import { IFieldIdInput } from "../../field/typedef";
 
 export default {
 	Mutation: {
@@ -25,12 +25,11 @@ export default {
 
 			const token = sendVerificationEmail(user);
 
-			const tokenDoc = Token.create<any>({
+			await Token.create<any>({
 				userId: user.id,
-				email: user.email,
+				email: user.accountInfo.email,
 				token: token
 			});
-
 			return mapUser(user, context);
 		},
 
@@ -48,11 +47,19 @@ export default {
 
 			delete args.input["userId"];
 
-			const doc = {
-				...args.input,
-				interests:
-					args.input.interests &&
-					args.input.interests.map(interest => interest.fieldId)
+			const doc: Partial<IUserDocument> = {
+				accountInfo: {
+					...user.toObject().accountInfo,
+					...args.input.accountInfo
+				},
+				personalInfo: {
+					...args.input.personalInfo,
+					interests:
+						args.input.personalInfo.interests &&
+						(args.input.personalInfo.interests as IFieldIdInput[]).map(
+							interest => interest.fieldId
+						)
+				}
 			};
 
 			await user.updateOne(doc, (err, raw) => {
