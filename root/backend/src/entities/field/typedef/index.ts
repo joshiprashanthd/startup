@@ -4,7 +4,7 @@ import MutationDef from "./mutation";
 import QueryDef from "./query";
 
 export {
-	IFieldType,
+	IField,
 	IFieldIdInput,
 	IStrictFieldInput,
 	ILooseFieldInput
