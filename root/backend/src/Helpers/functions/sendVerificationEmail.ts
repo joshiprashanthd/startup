@@ -7,14 +7,14 @@ import emailer from "../emailer";
 
 export const sendVerificationEmail = (user: IUserDocument) => {
 	const token = jwt.sign(
-		{ userId: user.id, email: user.email },
+		{ userId: user.id, email: user.accountInfo.email },
 		TokenConfig.tokenSecret,
 		{ expiresIn: parseInt(TokenConfig.tokenExpiry) }
 	);
 
 	emailer.sendMail({
 		from: '"Prashant Joshi (CEO)" <no-reply@collabs.com>',
-		to: `${user.email}`,
+		to: `${user.accountInfo.email}`,
 		subject: "Please verify your email address",
 		html: `
 		<html>
@@ -28,7 +28,7 @@ export const sendVerificationEmail = (user: IUserDocument) => {
 					width: fit-content;
 					margin: 2rem auto;
 				}
-					
+				
 				p {
 					font-size: 1rem;
 				}
