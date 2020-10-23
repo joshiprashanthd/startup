@@ -3,12 +3,12 @@ import mongoose from "mongoose";
 import { groupBy, map } from "ramda";
 
 //local
-import { IFieldDocument } from "../entities/field/model";
+import { IFieldDocument, IFieldModel } from "../entities/field/model";
 
 async function batchFields(ids: string[]): Promise<IFieldDocument[]> {
-	const Field = mongoose.model("Field");
+	const Field = mongoose.model<IFieldDocument, IFieldModel>("Field");
 	const fields = await Field.find({ _id: { $in: ids } });
-	const groupedFields = groupBy(field => field.id, fields);
+	const groupedFields = groupBy<IFieldDocument>(field => field.id, fields);
 	return map(id => groupedFields[id][0], ids);
 }
 
