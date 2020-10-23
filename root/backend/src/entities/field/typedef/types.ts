@@ -1,6 +1,6 @@
 import { IField } from "../model";
 
-export interface IFieldType {
+export interface IField {
 	id: string;
 	name: string;
 	description: string;
@@ -11,15 +11,8 @@ export interface IFieldIdInput {
 	fieldId: string;
 }
 
-export interface IStrictFieldInput extends Pick<IField, keyof IField> {
-	name: string;
-	description: string;
-	color: string;
-}
+export interface IStrictFieldInput extends Omit<IField, "id"> {}
 
-export interface ILooseFieldInput {
+export interface ILooseFieldInput extends Omit<Partial<IField>, "id"> {
 	fieldId: string;
-	name?: string;
-	description?: string;
-	color?: string;
 }
