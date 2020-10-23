@@ -1,4 +1,4 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 import { compare, hash } from "bcrypt";
 
 // local
@@ -17,7 +17,7 @@ const UserSchema = new Schema<IUserDocument>(
 		},
 		personalInfo: {
 			bio: { type: String, default: null },
-			birthDate: { type: Date, required: true },
+			birthDate: { type: Date, default: null },
 			interests: [{ type: Schema.Types.ObjectId, ref: "Field" }]
 		},
 		status: {
@@ -42,17 +42,13 @@ UserSchema.methods.comparePassword = function (password: string) {
 
 // validators
 UserSchema.path("accountInfo.handler").validate(async function (value: string) {
-	return (
-		(await mongoose.model("User").findOne({ "accountInfo.handler": value })) ===
-		null
-	);
+	const User = mongoose.model<IUserDocument, IUserModel>("User");
+	return (await User.findOne({ "accountInfo.handler": value })) === null;
 }, "Handler `{VALUE}` already exist");
 
 UserSchema.path("accountInfo.email").validate(async function (value) {
-	return (
-		(await mongoose.model("User").findOne({ "accountInfo.email": value })) ===
-		null
-	);
+	const User = mongoose.model<IUserDocument, IUserModel>("User");
+	return (await User.findOne({ "accountInfo.email": value })) === null;
 }, "Email `{VALUE}` already registered.");
 
 export default mongoose.model<IUserDocument, IUserModel>("User", UserSchema);
