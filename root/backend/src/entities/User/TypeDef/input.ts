@@ -16,7 +16,7 @@ export default gql`
 	input LooseUserPersonalInfoInput {
 		bio: String
 		birthDate: Date
-		interests: [FieldIdInput!]
+		interests: [SkillIdInput!]
 	}
 
 	input LooseUserAccountInfoInput {

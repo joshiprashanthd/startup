@@ -1,17 +1,15 @@
 import { PartialDeep } from "type-fest";
 
 //local
-import { IField } from "../../field/model";
-import { IFieldIdInput } from "../../field/typedef";
+import { ISkill, ISkillIdInput } from "../../skill/typedef";
 
 type Nullable<T> = T | null;
 
-export interface IStrictUserInput
-	extends Exclude<PartialDeep<IUser>, "personalInfo" | "status"> {
+export interface IStrictUserInput {
 	accountInfo: Omit<IAccountInfo, "verifiedEmail">;
 }
 
-export interface ILooseUserInput extends Omit<PartialDeep<IUser>, "status"> {
+export interface ILooseUserInput {
 	userId: IUser["id"];
 	accountInfo?: Omit<Partial<IAccountInfo>, "verifiedEmail">;
 	personalInfo?: Partial<IPersonalInfo>;
@@ -29,7 +27,7 @@ interface IAccountInfo {
 interface IPersonalInfo {
 	bio: Nullable<string>;
 	birthDate: Nullable<Date>;
-	interests: Nullable<IField[]> | IFieldIdInput[] | (() => Promise<IField[]>);
+	interests: Nullable<ISkill[]> | ISkillIdInput[] | (() => Promise<ISkill[]>);
 }
 
 interface IStatusInfo {

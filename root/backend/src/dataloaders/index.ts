@@ -1,12 +1,12 @@
 import UserLoader from "./user";
-import FieldLoader from "./field";
+import SkillLoader from "./skill";
 
 export interface IDataloaders {
 	userLoader: ReturnType<typeof UserLoader>;
-	fieldLoader: ReturnType<typeof FieldLoader>;
+	skillLoader: ReturnType<typeof SkillLoader>;
 }
 
 export default {
 	userLoader: UserLoader(),
-	fieldLoader: FieldLoader()
+	skillLoader: SkillLoader()
 } as IDataloaders;

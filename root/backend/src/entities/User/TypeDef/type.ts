@@ -13,7 +13,7 @@ export default gql`
 	type UserPersonalInfo {
 		bio: String
 		birthDate: Date!
-		interests: [Field!]
+		interests: [Skill!]
 	}
 
 	type UserStatus {

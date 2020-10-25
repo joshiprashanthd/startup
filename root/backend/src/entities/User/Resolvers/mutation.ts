@@ -11,7 +11,7 @@ import {
 import { mapUser } from "../mapper";
 import { IContext } from "../../../types";
 import { sendVerificationEmail } from "../../../helpers/functions/sendVerificationEmail";
-import { IFieldIdInput } from "../../field/typedef";
+import { ISkillIdInput } from "../../skill/typedef";
 
 export default {
 	Mutation: {
@@ -56,8 +56,8 @@ export default {
 					...args.input.personalInfo,
 					interests:
 						args.input.personalInfo.interests &&
-						(args.input.personalInfo.interests as IFieldIdInput[]).map(
-							interest => interest.fieldId
+						(args.input.personalInfo.interests as ISkillIdInput[]).map(
+							interest => interest.skillId
 						)
 				}
 			};
