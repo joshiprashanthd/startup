@@ -1,35 +1,39 @@
-import { PartialDeep } from "type-fest";
-
 //local
 import { IContext } from "../../types";
-import { mapFields } from "../field/mapper";
-import { IFieldDocument } from "../field/model";
+import { mapSkills } from "../skill/mapper";
+import { ISkillDocument } from "../skill/model";
 import { IUserDocument } from "./Model";
 import { IUser } from "./typedef";
+
+type DeepPartial<T> = {
+	[K in keyof T]?: Partial<T[K]>;
+};
 
 export const mapUser = (
 	user: IUserDocument,
 	context: IContext
-): PartialDeep<IUser> => ({
-	id: user.id,
-	accountInfo: {
-		...user.accountInfo
-	},
-	personalInfo: {
-		...user.personalInfo,
-		interests: async () =>
-			mapFields(
-				(await context.dataloaders.fieldLoader.loadMany(
-					user.personalInfo.interests
-				)) as IFieldDocument[]
-			)
-	},
-	status: {
-		...user.status
-	}
-});
+): DeepPartial<IUser> => {
+	return {
+		id: user.id,
+		accountInfo: {
+			...user.accountInfo
+		},
+		personalInfo: {
+			...user.personalInfo,
+			interests: async () =>
+				mapSkills(
+					(await context.dataloaders.skillLoader.loadMany(
+						user.personalInfo.interests
+					)) as ISkillDocument[]
+				)
+		},
+		status: {
+			...user.status
+		}
+	};
+};
 
 export const mapUsers = (
 	users: IUserDocument[],
 	context: IContext
-): PartialDeep<IUser>[] => users.map(user => mapUser(user, context));
+): DeepPartial<IUser>[] => users.map(user => mapUser(user, context));
