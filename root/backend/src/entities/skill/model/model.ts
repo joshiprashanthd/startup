@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 
 //local
-import { IFieldDocument, IFieldModel } from "./types";
+import { ISkillDocument, ISkillModel } from "./types";
 
 const Schema = mongoose.Schema;
 
-const FieldSchema = new Schema({
+const SkillSchema = new Schema({
 	name: {
 		type: String,
 		required: true
@@ -20,7 +20,7 @@ const FieldSchema = new Schema({
 	}
 });
 
-export default mongoose.model<IFieldDocument, IFieldModel>(
-	"Field",
-	FieldSchema
+export default mongoose.model<ISkillDocument, ISkillModel>(
+	"Skill",
+	SkillSchema
 );
