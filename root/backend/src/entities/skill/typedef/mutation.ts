@@ -2,6 +2,6 @@ import { gql } from "apollo-server-express";
 
 export default gql`
 	extend type Mutation {
-		createField(input: StrictFieldInput!): Field! @auth
+		createSkill(input: StrictSkillInput!): Skill! @auth
 	}
 `;

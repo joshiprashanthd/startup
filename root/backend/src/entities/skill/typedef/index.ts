@@ -4,10 +4,10 @@ import MutationDef from "./mutation";
 import QueryDef from "./query";
 
 export {
-	IField,
-	IFieldIdInput,
-	IStrictFieldInput,
-	ILooseFieldInput
+	ISkill,
+	ISkillIdInput,
+	IStrictSkillInput,
+	ILooseSkillInput
 } from "./types";
 
 export default [InputDef, TypeDef, QueryDef, MutationDef];
