@@ -1,5 +1,5 @@
 import { UserResolvers } from "./user";
-import { FieldResolvers } from "./field";
+import { SkillResolvers } from "./skill";
 import { CustomScalarResolvers } from "./customScalars";
 
-export default [UserResolvers, FieldResolvers, CustomScalarResolvers];
+export default [UserResolvers, SkillResolvers, CustomScalarResolvers];
