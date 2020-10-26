@@ -20,7 +20,7 @@ const UserSchema = new Schema<IUserDocument>(
 			birthDate: { type: Date, default: null },
 			interests: [{ type: Schema.Types.ObjectId, ref: "Field" }]
 		},
-		status: {
+		statusInfo: {
 			isOnline: { type: Boolean, required: true, default: false },
 			lastActive: { type: Date, default: null }
 		}
