@@ -7,7 +7,10 @@ export default class PrivateDirective extends SchemaDirectiveVisitor {
 		const { resolve = defaultFieldResolver } = field;
 		field.resolve = async function (...arg) {
 			const [parent, args, context, info] = arg;
-			if (parent.id !== (context as IContext).req.session.userId)
+			if (
+				parent.id !== (context as IContext).req.session.userId ||
+				!("userId" in (context as IContext).req.session)
+			)
 				parent[field.name] = null;
 			return resolve.apply(this, [parent, args, context, info]);
 		};
