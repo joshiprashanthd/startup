@@ -31,7 +31,7 @@ interface IPersonalInfo {
 }
 
 interface IStatusInfo {
-	lastOnline: Nullable<Date>;
+	lastActive: Nullable<Date>;
 	isOnline: boolean;
 }
 
@@ -39,5 +39,5 @@ export interface IUser {
 	id: string;
 	accountInfo: IAccountInfo;
 	personalInfo: IPersonalInfo;
-	status: IStatusInfo;
+	statusInfo: IStatusInfo;
 }

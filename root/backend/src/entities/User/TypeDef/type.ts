@@ -16,7 +16,7 @@ export default gql`
 		interests: [Skill!]
 	}
 
-	type UserStatus {
+	type UserStatusInfo {
 		isOnline: Boolean!
 		lastActive: Date
 	}
@@ -25,6 +25,6 @@ export default gql`
 		id: ID!
 		accountInfo: UserAccountInfo!
 		personalInfo: UserPersonalInfo!
-		status: UserStatus!
+		statusInfo: UserStatusInfo!
 	}
 ` as DocumentNode;
