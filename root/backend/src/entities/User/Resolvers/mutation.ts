@@ -48,18 +48,26 @@ export default {
 			delete args.input["userId"];
 
 			const doc: Partial<IUserDocument> = {
-				accountInfo: {
-					...user.toObject().accountInfo,
-					...args.input.accountInfo
-				},
-				personalInfo: {
-					...args.input.personalInfo,
-					interests:
-						args.input.personalInfo.interests &&
-						(args.input.personalInfo.interests as ISkillIdInput[]).map(
-							interest => interest.skillId
-						)
-				}
+				accountInfo:
+					"accountInfo" in args.input
+						? {
+								...user.toObject().accountInfo,
+								...args.input.accountInfo
+						  }
+						: user.toObject().accountInfo,
+				personalInfo:
+					"personalInfo" in args.input
+						? {
+								...args.input.personalInfo,
+								interests:
+									"interests" in args.input.personalInfo
+										? (args.input.personalInfo
+												.interests as ISkillIdInput[]).map(
+												interest => interest.skillId
+										  )
+										: user.personalInfo.interests
+						  }
+						: user.toObject().personalInfo
 			};
 
 			await user.updateOne(doc, (err, raw) => {
