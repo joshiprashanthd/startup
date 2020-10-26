@@ -5,14 +5,7 @@ import { ISkillDocument } from "../skill/model";
 import { IUserDocument } from "./Model";
 import { IUser } from "./typedef";
 
-type DeepPartial<T> = {
-	[K in keyof T]?: Partial<T[K]>;
-};
-
-export const mapUser = (
-	user: IUserDocument,
-	context: IContext
-): DeepPartial<IUser> => {
+export const mapUser = (user: IUserDocument, context: IContext): IUser => {
 	return {
 		id: user.id,
 		accountInfo: {
@@ -27,13 +20,9 @@ export const mapUser = (
 					)) as ISkillDocument[]
 				)
 		},
-		status: {
-			...user.status
-		}
+		statusInfo: user.statusInfo
 	};
 };
 
-export const mapUsers = (
-	users: IUserDocument[],
-	context: IContext
-): DeepPartial<IUser>[] => users.map(user => mapUser(user, context));
+export const mapUsers = (users: IUserDocument[], context: IContext): IUser[] =>
+	users.map(user => mapUser(user, context));
