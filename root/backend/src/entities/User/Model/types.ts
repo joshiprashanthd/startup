@@ -3,28 +3,28 @@ import { Document, Model, Schema, Types } from "mongoose";
 type Nullable<T> = T | null;
 
 interface IAccountInfo {
-	email?: string;
-	password?: string;
-	handler?: string;
-	name?: string;
-	verifiedEmail?: boolean;
+	email: string;
+	password: string;
+	handler: string;
+	name: string;
+	verifiedEmail: boolean;
 }
 
 interface IPersonalInfo {
-	bio?: Nullable<string>;
-	birthDate?: Nullable<Date>;
-	interests?: Types.Array<string> | string[];
+	bio: Nullable<string>;
+	birthDate: Nullable<Date>;
+	interests: Types.Array<string> | string[];
 }
 
-interface IStatus {
-	isOnline?: boolean;
-	lastActive?: Nullable<Date>;
+interface IStatusInfo {
+	isOnline: boolean;
+	lastActive: Nullable<Date>;
 }
 
 export interface IUserBaseDocument extends Document {
-	accountInfo?: IAccountInfo;
-	personalInfo?: IPersonalInfo;
-	status?: IStatus;
+	accountInfo: IAccountInfo;
+	personalInfo: IPersonalInfo;
+	statusInfo: IStatusInfo;
 }
 
 export interface IUserDocument extends IUserBaseDocument {
