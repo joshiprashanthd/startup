@@ -1,5 +1,3 @@
-import { PartialDeep } from "type-fest";
-
 //local
 import { ISkill, ISkillIdInput } from "../../skill/typedef";
 
