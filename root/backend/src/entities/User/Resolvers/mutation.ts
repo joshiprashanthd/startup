@@ -13,6 +13,10 @@ import { IContext } from "../../../types";
 import { sendVerificationEmail } from "../../../helpers/functions/sendVerificationEmail";
 import { ISkillIdInput } from "../../skill/typedef";
 
+type DeepPartial<T> = {
+	[K in keyof T]?: Partial<T[K]>;
+};
+
 export default {
 	Mutation: {
 		createUser: async (
@@ -21,7 +25,7 @@ export default {
 			context: IContext,
 			info: any
 		) => {
-			const user = await User.create(args.input);
+			const user = await User.create<DeepPartial<IUserDocument>>(args.input);
 
 			const token = sendVerificationEmail(user);
 
