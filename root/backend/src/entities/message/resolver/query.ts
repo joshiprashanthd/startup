@@ -1,10 +1,10 @@
 import { IContext } from "../../../types";
-import { mapMessages } from "../mapper";
+import { mapMessage } from "../mapper";
 import { Message } from "../model";
 
 export default {
 	Query: {
 		messages: async (parent: any, args: any, context: IContext, info: any) =>
-			mapMessages(await Message.find({}), context)
+			(await Message.find({})).map(message => mapMessage(message, context))
 	}
 };
