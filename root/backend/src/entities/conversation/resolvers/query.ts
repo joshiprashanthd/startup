@@ -1,5 +1,5 @@
 import { IContext } from "../../../types";
-import { mapConversations } from "../mapper";
+import { mapConversation } from "../mapper";
 import { Conversation } from "../model";
 
 export default {
@@ -16,6 +16,9 @@ export default {
 			args: any,
 			context: IContext,
 			info: any
-		) => mapConversations(await Conversation.find({}), context)
+		) =>
+			(await Conversation.find({})).map(conversation =>
+				mapConversation(conversation, context)
+			)
 	}
 };
