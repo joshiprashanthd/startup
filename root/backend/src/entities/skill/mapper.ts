@@ -1,3 +1,4 @@
+import { IContext } from "../../types";
 import { ISkillDocument } from "./model";
 import { ISkill } from "./typedef";
 
@@ -10,5 +11,10 @@ export const mapSkill = (skill: ISkillDocument): ISkill => {
 	};
 };
 
-export const mapSkills = (skills: ISkillDocument[]): ISkill[] =>
-	skills.map(doc => mapSkill(doc));
+export const mapSkillIds = (
+	ids: string[],
+	context: IContext
+): (() => Promise<ISkill[]>) => async () =>
+	(await context.dataloaders.skillLoader.loadMany(ids)).map(skill =>
+		mapSkill(skill as ISkillDocument)
+	);
