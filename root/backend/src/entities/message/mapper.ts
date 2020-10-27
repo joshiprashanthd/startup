@@ -1,5 +1,5 @@
 import { IContext } from "../../types";
-import { mapUser } from "../user/mapper";
+import { mapUserId } from "../user/mapper";
 import { IMessageDocument } from "./model";
 import { IMessage } from "./typedef";
 
@@ -12,19 +12,14 @@ export const mapMessage = (
 	read: message.read,
 	createdAt: message.createdAt,
 	updatedAt: message.updatedAt,
-	sender: async () =>
-		mapUser(
-			await context.dataloaders.userLoader.load(message.sender.toString()),
-			context
-		),
-	receiver: async () =>
-		mapUser(
-			await context.dataloaders.userLoader.load(message.receiver.toString()),
-			context
-		)
+	sender: mapUserId(message.sender.toString(), context),
+	receiver: mapUserId(message.receiver.toString(), context)
 });
 
-export const mapMessages = (
-	messages: IMessageDocument[],
+export const mapMessageIds = (
+	ids: string[],
 	context: IContext
-): IMessage[] => messages.map(message => mapMessage(message, context));
+): (() => Promise<IMessage[]>) => async () =>
+	(await context.dataloaders.messageLoader.loadMany(ids)).map(message =>
+		mapMessage(message as IMessageDocument, context)
+	);
