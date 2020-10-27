@@ -1,7 +1,6 @@
 //local
 import { IContext } from "../../types";
-import { mapSkills } from "../skill/mapper";
-import { ISkillDocument } from "../skill/model";
+import { mapSkillIds } from "../skill/mapper";
 import { IUserDocument } from "./Model";
 import { IUser } from "./typedef";
 
@@ -13,16 +12,19 @@ export const mapUser = (user: IUserDocument, context: IContext): IUser => {
 		},
 		personalInfo: {
 			...user.personalInfo,
-			interests: async () =>
-				mapSkills(
-					(await context.dataloaders.skillLoader.loadMany(
-						user.personalInfo.interests
-					)) as ISkillDocument[]
-				)
+			interests: mapSkillIds(user.personalInfo.interests, context)
 		},
 		statusInfo: user.statusInfo
 	};
 };
 
-export const mapUsers = (users: IUserDocument[], context: IContext): IUser[] =>
-	users.map(user => mapUser(user, context));
+export const mapUserId = (id: string, context: IContext) => async () =>
+	mapUser(await context.dataloaders.userLoader.load(id), context);
+
+export const mapUserIds = (
+	ids: string[],
+	context: IContext
+): (() => Promise<IUser[]>) => async () =>
+	(await context.dataloaders.userLoader.loadMany(ids)).map(user =>
+		mapUser(user as IUserDocument, context)
+	);
