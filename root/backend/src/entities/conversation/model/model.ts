@@ -7,14 +7,12 @@ const Schema = mongoose.Schema;
 
 const ConversationSchema = new Schema<IConversationDocument>(
 	{
-		converserOne: {
-			type: Schema.Types.ObjectId,
-			ref: "User"
-		},
-		converserTwo: {
-			type: Schema.Types.ObjectId,
-			ref: "User"
-		},
+		conversers: [
+			{
+				type: Schema.Types.ObjectId,
+				ref: "User"
+			}
+		],
 		messages: [
 			{
 				type: Schema.Types.ObjectId,
