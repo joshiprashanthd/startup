@@ -9,9 +9,9 @@ import { DirectivesTypeDef } from "./customDirectives";
 export default [
 	CustomScalarTypeDef,
 	DirectivesTypeDef,
-	...RootTypeDef,
-	...UserTypeDef,
-	...SkillTypeDef,
-	...MessageTypeDef,
-	...ConversationTypeDef
+	RootTypeDef,
+	UserTypeDef,
+	SkillTypeDef,
+	MessageTypeDef,
+	ConversationTypeDef
 ];

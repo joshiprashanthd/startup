@@ -1,6 +1,15 @@
-import QueryDef from "./query";
-import MutationDef from "./mutation";
-import SubscriptionDef from "./subscription";
-import DirectivesDef from "./directives";
+import { gql } from "apollo-server-express";
 
-export default [QueryDef, MutationDef, SubscriptionDef];
+export default gql`
+	type Query {
+		_: String
+	}
+
+	type Mutation {
+		_: String
+	}
+
+	type Subscription {
+		_: String
+	}
+`;
