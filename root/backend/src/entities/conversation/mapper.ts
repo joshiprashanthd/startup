@@ -1,6 +1,6 @@
 import { IContext } from "../../types";
 import { mapMessageIds } from "../message/mapper";
-import { mapUserId } from "../user/mapper";
+import { mapUserId, mapUserIds } from "../user/mapper";
 import { IConversationDocument } from "./model";
 import { IConversation } from "./typedef";
 
@@ -9,8 +9,10 @@ export const mapConversation = (
 	context: IContext
 ): IConversation => ({
 	id: conversation.id,
-	converserOne: mapUserId(conversation.converserOne.toString(), context),
-	converserTwo: mapUserId(conversation.converserTwo.toString(), context),
+	conversers: mapUserIds(
+		conversation.conversers.map(id => id.toString()),
+		context
+	),
 	messages: mapMessageIds(
 		conversation.messages.map(id => id.toString()),
 		context
