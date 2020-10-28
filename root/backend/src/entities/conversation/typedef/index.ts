@@ -1,7 +1,19 @@
-import TypeDef from "./type";
-import QueryDef from "./query";
-import InputDef from "./input";
+import { gql } from "apollo-server-express";
 
-export default [InputDef, QueryDef, TypeDef];
+export default gql`
+	extend type Query {
+		conversations: [Conversation!]
+		conversationsByUser(converserId: ID!): [Conversation!]
+	}
+
+	type Conversation {
+		id: ID!
+		converserOne: User!
+		converserTwo: User!
+		messages(cursor: ID, limit: Int = 50): [Message!]
+		createdAt: Date!
+		updatedAt: Date!
+	}
+`;
 
 export { IConversation } from "./types";
