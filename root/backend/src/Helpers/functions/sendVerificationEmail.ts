@@ -1,17 +1,12 @@
-import jwt from "jsonwebtoken";
-
 //local
 import { IUserDocument } from "../../entities/user/model";
-import { TokenConfig } from "../../config";
 import emailer from "../emailer";
+import { ITokenDocument } from "../../entities/token/model/types";
 
-export const sendVerificationEmail = (user: IUserDocument) => {
-	const token = jwt.sign(
-		{ userId: user.id, email: user.accountInfo.email },
-		TokenConfig.tokenSecret,
-		{ expiresIn: parseInt(TokenConfig.tokenExpiry) }
-	);
-
+export const sendVerificationEmail = (
+	user: IUserDocument,
+	token: ITokenDocument
+) => {
 	emailer.sendMail({
 		from: '"Prashant Joshi (CEO)" <no-reply@collabs.com>',
 		to: `${user.accountInfo.email}`,
@@ -66,7 +61,7 @@ export const sendVerificationEmail = (user: IUserDocument) => {
 				I am the CEO of <b>Collabs.io</b>, and you have a great journey ahead with us.<br>
 				You can confirm your email by cliking the button below.
 			</p>
-			<a href="http:localhost:4000/auth/verify-email/${user.id}-${token}">
+			<a href="http:localhost:4000/auth/verify-email/${token.id}">
 				Confirm your email
 			</a>
 			<p class="footer">

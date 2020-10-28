@@ -1,4 +1,5 @@
 import { ApolloError } from "apollo-server-express";
+import jwt from "jsonwebtoken";
 
 // local
 import { Token } from "../../token/model";
@@ -12,6 +13,7 @@ import { mapUser } from "../mapper";
 import { IContext } from "../../../types";
 import { sendVerificationEmail } from "../../../helpers/functions/sendVerificationEmail";
 import { ISkillIdInput } from "../../skill/typedef";
+import { TokenConfig } from "../../../config";
 
 type DeepPartial<T> = {
 	[K in keyof T]?: Partial<T[K]>;
@@ -27,13 +29,20 @@ export default {
 		) => {
 			const user = await User.create<DeepPartial<IUserDocument>>(args.input);
 
-			const token = sendVerificationEmail(user);
+			const token = jwt.sign(
+				{ userId: user.id, email: user.accountInfo.email },
+				TokenConfig.tokenSecret,
+				{ expiresIn: parseInt(TokenConfig.tokenExpiry) }
+			);
 
-			await Token.create<any>({
+			const tokenDoc = await Token.create<any>({
 				userId: user.id,
 				email: user.accountInfo.email,
 				token: token
 			});
+
+			sendVerificationEmail(user, tokenDoc);
+
 			return mapUser(user, context);
 		},
 
