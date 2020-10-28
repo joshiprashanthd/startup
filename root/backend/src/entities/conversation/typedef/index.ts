@@ -1,8 +1,7 @@
 import TypeDef from "./type";
 import QueryDef from "./query";
-import MutationDef from "./mutation";
 import InputDef from "./input";
 
-export default [InputDef, QueryDef, MutationDef, TypeDef];
+export default [InputDef, QueryDef, TypeDef];
 
-export { IConversation, IStrictConversationInput } from "./types";
+export { IConversation } from "./types";

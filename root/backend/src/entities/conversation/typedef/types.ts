@@ -9,9 +9,3 @@ export interface IConversation {
 	createdAt: Date;
 	updatedAt: Date;
 }
-
-export interface IStrictConversationInput {
-	converserOne: string;
-	converserTwo: string;
-	body: string;
-}
