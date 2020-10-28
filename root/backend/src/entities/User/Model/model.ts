@@ -23,7 +23,8 @@ const UserSchema = new Schema<IUserDocument>(
 		statusInfo: {
 			isOnline: { type: Boolean, required: true, default: false },
 			lastActive: { type: Date, default: null }
-		}
+		},
+		conversations: [{ type: Schema.Types.ObjectId, ref: "Conversation" }]
 	},
 	{ timestamps: true, versionKey: "schemaVersion" }
 );
