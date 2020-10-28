@@ -1,7 +1,7 @@
 import { Schema } from "mongoose";
 import { sendVerificationEmail } from "../../../helpers/functions/sendVerificationEmail";
 import { IContext } from "../../../types";
-import { Conversation } from "../../conversation/model";
+import { Conversation, IConversationDocument } from "../../conversation/model";
 import { mapMessage } from "../mapper";
 import { IMessageDocument, Message } from "../model";
 import { IStrictMessageInput } from "../typedef";
@@ -33,7 +33,24 @@ export default {
 				]
 			});
 
-			console.log(conversation);
+			if (!conversation) {
+				const conversation = await Conversation.create<
+					Partial<IConversationDocument>
+				>({
+					converserOne: args.input.senderId,
+					converserTwo: args.input.receiverId
+				});
+
+				await conversation.updateOne({
+					$push: { messages: message.id }
+				});
+
+				return mapMessage(message, context);
+			}
+
+			await conversation.updateOne({
+				$push: { messages: message.id }
+			});
 
 			return mapMessage(message, context);
 		},
