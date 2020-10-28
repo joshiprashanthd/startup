@@ -1,4 +1,7 @@
+import { Schema } from "mongoose";
+import { sendVerificationEmail } from "../../../helpers/functions/sendVerificationEmail";
 import { IContext } from "../../../types";
+import { Conversation } from "../../conversation/model";
 import { mapMessage } from "../mapper";
 import { IMessageDocument, Message } from "../model";
 import { IStrictMessageInput } from "../typedef";
@@ -16,6 +19,21 @@ export default {
 				receiver: args.input.receiverId,
 				body: args.input.body
 			});
+
+			const conversation = await Conversation.findOne({
+				$or: [
+					{
+						converserOne: args.input.senderId as any,
+						converserTwo: args.input.receiverId as any
+					},
+					{
+						converserOne: args.input.receiverId as any,
+						converserTwo: args.input.senderId as any
+					}
+				]
+			});
+
+			console.log(conversation);
 
 			return mapMessage(message, context);
 		},
