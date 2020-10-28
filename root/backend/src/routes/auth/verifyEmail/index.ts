@@ -5,8 +5,7 @@ import findToken from "./findToken";
 
 const route = express.Router();
 
-route.param("userId", findUser);
-route.param("token", findToken);
-route.use("/:userId-:token", verifyEmail);
+route.param("tokenId", findToken);
+route.use("/:tokenId", verifyEmail);
 
 export default route;

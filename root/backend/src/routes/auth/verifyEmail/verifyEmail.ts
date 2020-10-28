@@ -3,22 +3,26 @@ import { Token } from "../../../entities/token/model";
 
 //local
 import { TokenConfig } from "../../../config";
+import { User } from "../../../entities/user/model";
 
 export default async function (req, res, next) {
-	const { tokenDoc, user } = req;
+	const { tokenDoc } = req;
 	try {
 		const payload = (await jwt.verify(
 			tokenDoc.token,
 			TokenConfig.tokenSecret
 		)) as { userId: string; email: string };
 
-		await user.updateOne({ verifiedAccount: true });
+		await User.findByIdAndUpdate(tokenDoc.userId as string, {
+			"accountInfo.verifiedEmail": true
+		});
+
 		await Token.deleteOne({ _id: tokenDoc.id });
 
 		res.send(`<h1>Your email ${payload.email} is verified</h1>`);
 		next();
 	} catch (err) {
-		res.send("<h1>Invalid token.</h1>");
+		res.send("<h1>Token is expired</h1>");
 		next();
 	}
 }
