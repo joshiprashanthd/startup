@@ -1,8 +1,31 @@
-import InputDef from "./input";
-import MutationDef from "./mutation";
-import TypeDef from "./type";
-import QueryDef from "./query";
+import { gql } from "apollo-server-express";
 
-export default [InputDef, MutationDef, TypeDef, QueryDef];
+export default gql`
+	input IStrictMessageInput {
+		senderId: ID!
+		receiverId: ID!
+		body: String!
+	}
+
+	extend type Query {
+		messages: [Message!]
+	}
+
+	extend type Mutation {
+		createMessage(input: IStrictMessageInput!): Message!
+		removeMessage(messageId: ID!): Boolean!
+		editMessage(body: String!, messageId: ID!): Message!
+	}
+
+	type Message {
+		id: ID!
+		sender: User!
+		receiver: User!
+		body: String!
+		read: Boolean!
+		createdAt: Date!
+		updatedAt: Date!
+	}
+`;
 
 export { IMessage, IStrictMessageInput } from "./types";
