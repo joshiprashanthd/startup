@@ -25,6 +25,7 @@ export interface IUserBaseDocument extends Document {
 	accountInfo: IAccountInfo;
 	personalInfo: IPersonalInfo;
 	statusInfo: IStatusInfo;
+	conversations: Types.Array<Types.ObjectId>;
 }
 
 export interface IUserDocument extends IUserBaseDocument {
