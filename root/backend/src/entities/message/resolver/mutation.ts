@@ -2,6 +2,7 @@ import { Schema } from "mongoose";
 import { sendVerificationEmail } from "../../../helpers/functions/sendVerificationEmail";
 import { IContext } from "../../../types";
 import { Conversation, IConversationDocument } from "../../conversation/model";
+import { User } from "../../user/model";
 import { mapMessage } from "../mapper";
 import { IMessageDocument, Message } from "../model";
 import { IStrictMessageInput } from "../typedef";
@@ -33,6 +34,14 @@ export default {
 
 				await conversation.updateOne({
 					messages: [message.id]
+				});
+
+				await User.findByIdAndUpdate(args.input.senderId, {
+					$push: { conversations: conversation.id }
+				});
+
+				await User.findByIdAndUpdate(args.input.receiverId, {
+					$push: { conversations: conversation.id }
 				});
 
 				return mapMessage(message, context);
