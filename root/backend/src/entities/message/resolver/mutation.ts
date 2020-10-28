@@ -21,35 +21,30 @@ export default {
 			});
 
 			const conversation = await Conversation.findOne({
-				$or: [
-					{
-						converserOne: args.input.senderId as any,
-						converserTwo: args.input.receiverId as any
-					},
-					{
-						converserOne: args.input.receiverId as any,
-						converserTwo: args.input.senderId as any
-					}
-				]
+				conversers: { $all: [args.input.senderId, args.input.receiverId] }
 			});
 
 			if (!conversation) {
 				const conversation = await Conversation.create<
 					Partial<IConversationDocument>
 				>({
-					converserOne: args.input.senderId,
-					converserTwo: args.input.receiverId
+					conversers: [args.input.senderId, args.input.receiverId]
 				});
 
 				await conversation.updateOne({
-					$push: { messages: message.id }
+					messages: [message.id]
 				});
 
 				return mapMessage(message, context);
 			}
 
 			await conversation.updateOne({
-				$push: { messages: message.id }
+				$push: {
+					messages: {
+						$each: [message.id],
+						$position: 0
+					}
+				}
 			});
 
 			return mapMessage(message, context);
