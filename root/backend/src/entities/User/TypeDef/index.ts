@@ -66,6 +66,7 @@ export default gql`
 		accountInfo: UserAccountInfo!
 		personalInfo: UserPersonalInfo!
 		statusInfo: UserStatusInfo!
+		conversations: [Conversation!]
 	}
 `;
 
