@@ -1,24 +1,29 @@
 import styled from "styled-components";
 
-export const StyledButton = styled.button`
-  font-weight: 500;
-  font-size: 10pt;
-  /* text-transform: uppercase; */
+export const StyledButton = styled.button<{
+  padding: string;
+  margin: string;
+  borderRadius: string;
+  backgroundColor: string;
+  hoverColor: string;
+  activeColor: string;
+  transition: string;
+}>`
   border: none;
   width: 100%;
-  padding: 8pt;
-  border-radius: 4pt;
-  background-color: #256de8;
-  color: white;
+  margin: ${({ margin }) => margin};
+  padding: ${({ padding }) => padding};
+  border-radius: ${({ borderRadius }) => borderRadius};
+  background-color: ${({ backgroundColor }) => backgroundColor};
   outline: none;
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: ${({ transition }) => transition};
 
   &:hover {
-    background-color: #1f5fcc;
+    background-color: ${({ hoverColor }) => hoverColor};
   }
 
   &:active {
-    background-color: #1a4da3;
+    background-color: ${({ activeColor }) => activeColor};
   }
 `;
