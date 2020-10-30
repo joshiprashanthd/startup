@@ -1,8 +1,21 @@
-import React from 'react';
+import React from "react";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import { GlobalStyle } from "./goblalStyles";
+import AuthPage from "./pages/AuthPage";
 
 function App() {
   return (
-   <h1>This is app</h1>
+    <>
+      <GlobalStyle />
+      <BrowserRouter>
+        <Switch>
+          <Redirect exact from="/" to="/auth" />
+          <Route exact path="/auth">
+            <AuthPage />
+          </Route>
+        </Switch>
+      </BrowserRouter>
+    </>
   );
 }
 
