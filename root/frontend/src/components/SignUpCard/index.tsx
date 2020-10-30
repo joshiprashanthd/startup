@@ -3,12 +3,31 @@ import { Button } from "../../mini-components/Button";
 import { InputGroup } from "../../mini-components/InputGroup";
 import { Text } from "../../mini-components/Text";
 import { Card } from "../../mini-components/Card";
+import {
+  validateEmail,
+  validateHandler,
+  validateName,
+  validatePassword,
+} from "./validators";
 
 export const SignUpCard: React.FC = () => {
+  const [validationErrors, setValidationErrors] = React.useState<string[]>([]);
   const [email, setEmail] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
   const [name, setName] = React.useState<string>("");
   const [handler, setHandler] = React.useState<string>("");
+
+  const signUpHandler = () => {
+    setValidationErrors([]);
+    if (!validateEmail(email))
+      setValidationErrors((prevState) => [...prevState, "email"]);
+    if (!validatePassword(password))
+      setValidationErrors((prevState) => [...prevState, "password"]);
+    if (!validateName(name))
+      setValidationErrors((prevState) => [...prevState, "name"]);
+    if (!validateHandler(handler))
+      setValidationErrors((prevState) => [...prevState, "handler"]);
+  };
 
   return (
     <Card
@@ -17,36 +36,42 @@ export const SignUpCard: React.FC = () => {
       alignItems="center"
       width="50%"
     >
-      <InputGroup label="Email" onChange={setEmail} />
+      <InputGroup
+        label="Email"
+        onChange={setEmail}
+        inputErrorOccurred={validationErrors.includes("email")}
+        validatorMessage="Email is not correct"
+      />
       <InputGroup
         label="Password"
         onChange={setPassword}
         obscure
-        validator={(value: string) => {
-          if (!value.match(/^(?=.*\d).{8,}$/) && value.length > 0)
-            return "Password must be at least 8 characters long and must contain one digit.";
-          return null;
-        }}
+        inputErrorOccurred={validationErrors.includes("password")}
+        validatorMessage="Password must be at least 8 characters long and must contain one digit."
       />
       <InputGroup
         label="Name"
         onChange={setName}
-        validator={(value: string) => {
-          if (!value.match(/^[a-zA-Z\s]+$/) && value.length > 0)
-            return "Names must not contain any numeric digit";
-          return null;
-        }}
+        inputErrorOccurred={validationErrors.includes("name")}
+        validatorMessage="Names must not contain any numeric digit"
       />
       <InputGroup
         label="Handler"
         onChange={setHandler}
-        validator={(value: string) => {
-          if (!value.match(/^[a-zA-Z0-9]+$/) && value.length > 0)
-            return "Handler must be alphanumeric with no spaces";
-          return null;
-        }}
+        inputErrorOccurred={validationErrors.includes("handler")}
+        validatorMessage="Handler must be alphanumeric with no spaces"
       />
-      <Button>Sign Up</Button>
+      <Button
+        onClick={signUpHandler}
+        disabled={
+          email.length === 0 ||
+          password.length === 0 ||
+          handler.length === 0 ||
+          name.length === 0
+        }
+      >
+        Sign Up
+      </Button>
       <Text margin="8px 0">Already have an account? Sign Up</Text>
     </Card>
   );
