@@ -25,8 +25,8 @@ export const Button: React.FC<IProps> = function ({
   borderRadius = "4px",
   backgroundColor = "#256de8",
   fontColor = "white",
-  hoverColor = "#1f5aaa",
-  activeColor = "#1a4da3",
+  hoverBackgroundColor = "#1f5aaa",
+  activeBackgroundColor = "#1a4da3",
   transition = "all .25s ease",
   disabled = false,
   disabledFontColor = "white",
@@ -35,7 +35,6 @@ export const Button: React.FC<IProps> = function ({
 }) {
   return (
     <StyledButton
-      activeColor={activeColor}
       padding={padding}
       margin={margin}
       borderRadius={borderRadius}
@@ -43,8 +42,13 @@ export const Button: React.FC<IProps> = function ({
       disabled={disabled}
       disabledBackgroundColor={disabledBackgroundColor}
       disabledFontColor={disabledFontColor}
-      backgroundColor={backgroundColor}
-      hoverColor={hoverColor}
+      backgroundColor={disabled ? disabledBackgroundColor : backgroundColor}
+      hoverBackgroundColor={
+        disabled ? disabledBackgroundColor : hoverBackgroundColor
+      }
+      activeBackgroundColor={
+        disabled ? disabledBackgroundColor : activeBackgroundColor
+      }
       transition={transition}
       {...restProps}
     >

@@ -9,8 +9,8 @@ export const StyledButton = styled.button<{
   disabled: boolean;
   disabledFontColor: string;
   disabledBackgroundColor: string;
-  hoverColor: string;
-  activeColor: string;
+  hoverBackgroundColor: string;
+  activeBackgroundColor: string;
   transition: string;
 }>`
   border: none;
@@ -26,14 +26,14 @@ export const StyledButton = styled.button<{
   color: ${({ disabled, disabledFontColor, fontColor }) =>
     disabled ? disabledFontColor : fontColor};
   outline: none;
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
   transition: ${({ transition }) => transition};
 
   &:hover {
-    background-color: ${({ hoverColor }) => hoverColor};
+    background-color: ${({ hoverBackgroundColor }) => hoverBackgroundColor};
   }
 
   &:active {
-    background-color: ${({ activeColor }) => activeColor};
+    background-color: ${({ activeBackgroundColor }) => activeBackgroundColor};
   }
 `;
