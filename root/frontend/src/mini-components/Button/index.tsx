@@ -33,7 +33,7 @@ export const Button: React.FC<IProps> = function ({
       hoverColor={hoverColor}
       transition={transition}
     >
-      <Text fontWeight={FontWeight.BOLD} fontColor="white">
+      <Text fontWeight={FontWeight.SEMIBOLD} fontColor="white">
         {children}
       </Text>
     </StyledButton>
