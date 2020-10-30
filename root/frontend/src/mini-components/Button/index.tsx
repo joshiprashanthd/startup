@@ -11,6 +11,7 @@ interface IProps {
   hoverColor?: string;
   activeColor?: string;
   transition?: string;
+  [K: string]: any;
 }
 
 export const Button: React.FC<IProps> = function ({
@@ -22,6 +23,7 @@ export const Button: React.FC<IProps> = function ({
   hoverColor = "#1f5aaa",
   activeColor = "#1a4da3",
   transition = "all .25s ease",
+  ...restProps
 }) {
   return (
     <StyledButton
@@ -32,6 +34,7 @@ export const Button: React.FC<IProps> = function ({
       backgroundColor={backgroundColor}
       hoverColor={hoverColor}
       transition={transition}
+      {...restProps}
     >
       <Text fontWeight={FontWeight.SEMIBOLD} fontColor="white">
         {children}
