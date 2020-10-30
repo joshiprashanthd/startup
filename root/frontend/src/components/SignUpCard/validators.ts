@@ -1,17 +1,20 @@
-export const validatePassword = function (value: string) {
-  if (!value.match(/^(?=.*\d).{8,}$/) && value.length > 0)
-    return "Password must be at least 8 characters long and must contain one digit.";
-  return null;
+type Validator = (value: string) => boolean;
+
+export const validatePassword: Validator = function (value: string) {
+  return value.match(/^(?=.*\d).{8,}$/) !== null && value.length > 0;
 };
 
-export const validateName = function (value: string) {
-  if (!value.match(/^[a-zA-Z\s]+$/) && value.length > 0)
-    return "Names must not contain any numeric digit";
-  return null;
+export const validateName: Validator = function (value: string) {
+  return value.match(/^[a-zA-Z\s]+$/) !== null && value.length > 0;
 };
 
-export const validateHandler = function (value: string) {
-  if (!value.match(/^[a-zA-Z0-9]+$/) && value.length > 0)
-    return "Handler must be alphanumeric with no spaces";
-  return null;
+export const validateHandler: Validator = function (value: string) {
+  return value.match(/^[a-zA-Z0-9]+$/) !== null && value.length > 0;
+};
+export const validateEmail: Validator = function (value: string) {
+  return (
+    value.match(
+      /^((([!#$%&'*+\-/=?^_`{|}~\w])|([!#$%&'*+\-/=?^_`{|}~\w][!#$%&'*+\-/=?^_`{|}~.\w]{0,}[!#$%&'*+\-/=?^_`{|}~\w]))[@]\w+([-.]\w+)*\.\w+([-.]\w+)*)$/
+    ) !== null && value.length > 0
+  );
 };
