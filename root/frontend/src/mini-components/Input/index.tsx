@@ -11,7 +11,7 @@ interface IProps {
 
 export const Input: React.FC<IProps> = function ({
   borderRadius = "4px",
-  margin = "8px 0",
+  margin = "8px 0 0 0",
   padding = "8px",
   backgroundColor = "#fbfbfb",
   ...restProps
