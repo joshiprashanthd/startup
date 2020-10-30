@@ -23,6 +23,7 @@ interface IProps {
   fontSize?: FontSize | string;
   fontWeight?: FontWeight;
   fontColor?: string;
+  lineHeight?: number;
   padding?: string;
   margin?: string;
   display?: string;
@@ -35,6 +36,7 @@ export const Text: React.FC<IProps> = function ({
   fontColor = "black",
   padding = "0px",
   margin = "0px",
+  lineHeight = 1,
   display = "inline",
 }) {
   return (
@@ -45,6 +47,7 @@ export const Text: React.FC<IProps> = function ({
       padding={padding}
       margin={margin}
       display={display}
+      lineHeight={lineHeight}
     >
       {children}
     </StyledText>
