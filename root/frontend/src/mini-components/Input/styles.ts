@@ -13,7 +13,7 @@ export const StyledInput = styled.input<{
   background-color: ${({ backgroundColor }) => backgroundColor};
   border-radius: ${({ borderRadius }) => borderRadius};
   outline: none;
-  font-size: 16px;
+  font-size: 14px;
 
   &:focus {
     box-shadow: 0 0pt 4pt rgba(0, 0, 0, 0.25);
