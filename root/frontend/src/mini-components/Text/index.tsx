@@ -1,15 +1,15 @@
 import React from "react";
 import { StyledText } from "./styles";
 
-enum FontSize {
-  LARGE = 2,
-  MEDIUM = 1.4,
-  NORMAL = 0.8,
-  CAPTION = 0.65,
-  SMALL = 0.5,
+export enum FontSize {
+  LARGE = 20,
+  MEDIUM = 18,
+  NORMAL = 16,
+  CAPTION = 14,
+  SMALL = 12,
 }
 
-enum FontWeight {
+export enum FontWeight {
   THIN = 100,
   LIGHT = 300,
   REGULAR = 400,
@@ -19,7 +19,7 @@ enum FontWeight {
 
 interface IProps {
   children?: any;
-  fontSize?: FontSize;
+  fontSize?: FontSize | string;
   fontWeight?: FontWeight;
   fontColor?: string;
 }
