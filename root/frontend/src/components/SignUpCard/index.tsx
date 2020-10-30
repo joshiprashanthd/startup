@@ -1,8 +1,7 @@
 import React from "react";
 import { Button } from "../../mini-components/Button";
 import { InputGroup } from "../../mini-components/InputGroup";
-import { Padding } from "../../mini-components/Padding";
-import { FontSize, FontWeight, Text } from "../../mini-components/Text";
+import { Text } from "../../mini-components/Text";
 import { Card } from "../../mini-components/Card";
 
 export const SignUpCard: React.FC = () => {
@@ -24,17 +23,25 @@ export const SignUpCard: React.FC = () => {
         onChange={setPassword}
         obscure
         validator={(value: string) => {
-          if (!value.match(/^(?=.*\d).{8,}$/))
+          if (!value.match(/^(?=.*\d).{8,}$/) && value.length > 0)
             return "Password must be at least 8 characters long and must contain one digit.";
           return null;
         }}
       />
-      <InputGroup label="Name" onChange={setName} />
+      <InputGroup
+        label="Name"
+        onChange={setName}
+        validator={(value: string) => {
+          if (!value.match(/^[a-zA-Z]+$/) && value.length > 0)
+            return "Handler must be alphanumeric with no spaces";
+          return null;
+        }}
+      />
       <InputGroup
         label="Handler"
         onChange={setHandler}
         validator={(value: string) => {
-          if (!value.match(/^[a-zA-Z0-9]+$/))
+          if (!value.match(/^[a-zA-Z0-9]+$/) && value.length > 0)
             return "Handler must be alphanumeric with no spaces";
           return null;
         }}
