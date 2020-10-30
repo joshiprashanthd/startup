@@ -1,12 +1,15 @@
 import React from "react";
 import { SignUpCard } from "../../components/SignUpCard";
+import { Heading, HeadingSize } from "../../mini-components/Heading";
 import { StyledContent, StyledPage } from "./styles";
 
 export default function AuthPage() {
   return (
     <StyledPage>
       <StyledContent>
-        collabs lets you find team for you project and implement your ideas.
+        <Heading fontSize={HeadingSize.NORMAL}>
+          collabs lets you build projects and collaborate with others as a team
+        </Heading>
       </StyledContent>
       <StyledContent>
         <SignUpCard></SignUpCard>
