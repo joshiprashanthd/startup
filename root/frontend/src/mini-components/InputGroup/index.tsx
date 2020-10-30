@@ -8,24 +8,23 @@ interface IProps {
   label: string;
   secondaryLabel?: string;
   obscure?: boolean;
+  inputErrorOccurred?: boolean;
+  validatorMessage?: string;
   onChange: (value: string) => void;
-  validator?: (value: string) => string | null;
 }
 
 export const InputGroup: React.FC<IProps> = function ({
   label = null,
   secondaryLabel = null,
   obscure = false,
-  validator = null,
+  inputErrorOccurred = false,
+  validatorMessage = null,
   onChange = (value: string) => {},
 }) {
-  const [error, setError] = React.useState<boolean>(false);
   const [value, setValue] = React.useState<string>("");
 
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.currentTarget.value);
-    if (validator)
-      if (validator(event.currentTarget.value) !== null) setError(true);
     onChange(event.currentTarget.value);
   };
 
@@ -45,9 +44,9 @@ export const InputGroup: React.FC<IProps> = function ({
         value={value}
         type={obscure ? "password" : "text"}
       />
-      {error && validator ? (
+      {inputErrorOccurred ? (
         <Text fontSize={FontSize.SMALL} fontColor="red">
-          {validator(value)}
+          {validatorMessage}
         </Text>
       ) : null}
     </StyledInputGroup>
