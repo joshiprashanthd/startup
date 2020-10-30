@@ -31,7 +31,7 @@ export const InputGroup: React.FC<IProps> = function ({
 
   return (
     <StyledInputGroup>
-      <Text fontWeight={FontWeight.BOLD}>{label} </Text>
+      <Text fontWeight={FontWeight.SEMIBOLD}>{label} </Text>
       <Text
         fontSize={FontSize.SMALL}
         fontWeight={FontWeight.BOLD}
