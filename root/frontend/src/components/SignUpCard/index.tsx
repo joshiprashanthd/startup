@@ -24,13 +24,21 @@ export const SignUpCard: React.FC = () => {
         onChange={setPassword}
         obscure
         validator={(value: string) => {
-          if (value.length < 8 && value.length !== 0)
-            return "Password must be 8 characters long.";
+          if (!value.match(/^(?=.*\d).{8,}$/))
+            return "Password must be at least 8 characters long and must contain one digit.";
           return null;
         }}
       />
       <InputGroup label="Name" onChange={setName} />
-      <InputGroup label="Handler" onChange={setHandler} />
+      <InputGroup
+        label="Handler"
+        onChange={setHandler}
+        validator={(value: string) => {
+          if (!value.match(/^[a-zA-Z0-9]+$/))
+            return "Handler must be alphanumeric with no spaces";
+          return null;
+        }}
+      />
       <Button>Sign Up</Button>
       <Text margin="8px 0">Already have an account? Sign Up</Text>
     </Card>
