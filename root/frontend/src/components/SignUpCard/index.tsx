@@ -32,8 +32,8 @@ export const SignUpCard: React.FC = () => {
         label="Name"
         onChange={setName}
         validator={(value: string) => {
-          if (!value.match(/^[a-zA-Z]+$/) && value.length > 0)
-            return "Handler must be alphanumeric with no spaces";
+          if (!value.match(/^[a-zA-Z\s]+$/) && value.length > 0)
+            return "Names must not contain any numeric digit";
           return null;
         }}
       />
