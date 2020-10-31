@@ -1,14 +1,23 @@
 import React from "react";
 import { StyledAlert } from "./styles";
+import { FontWeight, Text } from "../Text";
 
 interface IProps {
+  children?: any;
   show?: boolean;
-  message: string;
 }
 
 export const Alert: React.FC<IProps> & {} = function ({
   show = false,
-  message = null,
+  children = null,
 }) {
-  return <>{show && <StyledAlert>{message}</StyledAlert>}</>;
+  return (
+    <>
+      {show && (
+        <StyledAlert>
+          <Text>{children}</Text>
+        </StyledAlert>
+      )}
+    </>
+  );
 };
