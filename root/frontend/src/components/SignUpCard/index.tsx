@@ -8,7 +8,7 @@ import {
   validateHandler,
   validateName,
   validatePassword,
-} from "./validators";
+} from "../../helpers/validators";
 
 export const SignUpCard: React.FC = () => {
   const [validationErrors, setValidationErrors] = React.useState<string[]>([]);
