@@ -21,6 +21,7 @@ export const StyledLink = styled.a<{
   }};
   font-weight: ${({ fontWeight }) => fontWeight};
   color: ${({ fontColor }) => fontColor};
+  cursor: pointer;
 
   &:hover {
     color: ${({ hoverFontColor }) => hoverFontColor};
