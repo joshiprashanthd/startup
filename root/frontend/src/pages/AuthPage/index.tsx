@@ -1,5 +1,5 @@
 import React from "react";
-import { SignUpCard } from "../../components/SignUpCard";
+import { AuthCard } from "../../components/AuthCard";
 import { Text } from "../../mini-components/Text";
 import { HeadingSize } from "../../mini-components/Text/Heading";
 import { StyledContent, StyledPage } from "./styles";
@@ -13,7 +13,7 @@ export default function AuthPage() {
         </Text.Heading>
       </StyledContent>
       <StyledContent>
-        <SignUpCard></SignUpCard>
+        <AuthCard />
       </StyledContent>
     </StyledPage>
   );
