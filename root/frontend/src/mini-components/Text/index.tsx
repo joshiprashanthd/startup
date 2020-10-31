@@ -1,4 +1,5 @@
 import React from "react";
+import { Heading } from "./Heading";
 import { StyledText } from "./styles";
 
 export enum FontSize {
@@ -29,7 +30,7 @@ interface IProps {
   display?: string;
 }
 
-export const Text: React.FC<IProps> = function ({
+export const Text: React.FC<IProps> & { Heading: typeof Heading } = function ({
   children = null,
   fontSize = FontSize.NORMAL,
   fontWeight = FontWeight.REGULAR,
@@ -53,3 +54,5 @@ export const Text: React.FC<IProps> = function ({
     </StyledText>
   );
 };
+
+Text.Heading = Heading;
