@@ -34,7 +34,13 @@ export default async function () {
 		}
 	});
 
-	server.applyMiddleware({ app, cors: false });
+	server.applyMiddleware({
+		app,
+		cors: {
+			credentials: true,
+			origin: "*"
+		}
+	});
 
 	app.listen({ port: 4000 }, () => {
 		console.log(`[SERVER] ready at http://localhost:4000${server.graphqlPath}`);
