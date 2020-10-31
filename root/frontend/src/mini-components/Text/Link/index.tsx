@@ -13,13 +13,14 @@ interface IProps {
   display?: string;
   hoverFontColor?: string;
   hoverTextDecoration?: string;
+  [K: string]: any;
 }
 
 export const Link: React.FC<IProps> = function ({
   children = null,
   fontSize = FontSize.NORMAL,
   fontWeight = FontWeight.REGULAR,
-  fontColor = "black",
+  fontColor = "#256de8",
   padding = "0px",
   margin = "0px",
   lineHeight = 1,
