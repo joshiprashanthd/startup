@@ -29,7 +29,11 @@ const CREATE_USER_MUTATION = gql`
   }
 `;
 
-export const SignUpCard: React.FC = () => {
+interface IProps {
+  toggleCardCallback: () => void;
+}
+
+export const SignUpCard: React.FC<IProps> = ({ toggleCardCallback }) => {
   const authContext = React.useContext(AuthContext);
 
   const [createUser, { loading }] = useMutation(CREATE_USER_MUTATION);
@@ -52,7 +56,6 @@ export const SignUpCard: React.FC = () => {
       setValidationErrors((prevState) => [...prevState, "handler"]);
 
     if (validationErrors.length === 0) {
-      console.log("This is in if statement");
       createUser({
         variables: {
           input: {
@@ -119,9 +122,14 @@ export const SignUpCard: React.FC = () => {
           name.length === 0
         }
       >
-        {loading ? <Spinner height="18px" width="18px" /> : "Sign Up"}
+        {loading ? "Loading..." : "Sign Up"}
       </Button>
-      <Text margin="8px 0">Already have an account? Sign In</Text>
+      <Text margin="8px 0">
+        Already have an account?{" "}
+        <Text.Link onClick={toggleCardCallback} hoverTextDecoration="none">
+          Sign In
+        </Text.Link>
+      </Text>
     </Card>
   );
 };
