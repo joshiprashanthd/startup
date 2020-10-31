@@ -40,6 +40,8 @@ export const Link: React.FC<IProps> = function ({
       hoverFontColor={hoverFontColor}
       hoverTextDecoration={hoverTextDecoration}
       {...restProps}
-    ></StyledLink>
+    >
+      {children}
+    </StyledLink>
   );
 };
