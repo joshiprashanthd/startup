@@ -1,4 +1,7 @@
 import React from "react";
+import { gql, useMutation } from "@apollo/client";
+
+//local
 import { Button } from "../../mini-components/Button";
 import { InputGroup } from "../../mini-components/InputGroup";
 import { Text } from "../../mini-components/Text";
@@ -9,8 +12,28 @@ import {
   validateName,
   validatePassword,
 } from "../../helpers/validators";
+import AuthContext, { IUserAccountInfo } from "../../context/AuthContext";
+import { Spinner } from "../../mini-components/Spinner";
+
+const CREATE_USER_MUTATION = gql`
+  mutation CreateUser($input: StrictUserInput!) {
+    createUser(input: $input) {
+      id
+      accountInfo {
+        email
+        handler
+        password
+        name
+      }
+    }
+  }
+`;
 
 export const SignUpCard: React.FC = () => {
+  const authContext = React.useContext(AuthContext);
+
+  const [createUser, { loading }] = useMutation(CREATE_USER_MUTATION);
+
   const [validationErrors, setValidationErrors] = React.useState<string[]>([]);
   const [email, setEmail] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
@@ -27,6 +50,32 @@ export const SignUpCard: React.FC = () => {
       setValidationErrors((prevState) => [...prevState, "name"]);
     if (!validateHandler(handler))
       setValidationErrors((prevState) => [...prevState, "handler"]);
+
+    if (validationErrors.length === 0) {
+      console.log("This is in if statement");
+      createUser({
+        variables: {
+          input: {
+            accountInfo: {
+              email,
+              password,
+              name,
+              handler,
+            },
+          },
+        },
+      })
+        .then((res) => {
+          const user: IUserAccountInfo = {
+            ...res.data.createUser.accountInfo,
+            id: res.data.id,
+          };
+          (authContext.signIn as any)(user);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    }
   };
 
   return (
@@ -70,9 +119,9 @@ export const SignUpCard: React.FC = () => {
           name.length === 0
         }
       >
-        Sign Up
+        {loading ? <Spinner height="18px" width="18px" /> : "Sign Up"}
       </Button>
-      <Text margin="8px 0">Already have an account? Sign Up</Text>
+      <Text margin="8px 0">Already have an account? Sign In</Text>
     </Card>
   );
 };
