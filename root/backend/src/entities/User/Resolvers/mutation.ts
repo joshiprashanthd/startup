@@ -54,9 +54,7 @@ export default {
 		) => {
 			const user = await User.findById(args.input.userId);
 
-			if (!user) {
-				throw new ApolloError("User not found.");
-			}
+			if (!user) throw new ApolloError("User not found.");
 
 			delete args.input["userId"];
 
