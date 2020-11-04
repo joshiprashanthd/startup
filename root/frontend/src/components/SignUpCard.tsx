@@ -39,7 +39,7 @@ const InputLabel = function (props: any) {
 const InputField = function (props: any) {
   return (
     <input
-      className="w-full p-2 duration-200 border-2 border-gray-300 rounded outline-none focus:border-transparent active:border-none focus:shadow-outline "
+      className="w-full p-2 duration-200 border border-gray-400 rounded outline-none focus:border-transparent active:border-none focus:shadow-outline "
       spellCheck="false"
       type={props.type}
     />
