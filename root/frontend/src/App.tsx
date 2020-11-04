@@ -1,5 +1,6 @@
 import React from "react";
+import { AuthPage } from "./pages/AuthPage";
 
 export default function App() {
-  return <h1 className="text-5xl font-display">Hello, World!</h1>;
+  return <AuthPage />;
 }
