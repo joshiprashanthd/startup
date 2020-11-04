@@ -1,7 +1,5 @@
 import React from "react";
 
-function App() {
-  return <div className="App"></div>;
+export default function App() {
+  return <h1 className="text-5xl font-display">Hello, World!</h1>;
 }
-
-export default App;
