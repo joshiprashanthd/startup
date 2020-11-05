@@ -2,7 +2,7 @@ import React from "react";
 
 export const SignInCard = function (props: any) {
   return (
-    <div className="w-7/12 p-4 mt-8 rounded-lg shadow-xl">
+    <div className="w-7/12 p-4 rounded-lg shadow-md">
       <div className="my-4">
         <InputLabel secondary="*">Email</InputLabel>
         <InputField type="text" />
