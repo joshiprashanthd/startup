@@ -13,7 +13,7 @@ export const SignInCard = function (props: any) {
       </div>
       <Button>Sign In</Button>
       <p className="mt-2 text-center">
-        Already have an account? <Link onClick={props.toggleCard}>Sign Up</Link>
+        Create a new account <Link onClick={props.toggleCard}>Sign Up</Link>
       </p>
     </div>
   );
@@ -21,7 +21,7 @@ export const SignInCard = function (props: any) {
 
 const InputLabel = function (props: any) {
   return (
-    <p className="mb-2">
+    <p className="mb-2 text-sm font-semibold">
       {props.children}{" "}
       <span className="text-xs text-gray-500">{props.secondary}</span>
     </p>
