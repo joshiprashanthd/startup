@@ -1,5 +1,6 @@
 import { gql, useMutation } from "@apollo/client";
 import React from "react";
+import { InputField } from "../mini-components/InputField";
 import { Loader } from "./Loader";
 
 const CREATE_USER_MUTATION = gql`
@@ -44,22 +45,15 @@ export const SignUpCard = function (props: any) {
 
   return (
     <div className="w-7/12 p-4 rounded-lg shadow-md">
-      <div className="my-4">
-        <InputLabel secondary="*">Name</InputLabel>
-        <InputField type="text" onChange={setName} />
-      </div>
-      <div className="my-4">
-        <InputLabel secondary="*">Handler</InputLabel>
-        <InputField type="text" onChange={setHandler} />
-      </div>
-      <div className="my-4">
-        <InputLabel secondary="*">Email</InputLabel>
-        <InputField type="text" onChange={setEmail} />
-      </div>
-      <div className="my-4">
-        <InputLabel secondary="*">Password</InputLabel>
-        <InputField type="password" onChange={setPassword} />
-      </div>
+      <InputField label="Name" onInputChange={setName} />
+      <InputField label="Handler" onInputChange={setHandler} />
+      <InputField label="Email" onInputChange={setEmail} />
+      <InputField
+        label="Password"
+        inputType="password"
+        onInputChange={setPassword}
+      />
+
       <Button
         onClick={onSignUp}
         disabled={
@@ -76,30 +70,6 @@ export const SignUpCard = function (props: any) {
         Already have an account? <Link onClick={props.toggleCard}>Sign In</Link>
       </p>
     </div>
-  );
-};
-
-const InputLabel = function (props: any) {
-  return (
-    <p className="mb-2 text-sm font-semibold">
-      {props.children}{" "}
-      <span className="text-xs text-gray-500">{props.secondary}</span>
-    </p>
-  );
-};
-
-const InputField = function (props: any) {
-  const onChangeHandler = (event: any) => {
-    props.onChange(event.currentTarget.value);
-  };
-
-  return (
-    <input
-      className="w-full p-2 duration-200 border border-gray-400 rounded outline-none focus:border-transparent active:border-none focus:shadow-outline "
-      spellCheck="false"
-      type={props.type}
-      onChange={onChangeHandler}
-    />
   );
 };
 
