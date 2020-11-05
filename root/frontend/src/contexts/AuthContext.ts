@@ -9,11 +9,9 @@ export interface IAuthInfo {
 
 export interface IAuthContext {
   user: IAuthInfo | null;
-  signIn: ((email: string, password: string) => void) | null;
+  signIn: ((user: IAuthInfo) => void) | null;
   signOut: (() => void) | null;
-  signUp:
-    | ((email: string, password: string, name: string, handler: string) => void)
-    | null;
+  signUp: ((user: IAuthInfo) => void) | null;
 }
 
 export default createContext<IAuthContext>({
