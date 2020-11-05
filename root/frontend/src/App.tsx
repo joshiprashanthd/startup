@@ -18,6 +18,7 @@ export default function App() {
     >
       <Router>
         <Switch>
+          <Redirect exact from="/" to="/auth" />
           <Route path="/auth">
             <AuthPage />
           </Route>
