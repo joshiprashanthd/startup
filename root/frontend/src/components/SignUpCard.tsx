@@ -60,7 +60,15 @@ export const SignUpCard = function (props: any) {
         <InputLabel secondary="*">Handler</InputLabel>
         <InputField type="text" onChange={setHandler} />
       </div>
-      <Button onClick={onSignUp}>
+      <Button
+        onClick={onSignUp}
+        disabled={
+          email.length === 0 ||
+          password.length === 0 ||
+          name.length === 0 ||
+          handler.length === 0
+        }
+      >
         {loading && <Loader />}
         Sign Up
       </Button>
@@ -98,7 +106,8 @@ const InputField = function (props: any) {
 const Button = function (props: any) {
   return (
     <button
-      className="inline-flex items-center justify-center w-full py-2 mt-2 font-semibold text-white duration-200 bg-purple-500 rounded hover:bg-purple-600 focus:outline-none active:bg-purple-700"
+      disabled={props.disabled}
+      className="inline-flex items-center justify-center w-full py-2 mt-2 font-semibold text-white duration-200 bg-purple-500 rounded hover:bg-purple-600 focus:outline-none active:bg-purple-700 disabled:opacity-50"
       {...props}
     >
       {props.children}
