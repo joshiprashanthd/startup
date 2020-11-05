@@ -45,20 +45,20 @@ export const SignUpCard = function (props: any) {
   return (
     <div className="w-7/12 p-4 mt-8 rounded-lg shadow-xl">
       <div className="my-4">
-        <InputLabel secondary="*">Email</InputLabel>
-        <InputField type="text" onChange={setEmail} />
-      </div>
-      <div className="my-4">
-        <InputLabel secondary="*">Password</InputLabel>
-        <InputField type="password" onChange={setPassword} />
-      </div>
-      <div className="my-4">
         <InputLabel secondary="*">Name</InputLabel>
         <InputField type="text" onChange={setName} />
       </div>
       <div className="my-4">
         <InputLabel secondary="*">Handler</InputLabel>
         <InputField type="text" onChange={setHandler} />
+      </div>
+      <div className="my-4">
+        <InputLabel secondary="*">Email</InputLabel>
+        <InputField type="text" onChange={setEmail} />
+      </div>
+      <div className="my-4">
+        <InputLabel secondary="*">Password</InputLabel>
+        <InputField type="password" onChange={setPassword} />
       </div>
       <Button
         onClick={onSignUp}
