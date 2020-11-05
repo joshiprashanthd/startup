@@ -98,6 +98,9 @@ export default {
 		},
 
 		signOut: async (parent: any, args: any, context: IContext, info: any) => {
+			await User.findByIdAndUpdate(context.req.session.userId, {
+				"statusInfo.lastActive": new Date().getTime()
+			});
 			return attemptSignOut(context);
 		}
 	}
