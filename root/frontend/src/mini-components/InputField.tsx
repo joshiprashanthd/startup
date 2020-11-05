@@ -20,7 +20,7 @@ export const InputField: React.FC<IProps> = function ({
   return (
     <div className="my-4">
       <Label secondary={secondaryLabel}>{label}</Label>
-      <Input type={inputType} onChange={onInputChange} />
+      <Input type={inputType} onChange={onInputChange} error={showError} />
       {showError && <Error>{errorMessage}</Error>}
     </div>
   );
@@ -42,7 +42,11 @@ const Input = function (props: any) {
 
   return (
     <input
-      className="w-full p-2 duration-200 border border-gray-400 rounded outline-none focus:border-transparent active:border-none focus:shadow-outline "
+      className={`w-full p-2 duration-200 border ${
+        props.error ? "border-red-600" : ""
+      } border-gray-400 rounded outline-none focus:border-transparent active:border-none focus:shadow-outline${
+        props.error ? "-red" : ""
+      }`}
       spellCheck="false"
       type={props.type}
       onChange={onChangeHandler}
@@ -51,5 +55,5 @@ const Input = function (props: any) {
 };
 
 const Error = function (props: any) {
-  return <p className="text-sm text-red-600">{props.children}</p>;
+  return <p className="text-xs font-medium text-red-600">{props.children}</p>;
 };
