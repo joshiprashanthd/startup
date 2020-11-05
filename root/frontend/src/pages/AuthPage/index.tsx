@@ -7,10 +7,10 @@ export const AuthPage = function (props: any) {
 
   return (
     <div className="flex flex-row items-center justify-center w-4/5 min-h-screen mx-auto">
-      <div className="w-full text-center md:w-1/2">
-        <h1 className="text-xl md:text-5xl font-display">
-          collabs lets you find amazing people from all over the world to work
-          with
+      <div className="w-1/2">
+        <h1 className="text-xl font-bold md:text-5xl font-display">
+          <span className="text-purple-500">collabs</span> lets you find amazing
+          people from all over the world to work with
         </h1>
       </div>
       <div className="grid w-1/2 place-items-center">
