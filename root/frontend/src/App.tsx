@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   BrowserRouter as Router,
   Redirect,
@@ -7,24 +7,36 @@ import {
 } from "react-router-dom";
 
 //local
-import AuthContext from "./contexts/AuthContext";
+import AuthContext, { IAuthInfo } from "./contexts/AuthContext";
 import { AuthPage } from "./pages/AuthPage";
 import { HomePage } from "./pages/HomePage";
 
 export default function App() {
+  const [user, setUser] = useState<IAuthInfo | null>(null);
+
+  const signIn = (user: IAuthInfo) => {
+    console.log("signIn called");
+    setUser(user);
+  };
+  const signOut = () => setUser(null);
+
   return (
     <AuthContext.Provider
-      value={{ user: null, signIn: null, signOut: null, signUp: null }}
+      value={{ user: user, signIn: signIn, signOut: signOut, signUp: null }}
     >
       <Router>
         <Switch>
-          <Redirect exact from="/" to="/auth" />
-          <Route path="/auth">
-            <AuthPage />
-          </Route>
           <Route path="/home">
             <HomePage />
           </Route>
+          {user === null && (
+            <Route path="/auth">
+              <AuthPage />
+            </Route>
+          )}
+          {user === null && <Redirect exact from="/" to="/auth" />}
+          {user !== null && <Redirect exact from="/auth" to="/home" />}
+          {user !== null && <Redirect exact from="/" to="/home" />}
         </Switch>
       </Router>
     </AuthContext.Provider>
