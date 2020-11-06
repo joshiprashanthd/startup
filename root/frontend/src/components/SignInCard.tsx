@@ -82,7 +82,10 @@ const Link = function (props: any) {
 
 const Alert = function (props: any) {
   return (
-    <p className="w-full px-2 py-1 text-sm font-medium text-white bg-red-500 rounded">
+    <p
+      className="w-full px-2 py-1 text-sm font-medium text-white bg-red-500 rounded"
+      {...props}
+    >
       <FontAwesomeIcon
         icon={faExclamationTriangle}
         color="white"
