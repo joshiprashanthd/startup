@@ -89,7 +89,7 @@ const Alert = function (props: any) {
       <FontAwesomeIcon
         icon={faExclamationTriangle}
         color="white"
-        className="mr-2"
+        className="mr-1"
       />
       {"  "}
       {props.children}
