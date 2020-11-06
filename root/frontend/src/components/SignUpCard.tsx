@@ -6,6 +6,7 @@ import {
   validateName,
   validatePassword,
 } from "../helpers/validators";
+import { Button } from "../mini-components/Button";
 import { InputField } from "../mini-components/InputField";
 import { Loader } from "./Loader";
 
@@ -138,18 +139,6 @@ export const SignUpCard = function (props: any) {
         Already have an account? <Link onClick={props.toggleCard}>Sign In</Link>
       </p>
     </div>
-  );
-};
-
-const Button = function (props: any) {
-  return (
-    <button
-      disabled={props.disabled}
-      className="inline-flex items-center justify-center w-full py-2 mt-2 font-semibold text-white duration-200 bg-purple-500 rounded hover:bg-purple-600 focus:outline-none active:bg-purple-700 disabled:opacity-50"
-      {...props}
-    >
-      {props.children}
-    </button>
   );
 };
 

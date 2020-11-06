@@ -4,6 +4,7 @@ import { gql, useMutation } from "@apollo/client";
 //local
 import { InputField } from "../mini-components/InputField";
 import { Loader } from "./Loader";
+import { Button } from "../mini-components/Button";
 
 const SIGN_IN_MUTATION = gql`
   mutation SignIn($email: String!, $password: String!) {
@@ -61,18 +62,6 @@ export const SignInCard = function (props: any) {
         New here? <Link onClick={props.toggleCard}>Sign Up</Link>
       </p>
     </div>
-  );
-};
-
-const Button = function (props: any) {
-  return (
-    <button
-      disabled={props.disabled}
-      className="inline-flex items-center justify-center w-full py-2 mt-2 font-semibold text-white duration-200 bg-purple-500 rounded hover:bg-purple-600 focus:outline-none active:bg-purple-700 disabled:opacity-50"
-      {...props}
-    >
-      {props.children}
-    </button>
   );
 };
 
