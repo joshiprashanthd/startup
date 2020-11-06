@@ -38,8 +38,11 @@ export const SignInCard = function (props: any) {
 
   return (
     <div className="w-7/12 p-4 rounded-lg shadow-md">
-      {emailOrPasswordError && <Alert>Incorrect email or password</Alert>}
-      {serverError && <Alert>Server Error</Alert>}
+      {emailOrPasswordError && (
+        <Alert variant="error">Incorrect email or password</Alert>
+      )}
+      {serverError && <Alert variant="error">Server Error</Alert>}
+
       <InputField label="Email" onInputChange={setEmail} />
       <InputField
         label="Password"
