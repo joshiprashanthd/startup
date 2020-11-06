@@ -5,6 +5,11 @@ import { gql, useMutation } from "@apollo/client";
 import { InputField } from "../mini-components/InputField";
 import { Loader } from "./Loader";
 import { Button } from "../mini-components/Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowUp,
+  faExclamationTriangle,
+} from "@fortawesome/free-solid-svg-icons";
 
 const SIGN_IN_MUTATION = gql`
   mutation SignIn($email: String!, $password: String!) {
@@ -22,13 +27,15 @@ const SIGN_IN_MUTATION = gql`
 export const SignInCard = function (props: any) {
   const [signIn, { loading }] = useMutation(SIGN_IN_MUTATION);
 
-  const [showError, setShowError] = useState(false);
+  const [emailOrPasswordError, setEmailOrPasswordError] = useState(false);
+  const [serverError, setServerError] = useState(false);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const onSignIn = () => {
-    setShowError(false);
+    setEmailOrPasswordError(false);
+    setServerError(false);
     signIn({
       variables: {
         email,
@@ -39,13 +46,16 @@ export const SignInCard = function (props: any) {
         console.log(resData);
       })
       .catch((err) => {
-        setShowError(true);
+        if ((err.message as string).includes("email"))
+          setEmailOrPasswordError(true);
+        else setServerError(true);
       });
   };
 
   return (
     <div className="w-7/12 p-4 rounded-lg shadow-md">
-      {showError && <Alert>Incorrect email or password</Alert>}
+      {emailOrPasswordError && <Alert>Incorrect email or password</Alert>}
+      {serverError && <Alert>Server Error</Alert>}
       <InputField label="Email" onInputChange={setEmail} />
       <InputField
         label="Password"
@@ -75,7 +85,13 @@ const Link = function (props: any) {
 
 const Alert = function (props: any) {
   return (
-    <p className="w-full p-1 text-sm font-medium text-center text-white bg-red-500 rounded">
+    <p className="w-full px-2 py-1 text-sm font-medium text-white bg-red-500 rounded">
+      <FontAwesomeIcon
+        icon={faExclamationTriangle}
+        color="white"
+        className="mr-2"
+      />
+      {"  "}
       {props.children}
     </p>
   );
