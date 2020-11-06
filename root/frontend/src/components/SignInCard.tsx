@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 
 //local
@@ -7,8 +7,11 @@ import { Loader } from "../mini-components/Loader";
 import { Button } from "../mini-components/Button";
 import { Alert } from "../mini-components/Alert";
 import { SIGN_IN_MUTATION } from "../graphql/user/mutation";
+import AuthContext, { IAuthInfo } from "../contexts/AuthContext";
 
 export const SignInCard = function (props: any) {
+  const authContext = useContext(AuthContext);
+
   const [signIn, { loading }] = useMutation(SIGN_IN_MUTATION);
 
   const [emailOrPasswordError, setEmailOrPasswordError] = useState(false);
@@ -27,7 +30,12 @@ export const SignInCard = function (props: any) {
       },
     })
       .then((resData) => {
-        console.log(resData);
+        const user: IAuthInfo = {
+          id: resData.data.signIn.id,
+          ...resData.data.signIn.accountInfo,
+        };
+
+        (authContext as any).signIn(user);
       })
       .catch((err) => {
         if ((err.message as string).includes("email"))
