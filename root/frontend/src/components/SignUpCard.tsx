@@ -9,6 +9,7 @@ import {
   validateName,
   validatePassword,
 } from "../helpers/validators";
+import { Alert } from "../mini-components/Alert";
 import { Button } from "../mini-components/Button";
 import { InputField } from "../mini-components/InputField";
 import { Loader } from "./Loader";
@@ -23,6 +24,8 @@ export const SignUpCard = function (props: any) {
 
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
   const [exists, setExists] = useState<string[]>([]);
+
+  const [sentEmail, setSentEmail] = useState(false);
 
   const onSignUp = () => {
     let errorOccurred = false;
@@ -60,6 +63,7 @@ export const SignUpCard = function (props: any) {
       })
         .then((resData) => {
           setExists([]);
+          setSentEmail(true);
           console.log(resData);
         })
         .catch((err) => {
@@ -75,6 +79,9 @@ export const SignUpCard = function (props: any) {
 
   return (
     <div className="w-7/12 p-4 rounded-lg shadow-md">
+      {sentEmail && (
+        <Alert variant="info">Verification link sent to your email</Alert>
+      )}
       <InputField
         label="Name"
         onInputChange={setName}
