@@ -5,8 +5,7 @@ import { gql, useMutation } from "@apollo/client";
 import { InputField } from "../mini-components/InputField";
 import { Loader } from "./Loader";
 import { Button } from "../mini-components/Button";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
+import { Alert } from "../mini-components/Alert";
 
 const SIGN_IN_MUTATION = gql`
   mutation SignIn($email: String!, $password: String!) {
@@ -77,22 +76,5 @@ const Link = function (props: any) {
     <span className="text-blue-700 cursor-pointer hover:underline" {...props}>
       {props.children}
     </span>
-  );
-};
-
-const Alert = function (props: any) {
-  return (
-    <p
-      className="w-full px-2 py-1 text-sm font-medium text-white bg-red-500 rounded"
-      {...props}
-    >
-      <FontAwesomeIcon
-        icon={faExclamationTriangle}
-        color="white"
-        className="mr-1"
-      />
-      {"  "}
-      {props.children}
-    </p>
   );
 };
