@@ -1,5 +1,8 @@
 import { gql, useMutation } from "@apollo/client";
 import React, { useState } from "react";
+
+//local
+import { CREATE_USER_MUTATION } from "../graphql/user/mutation";
 import {
   validateEmail,
   validateHandler,
@@ -9,19 +12,6 @@ import {
 import { Button } from "../mini-components/Button";
 import { InputField } from "../mini-components/InputField";
 import { Loader } from "./Loader";
-
-const CREATE_USER_MUTATION = gql`
-  mutation CreateUser($input: StrictUserInput!) {
-    createUser(input: $input) {
-      id
-      accountInfo {
-        email
-        handler
-        name
-      }
-    }
-  }
-`;
 
 export const SignUpCard = function (props: any) {
   const [createUser, { loading }] = useMutation(CREATE_USER_MUTATION);

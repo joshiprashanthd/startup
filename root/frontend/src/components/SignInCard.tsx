@@ -6,19 +6,7 @@ import { InputField } from "../mini-components/InputField";
 import { Loader } from "./Loader";
 import { Button } from "../mini-components/Button";
 import { Alert } from "../mini-components/Alert";
-
-const SIGN_IN_MUTATION = gql`
-  mutation SignIn($email: String!, $password: String!) {
-    signIn(email: $email, password: $password) {
-      id
-      accountInfo {
-        name
-        handler
-        email
-      }
-    }
-  }
-`;
+import { SIGN_IN_MUTATION } from "../graphql/user/mutation";
 
 export const SignInCard = function (props: any) {
   const [signIn, { loading }] = useMutation(SIGN_IN_MUTATION);
