@@ -8,7 +8,7 @@ export const AuthPage = function (props: any) {
   return (
     <div className="flex flex-row items-center justify-center w-4/5 min-h-screen mx-auto ">
       <div className="w-1/2">
-        <h1 className="text-xl font-semibold leading-none md:text-5xl font-display">
+        <h1 className="text-6xl font-bold leading-none font-display">
           <span className="text-purple-500">collabs</span>
           <span className="text-black"> lets you collaborate</span>
         </h1>
