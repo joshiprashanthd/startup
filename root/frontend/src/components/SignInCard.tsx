@@ -6,10 +6,7 @@ import { InputField } from "../mini-components/InputField";
 import { Loader } from "./Loader";
 import { Button } from "../mini-components/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowUp,
-  faExclamationTriangle,
-} from "@fortawesome/free-solid-svg-icons";
+import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 
 const SIGN_IN_MUTATION = gql`
   mutation SignIn($email: String!, $password: String!) {
