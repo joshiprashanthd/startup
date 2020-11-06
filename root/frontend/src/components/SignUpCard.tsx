@@ -31,6 +31,7 @@ export const SignUpCard = function (props: any) {
   const [handler, setHandler] = useState("");
 
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
+  const [exists, setExists] = useState<string[]>([]);
 
   const onSignUp = () => {
     let errorOccurred = false;
@@ -67,9 +68,17 @@ export const SignUpCard = function (props: any) {
         },
       })
         .then((resData) => {
+          setExists([]);
           console.log(resData);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          setExists([]);
+          console.log(err.message);
+          if ((err.message as string).includes("email"))
+            setExists((prev) => [...prev, "email"]);
+          if ((err.message as string).includes("handler"))
+            setExists((prev) => [...prev, "handler"]);
+        });
     }
   };
 
@@ -84,14 +93,26 @@ export const SignUpCard = function (props: any) {
       <InputField
         label="Handler"
         onInputChange={setHandler}
-        showError={validationErrors.includes("handler")}
-        errorMessage="Handler must be alphanumeric"
+        showError={
+          validationErrors.includes("handler") || exists.includes("handler")
+        }
+        errorMessage={
+          exists.includes("handler")
+            ? "Handler already exist. Try a different one"
+            : "Handler must be alphanumeric"
+        }
       />
       <InputField
         label="Email"
         onInputChange={setEmail}
-        showError={validationErrors.includes("email")}
-        errorMessage="Email is not valid"
+        showError={
+          validationErrors.includes("email") || exists.includes("email")
+        }
+        errorMessage={
+          exists.includes("email")
+            ? "Email already registered"
+            : "Email is not valid"
+        }
       />
       <InputField
         label="Password"
