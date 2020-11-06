@@ -3,7 +3,7 @@ import { gql, useMutation } from "@apollo/client";
 
 //local
 import { InputField } from "../mini-components/InputField";
-import { Loader } from "./Loader";
+import { Loader } from "../mini-components/Loader";
 import { Button } from "../mini-components/Button";
 import { Alert } from "../mini-components/Alert";
 import { SIGN_IN_MUTATION } from "../graphql/user/mutation";

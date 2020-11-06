@@ -12,7 +12,7 @@ import {
 import { Alert } from "../mini-components/Alert";
 import { Button } from "../mini-components/Button";
 import { InputField } from "../mini-components/InputField";
-import { Loader } from "./Loader";
+import { Loader } from "../mini-components/Loader";
 
 export const SignUpCard = function (props: any) {
   const [createUser, { loading }] = useMutation(CREATE_USER_MUTATION);
