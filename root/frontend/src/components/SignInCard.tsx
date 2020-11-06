@@ -56,7 +56,7 @@ export const SignInCard = function (props: any) {
         disabled={email.length === 0 || password.length === 0}
         onClick={onSignIn}
       >
-        {loading && <Loader />} Sign In
+        {loading ? <Loader /> : "Sign In"}
       </Button>
       <p className="mt-2 text-center">
         New here? <Link onClick={props.toggleCard}>Sign Up</Link>
