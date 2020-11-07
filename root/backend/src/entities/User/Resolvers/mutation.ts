@@ -30,7 +30,7 @@ export default {
 			const user = await User.create<DeepPartial<IUserDocument>>(args.input);
 
 			const token = jwt.sign(
-				{ userId: user.id, email: user.accountInfo.email },
+				{ email: user.accountInfo.email },
 				TokenConfig.tokenSecret,
 				{ expiresIn: parseInt(TokenConfig.tokenExpiry) }
 			);
