@@ -2,7 +2,6 @@ import { ApolloError } from "apollo-server-express";
 import jwt from "jsonwebtoken";
 
 // local
-import { Token } from "../../token/model";
 import { IUserDocument, User } from "../model";
 import { ILooseUserInput, IStrictUserInput } from "../typedef";
 import {
@@ -30,17 +29,12 @@ export default {
 			const user = await User.create<DeepPartial<IUserDocument>>(args.input);
 
 			const token = jwt.sign(
-				{ email: user.accountInfo.email },
+				{ userId: user.id, email: user.accountInfo.email },
 				TokenConfig.tokenSecret,
 				{ expiresIn: parseInt(TokenConfig.tokenExpiry) }
 			);
 
-			const tokenDoc = await Token.create<any>({
-				userId: user.id,
-				token: token
-			});
-
-			sendVerificationEmail(user, tokenDoc);
+			sendVerificationEmail(user, token);
 
 			return mapUser(user, context);
 		},
