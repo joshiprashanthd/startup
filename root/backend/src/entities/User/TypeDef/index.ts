@@ -44,8 +44,8 @@ export default gql`
 
 	type UserAccountInfo {
 		name: String!
-		email: String @private
-		password: String @private
+		email: String
+		password: String
 		handler: String!
 		verifiedEmail: Boolean!
 	}
