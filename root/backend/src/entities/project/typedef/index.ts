@@ -47,3 +47,9 @@ export default gql`
 		editProject(input: LooseProjectInput!): Project!
 	}
 `;
+
+export {
+	ILooseProjectDetailsInput,
+	IProject,
+	IStrictProjectInput
+} from "./types";
