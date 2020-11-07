@@ -3,10 +3,7 @@ import { IUserDocument } from "../../entities/user/model";
 import emailer from "../emailer";
 import { ITokenDocument } from "../../entities/token/model/types";
 
-export const sendVerificationEmail = (
-	user: IUserDocument,
-	token: ITokenDocument
-) => {
+export const sendVerificationEmail = (user: IUserDocument, token: string) => {
 	emailer.sendMail({
 		from: '"Prashant Joshi (CEO)" <no-reply@collabs.com>',
 		to: `${user.accountInfo.email}`,
@@ -61,7 +58,7 @@ export const sendVerificationEmail = (
 				I am the CEO of <b>Collabs.io</b>, and you have a great journey ahead with us.<br>
 				You can confirm your email by cliking the button below.
 			</p>
-			<a href="http:localhost:4000/auth/verify-email/${token.id}">
+			<a href="http:localhost:4000/auth/verify-email/${token}">
 				Confirm your email
 			</a>
 			<p class="footer">
