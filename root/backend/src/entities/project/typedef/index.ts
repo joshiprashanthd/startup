@@ -33,6 +33,7 @@ export default gql`
 	}
 
 	type Project {
+		id: ID!
 		details: ProjectDetails!
 		state: ProjectStateEnum!
 	}
