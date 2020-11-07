@@ -44,7 +44,6 @@ export default gql`
 
 	extend type Mutation {
 		createProject(input: StrictProjectInput!): Project!
-		editProject(input: LooseProjectInput!): Project!
 	}
 `;
 
