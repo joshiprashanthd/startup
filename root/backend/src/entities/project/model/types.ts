@@ -13,7 +13,7 @@ interface IProjectDetails {
 	stars: string[];
 }
 
-enum ProjectState {
+export enum ProjectStateEnum {
 	OPEN,
 	CLOSED,
 	STARTED,
@@ -22,7 +22,7 @@ enum ProjectState {
 
 export interface IProjectBaseDocument extends Document {
 	details: IProjectDetails;
-	state: ProjectState;
+	state: ProjectStateEnum;
 }
 
 export interface IProjectDocument extends IProjectBaseDocument {}
