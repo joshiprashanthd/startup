@@ -1,5 +1,6 @@
 import { ISkill, ISkillIdInput } from "../../skill/typedef";
 import { IUser } from "../../user/typedef";
+import { ProjectStateEnum } from "../model/types";
 
 type Nullable<T> = T | null;
 
@@ -20,15 +21,8 @@ interface IProjectDetails {
 	stars: Nullable<IUser[]> | (() => Promise<IUser[]>);
 }
 
-enum IProjectState {
-	OPEN,
-	CLOSED,
-	STARTED,
-	ENDED
-}
-
 export interface IProject {
 	id: string;
 	details: IProjectDetails;
-	state: IProjectState;
+	state: ProjectStateEnum;
 }
