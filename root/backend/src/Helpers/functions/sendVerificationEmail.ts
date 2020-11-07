@@ -1,7 +1,6 @@
 //local
 import { IUserDocument } from "../../entities/user/model";
 import emailer from "../emailer";
-import { ITokenDocument } from "../../entities/token/model/types";
 
 export const sendVerificationEmail = (user: IUserDocument, token: string) => {
 	emailer.sendMail({
