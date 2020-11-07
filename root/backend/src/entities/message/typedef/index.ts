@@ -1,7 +1,7 @@
 import { gql } from "apollo-server-express";
 
 export default gql`
-	input IStrictMessageInput {
+	input StrictMessageInput {
 		senderId: ID!
 		receiverId: ID!
 		body: String!
