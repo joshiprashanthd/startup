@@ -12,7 +12,7 @@ export default gql`
 	}
 
 	extend type Mutation {
-		createMessage(input: IStrictMessageInput!): Message!
+		createMessage(input: StrictMessageInput!): Message!
 		removeMessage(messageId: ID!): Boolean!
 		editMessage(body: String!, messageId: ID!): Message!
 	}
