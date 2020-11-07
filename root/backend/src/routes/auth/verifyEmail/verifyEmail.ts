@@ -11,7 +11,7 @@ export default async function (req, res, next) {
 		const payload = (await jwt.verify(
 			tokenDoc.token,
 			TokenConfig.tokenSecret
-		)) as { userId: string; email: string };
+		)) as { email: string };
 
 		await User.findByIdAndUpdate(tokenDoc.userId as string, {
 			"accountInfo.verifiedEmail": true
