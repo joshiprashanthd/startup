@@ -37,7 +37,6 @@ export default {
 
 			const tokenDoc = await Token.create<any>({
 				userId: user.id,
-				email: user.accountInfo.email,
 				token: token
 			});
 
