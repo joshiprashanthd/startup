@@ -4,6 +4,7 @@ import { ConversationTypeDef } from "./conversation";
 import { MessageTypeDef } from "./message";
 import { SkillTypeDef } from "./skill";
 import { ProjectTypeDef } from "./project";
+import { ProjectRequestTypeDef } from "./projectRequest";
 import { CustomScalarTypeDef } from "./customScalars";
 import { DirectivesTypeDef } from "./customDirectives";
 
@@ -15,5 +16,6 @@ export default [
 	SkillTypeDef,
 	MessageTypeDef,
 	ProjectTypeDef,
+	ProjectRequestTypeDef,
 	ConversationTypeDef
 ];
