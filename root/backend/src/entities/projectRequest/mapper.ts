@@ -11,5 +11,7 @@ export const mapProjectRequest = (
 	from: mapUserId(projectRequest.from, context),
 	to: async () => Project.findById(projectRequest.to),
 	message: projectRequest.message,
-	status: projectRequest.status
+	status: projectRequest.status,
+	createdAt: projectRequest.createdAt,
+	updatedAt: projectRequest.updatedAt
 });
