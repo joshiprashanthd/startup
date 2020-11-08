@@ -1,4 +1,6 @@
 import { IContext } from "../../types";
+import { mapProjectRequest } from "../projectRequest/mapper";
+import { ProjectRequest } from "../projectRequest/model";
 import { mapSkillIds } from "../skill/mapper";
 import { mapUserId, mapUserIds } from "../user/mapper";
 import { IProjectDocument } from "./model";
@@ -13,7 +15,11 @@ export const mapProject = (
 		...project.details,
 		skillSet: mapSkillIds(project.details.skillSet, context),
 		creator: mapUserId(project.details.creator, context),
-		stars: mapUserIds(project.details.stars, context)
+		stars: mapUserIds(project.details.stars, context),
+		requests: async () =>
+			(await ProjectRequest.find({ to: project.id })).map(request =>
+				mapProjectRequest(request, context)
+			) as any
 	},
 	state: project.state,
 	createdAt: project.createdAt,
