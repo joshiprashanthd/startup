@@ -30,6 +30,7 @@ export default gql`
 		creator: User!
 		skillSet: [Skill!]
 		stars: [User!]
+		requests: [ProjectRequest!]
 	}
 
 	type Project {

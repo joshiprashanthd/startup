@@ -1,3 +1,4 @@
+import { IProjectRequest } from "../../projectRequest/typedef";
 import { ISkill, ISkillIdInput } from "../../skill/typedef";
 import { IUser } from "../../user/typedef";
 import { ProjectStateEnum } from "../model/types";
@@ -19,6 +20,7 @@ interface IProjectDetails {
 	creator: IUser | (() => Promise<IUser>);
 	skillSet: ISkill[] | ISkillIdInput[] | (() => Promise<ISkill[]>);
 	stars: Nullable<IUser[]> | (() => Promise<IUser[]>);
+	requests: Nullable<IProjectRequest[]> | (() => Promise<IProjectRequest[]>);
 }
 
 export interface IProject {
