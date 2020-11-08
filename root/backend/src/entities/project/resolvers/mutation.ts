@@ -19,7 +19,8 @@ export default {
 			const input = {
 				details: {
 					...args.input.details,
-					skillSet: skillSet.map(obj => obj.skillId)
+					skillSet: skillSet.map(obj => obj.skillId),
+					creator: context.req.session.userId
 				}
 			};
 
