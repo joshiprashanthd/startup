@@ -8,4 +8,6 @@ export interface IProjectRequest {
 	to: IProject | (() => Promise<IProject>);
 	message: string;
 	status: ProjectRequestStatusEnum;
+	createdAt: Date;
+	updatedAt: Date;
 }

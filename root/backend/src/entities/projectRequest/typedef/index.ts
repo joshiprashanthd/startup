@@ -13,6 +13,8 @@ export default gql`
 		to: Project!
 		message: String
 		status: RequestStatusEnum!
+		createdAt: Date!
+		updatedAt: Date!
 	}
 
 	extend type Query {
