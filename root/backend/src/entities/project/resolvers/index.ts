@@ -1,5 +1,5 @@
-// import QueryResolver from "./query";
+import QueryResolver from "./query";
 import MutationResolver from "./mutation";
 // import SubscriptionResolver from "./subscription";
 
-export default { ...MutationResolver };
+export default { ...MutationResolver, ...QueryResolver };
