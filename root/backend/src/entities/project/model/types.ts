@@ -23,6 +23,8 @@ export enum ProjectStateEnum {
 export interface IProjectBaseDocument extends Document {
 	details: IProjectDetails;
 	state: ProjectStateEnum;
+	createdAt: Date;
+	updatedAt: Date;
 }
 
 export interface IProjectDocument extends IProjectBaseDocument {}
