@@ -1,9 +1,9 @@
 import { Document, Model } from "mongoose";
 
 export enum ProjectRequestStatusEnum {
-	PENDING,
-	ACCEPTED,
-	DENIED
+	PENDING = "PENDING",
+	ACCEPTED = "ACCEPTED",
+	DENIED = "DENIED"
 }
 
 export interface IProjectRequestBaseDocument extends Document {
