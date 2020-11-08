@@ -25,4 +25,6 @@ export interface IProject {
 	id: string;
 	details: IProjectDetails;
 	state: ProjectStateEnum;
+	createdAt: Date;
+	updatedAt: Date;
 }

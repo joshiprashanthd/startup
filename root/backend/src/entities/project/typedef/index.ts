@@ -36,6 +36,8 @@ export default gql`
 		id: ID!
 		details: ProjectDetails!
 		state: ProjectStateEnum!
+		createdAt: Date!
+		updatedAt: Date!
 	}
 
 	extend type Query {
