@@ -11,6 +11,8 @@ export interface IProjectRequestBaseDocument extends Document {
 	to: string;
 	message: string;
 	status: ProjectRequestStatusEnum;
+	createdAt: Date;
+	updatedAt: Date;
 }
 
 export interface IProjectRequestDocument extends IProjectRequestBaseDocument {}
