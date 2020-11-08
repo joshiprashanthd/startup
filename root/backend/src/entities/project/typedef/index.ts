@@ -43,7 +43,7 @@ export default gql`
 	}
 
 	extend type Mutation {
-		createProject(input: StrictProjectInput!): Project!
+		createProject(input: StrictProjectInput!): Project! @auth
 	}
 `;
 
