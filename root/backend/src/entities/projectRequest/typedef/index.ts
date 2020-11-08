@@ -23,6 +23,7 @@ export default gql`
 
 	extend type Mutation {
 		requestProject(message: String!, projectId: ID!): ProjectRequest! @auth
+		acceptProjectRequest(projectRequestId: ID!): ProjectRequest! @auth
 	}
 `;
 
