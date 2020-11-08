@@ -1,5 +1,5 @@
 //local
-import { AuthenticationError } from "apollo-server-express";
+import { ApolloError, AuthenticationError } from "apollo-server-express";
 import { IContext } from "../../../types";
 import { Project } from "../../project/model";
 import { mapProjectRequest } from "../mapper";
@@ -17,6 +17,14 @@ export default {
 			context: IContext,
 			info: any
 		) => {
+			const project = await Project.findById(args.projectId);
+
+			if (
+				project.details.creator.toString() ===
+				context.req.session.userId.toString()
+			)
+				throw new ApolloError("You cannot request your own project.");
+
 			const projectRequest = await ProjectRequest.create<
 				Partial<IProjectRequestDocument>
 			>({
