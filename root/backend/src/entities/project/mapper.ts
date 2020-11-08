@@ -15,5 +15,7 @@ export const mapProject = (
 		creator: mapUserId(project.details.creator, context),
 		stars: mapUserIds(project.details.stars, context)
 	},
-	state: project.state
+	state: project.state,
+	createdAt: project.createdAt,
+	updatedAt: project.updatedAt
 });
