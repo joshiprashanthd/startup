@@ -15,6 +15,7 @@ export const CreatePage = function (props: any) {
         </h1>
         <InputField label="Title" onInputChange={setTitle} />
         <InputField label="Description" onInputChange={setDescription} />
+        <hr />
         <div className="flex flex-row items-center justify-between my-4">
           <div className="flex flex-col items-start mr-8">
             <p className="font-semibold">Choose starting date</p>
@@ -23,10 +24,10 @@ export const CreatePage = function (props: any) {
               voluptatibus officia nulla ad illo maiores, saepe a.
             </p>
           </div>
-          <div className="w-40 ml-8">
+          <div className="ml-8">
             <input
               type="date"
-              className="p-2 text-sm font-semibold bg-gray-300 rounded cursor-pointer font-body focus:outline-none"
+              className="p-2 text-sm font-semibold border rounded shadow-sm cursor-pointer font-body focus:outline-none"
             />
           </div>
         </div>
