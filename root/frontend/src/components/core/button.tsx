@@ -9,7 +9,7 @@ export const Button: React.FC<ButtonHTMLAttributes<
         !props.disabled && "hover:bg-purple-600 "
       } focus:outline-none ${
         !props.disabled && "active:bg-purple-700"
-      } disabled:opacity-50`}
+      } disabled:opacity-50 font-body`}
       {...props}
     >
       {props.children}
