@@ -9,6 +9,7 @@ import {
 //local
 import AuthContext, { IAuthInfo } from "./contexts/auth-context";
 import { AuthPage } from "./pages/auth-page";
+import { CreatePage } from "./pages/create-page";
 import { HomePage } from "./pages/home-page";
 import { IssuesPage } from "./pages/issues-page";
 
@@ -32,6 +33,9 @@ export default function App() {
           </Route>
           <Route path="/issues">
             <IssuesPage />
+          </Route>
+          <Route path="/create">
+            <CreatePage />
           </Route>
           {user === null && (
             <Route path="/auth">
