@@ -28,7 +28,7 @@ export const InputField: React.FC<IProps> = function ({
 
 const Label = function (props: any) {
   return (
-    <p className="mb-2 font-medium font-body">
+    <p className="mb-2 text-sm font-medium font-body">
       {props.children}{" "}
       <span className="text-xs text-gray-500">{props.secondary}</span>
     </p>
@@ -42,7 +42,7 @@ const Input = function (props: any) {
 
   return (
     <input
-      className={`w-full p-2 text-base duration-200 border ${
+      className={`w-full p-2 text-sm duration-200 border ${
         props.error ? "border-red-600" : ""
       } border-gray-400 rounded outline-none focus:border-transparent active:border-none focus:shadow-outline${
         props.error ? "-red" : ""
