@@ -1,13 +1,13 @@
 import React, { useContext, useState } from "react";
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 
 //local
-import { InputField } from "../mini-components/InputField";
-import { Loader } from "../mini-components/Loader";
-import { Button } from "../mini-components/Button";
-import { Alert } from "../mini-components/Alert";
+import { InputField } from "./core/input-field";
+import { Loader } from "./core/loader";
+import { Button } from "./core/button";
+import { Alert } from "./core/alert";
 import { SIGN_IN_MUTATION } from "../graphql/user/mutation";
-import AuthContext, { IAuthInfo } from "../contexts/AuthContext";
+import AuthContext, { IAuthInfo } from "../contexts/auth-context";
 
 export const SignInCard = function (props: any) {
   const authContext = useContext(AuthContext);

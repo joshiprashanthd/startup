@@ -1,6 +1,6 @@
 import React from "react";
-import { SignInCard } from "../../components/SignInCard";
-import { SignUpCard } from "../../components/SignUpCard";
+import { SignInCard } from "../../components/sign-in-card";
+import { SignUpCard } from "../../components/sign-up-card";
 
 export const AuthPage = function (props: any) {
   const [showSignIn, setShowSignIn] = React.useState(true);

@@ -7,9 +7,9 @@ import {
 } from "react-router-dom";
 
 //local
-import AuthContext, { IAuthInfo } from "./contexts/AuthContext";
-import { AuthPage } from "./pages/AuthPage";
-import { HomePage } from "./pages/HomePage";
+import AuthContext, { IAuthInfo } from "./contexts/auth-context";
+import { AuthPage } from "./pages/auth-page";
+import { HomePage } from "./pages/home-page";
 
 export default function App() {
   const [user, setUser] = useState<IAuthInfo | null>(null);
