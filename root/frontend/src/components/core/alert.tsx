@@ -4,6 +4,7 @@ import {
   faExclamation,
   faExclamationCircle,
   faExclamationTriangle,
+  faTimesCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -22,11 +23,11 @@ export const Alert: React.FC<IProps> = function ({
   switch (variant) {
     case "error":
       variantColor = "red";
-      variantIcon = faExclamationTriangle;
+      variantIcon = faTimesCircle;
       break;
     case "warning":
       variantColor = "orange";
-      variantIcon = faExclamationCircle;
+      variantIcon = faExclamationTriangle;
       break;
     case "success":
       variantColor = "green";
@@ -35,10 +36,13 @@ export const Alert: React.FC<IProps> = function ({
   }
   return (
     <p
-      className={`w-full px-2 py-1 text-sm font-medium font-body text-white bg-${variantColor}-500 rounded`}
+      className={`inline-flex items-center w-full p-2 text-sm font-medium font-body text-${variantColor}-600 bg-${variantColor}-100 rounded`}
       {...restProps}
     >
-      <FontAwesomeIcon icon={variantIcon} color="white" className="mr-1" />{" "}
+      <FontAwesomeIcon
+        icon={variantIcon}
+        className={`mr-2 text-${variantColor}-400`}
+      />{" "}
       {children}
     </p>
   );
