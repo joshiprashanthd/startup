@@ -14,7 +14,7 @@ export const Dropdown = function (props: any) {
     <DropdownContext.Provider
       value={{ onSelected: props.onSelected, showDropdown: setShow }}
     >
-      <div className="relative inline-block">
+      <div className="relative inline-block text-left">
         <div>
           <button
             onClick={() => setShow((prev) => !prev)}
