@@ -35,7 +35,7 @@ export const Alert: React.FC<IProps> = function ({
   }
   return (
     <p
-      className={`w-full px-2 py-1 text-sm font-medium text-white bg-${variantColor}-500 rounded`}
+      className={`w-full px-2 py-1 text-sm font-medium font-body text-white bg-${variantColor}-500 rounded`}
       {...restProps}
     >
       <FontAwesomeIcon icon={variantIcon} color="white" className="mr-1" />{" "}
