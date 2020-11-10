@@ -18,8 +18,8 @@ export const CreatePage = function (props: any) {
         <hr />
         <div className="flex flex-row items-center justify-between my-4">
           <div className="flex flex-col items-start mr-8">
-            <p className="font-semibold">Choose starting date</p>
-            <p className="text-sm text-gray-600">
+            <p className="font-semibold font-body">Choose starting date</p>
+            <p className="text-sm text-gray-600 font-body">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime
               voluptatibus officia nulla ad illo maiores, saepe a.
             </p>
