@@ -18,7 +18,7 @@ const UserSchema = new Schema<IUserDocument>(
 		personalInfo: {
 			bio: { type: String, default: null },
 			birthDate: { type: Date, default: null },
-			interests: [{ type: Schema.Types.ObjectId, ref: "Field" }]
+			interests: [{ type: Schema.Types.ObjectId, ref: "Skill" }]
 		},
 		statusInfo: {
 			isOnline: { type: Boolean, required: true, default: false },
