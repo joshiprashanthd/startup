@@ -10,7 +10,9 @@ export const CreatePage = function (props: any) {
     <div className="w-full min-h-screen">
       <Navbar selected="create" />
       <div className="w-2/4 h-screen mx-auto mt-16">
-        <h1 className="text-4xl font-semibold">Create new project</h1>
+        <h1 className="text-4xl font-semibold font-display">
+          Create new project
+        </h1>
         <InputField label="Title" onInputChange={setTitle} />
         <InputField label="Description" onInputChange={setDescription} />
         <div className="flex flex-row items-center justify-between my-4">
