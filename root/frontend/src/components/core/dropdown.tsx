@@ -18,7 +18,7 @@ export const Dropdown = function (props: any) {
         <div>
           <button
             onClick={() => setShow((prev) => !prev)}
-            className="p-2 text-sm font-medium transition duration-200 ease-in-out border rounded shadow-sm focus:outline-none focus:bg-gray-100"
+            className="px-3 py-2 text-sm font-medium transition duration-200 ease-in-out border rounded shadow-sm focus:outline-none focus:bg-gray-100"
           >
             {props.label}
             <FontAwesomeIcon icon={faAngleDown} className="ml-4" />
