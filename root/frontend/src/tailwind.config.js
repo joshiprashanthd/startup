@@ -262,7 +262,7 @@ module.exports = {
     },
     fontFamily: {
       display: ["Poppins", "nunito", "sans-serif"],
-      body: ['"Open Sans"', "sans-serif"],
+      body: ['"Inter", "Open Sans"', "sans-serif"],
       sans: [
         "system-ui",
         "-apple-system",
