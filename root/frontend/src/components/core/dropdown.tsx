@@ -34,7 +34,7 @@ Dropdown.Menu = function (props: any) {
   return (
     <div
       className={
-        "absolute right-0 z-10 min-w-full mt-2 text-sm origin-top-right bg-white rounded-md shadow-lg font-body" +
+        "absolute right-0 z-10 py-1 min-w-full mt-2 text-sm origin-top-right bg-white rounded-md shadow-lg font-body" +
         " " +
         (props.additionalClasses || "")
       }
@@ -56,7 +56,7 @@ Dropdown.Item = function (props: any) {
   const dropdownContext = useContext(DropdownContext);
   return (
     <p
-      className="block min-w-full p-2 text-sm rounded cursor-pointer hover:bg-gray-300"
+      className="block min-w-full p-2 text-sm cursor-pointer hover:bg-purple-500 hover:text-white"
       onClick={() => {
         dropdownContext.onSelected(props.value);
         dropdownContext.showDropdown(false);
