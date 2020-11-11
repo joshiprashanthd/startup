@@ -8,25 +8,28 @@ import { Chip } from "./core/chip";
 import { Loader } from "./core/loader";
 
 export const SkillSelectorField = function (props: any) {
-  const [selectedSkills, setSelectedSkills] = useState<any[]>([]);
-
   const handleOnSelect = (skill: any) => {
-    setSelectedSkills((prev) => [...prev, skill]);
+    props.onSelect((prev: any) => [...prev, skill]);
   };
 
   const handleOnDelete = (value: string) => {
-    setSelectedSkills((prev) => prev.filter((skill) => skill.id !== value));
+    props.onSelect((prev: any[]) =>
+      prev.filter((skill: { id: string }) => skill.id !== value)
+    );
   };
 
   return (
     <div className="flex items-center w-full my-2 text-left border rounded shadow-sm">
-      {selectedSkills.map((skill) => (
+      {props.selectedSkills.map((skill: { id: any; name: any }) => (
         <Chip onDelete={handleOnDelete} key={skill.id} value={skill.id}>
           {" "}
           {skill.name}{" "}
         </Chip>
       ))}
-      <InputField onSelect={handleOnSelect} selectedSkills={selectedSkills} />
+      <InputField
+        onSelect={handleOnSelect}
+        selectedSkills={props.selectedSkills}
+      />
     </div>
   );
 };
