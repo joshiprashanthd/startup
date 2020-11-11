@@ -63,7 +63,7 @@ export const SignInCard = function (props: any) {
       >
         {loading ? <Loader /> : "Sign In"}
       </Button>
-      <p className="mt-2 text-center">
+      <p className="mt-2 text-sm text-center font-body">
         New here? <Link onClick={props.toggleCard}>Sign Up</Link>
       </p>
     </div>
