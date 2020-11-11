@@ -1,9 +1,9 @@
 import React from "react";
 
-export const Loader = function () {
+export const Loader = function (props: any) {
   return (
     <svg
-      className="w-5 h-5 text-white animate-spin"
+      className={`w-5 h-5 text-${props.color || "white"} animate-spin`}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
