@@ -7,6 +7,7 @@ interface IProps {
   showError?: boolean;
   errorMessage?: string;
   onInputChange?: (value: string) => void;
+  textareaMode?: boolean;
 }
 
 export const InputField: React.FC<IProps> = function ({
@@ -16,11 +17,15 @@ export const InputField: React.FC<IProps> = function ({
   showError = false,
   errorMessage,
   onInputChange,
+  textareaMode = false,
 }) {
   return (
     <div className="my-4">
       <Label secondary={secondaryLabel}>{label}</Label>
-      <Input type={inputType} onChange={onInputChange} error={showError} />
+      {!textareaMode && (
+        <Input type={inputType} onChange={onInputChange} error={showError} />
+      )}
+      {textareaMode && <Textarea onChange={onInputChange} />}
       {showError && <Error>{errorMessage}</Error>}
     </div>
   );
@@ -51,6 +56,19 @@ const Input = function (props: any) {
       type={props.type}
       onChange={onChangeHandler}
     />
+  );
+};
+
+const Textarea = function (props: any) {
+  const onChangeHandler = (event: any) => {
+    props.onChange(event.currentTarget.value);
+  };
+
+  return (
+    <textarea
+      className="h-56 min-w-full p-2 text-sm duration-200 border rounded outline-none appearance-none focus:shadow-outline font-body focus:outline-none"
+      onChange={onChangeHandler}
+    ></textarea>
   );
 };
 
