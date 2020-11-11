@@ -9,6 +9,7 @@ export const CreatePage = function (props: any) {
   const [description, setDescription] = useState("");
   const [duration, setDuration] = useState(1);
   const [maxTeamMembers, setMaxTeamMembers] = useState(2);
+  const [selectedSkills, setSelectedSkills] = useState<any[]>([]);
 
   return (
     <div className="w-full min-h-screen">
@@ -26,8 +27,10 @@ export const CreatePage = function (props: any) {
               Choose project starting date
             </DescriptionHeading>
             <DescriptionBody>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi
-              corporis architecto odit.
+              Generally, in industry, before starting any project, there's a
+              planning session where team discuss agree upon things to do in
+              future. If you follow Agile workflow, sprint planning sessions are
+              held by scrum master
             </DescriptionBody>
           </DescriptionItem>
           <SelectorItem>
@@ -66,8 +69,8 @@ export const CreatePage = function (props: any) {
               Choose max number of team members
             </DescriptionHeading>
             <DescriptionBody>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illo
-              adipisci nihil minima eligendi!
+              If you are beginners, it's a good idea to start with a small team.
+              A group 5 to 10 members is sufficient to learn team work
             </DescriptionBody>
           </DescriptionItem>
           <SelectorItem>
@@ -83,21 +86,25 @@ export const CreatePage = function (props: any) {
             </Dropdown>
           </SelectorItem>
         </InputItem>
-        <div>
+        <hr />
+        <div className="my-4">
           <DescriptionItem>
             <DescriptionHeading>
               Choose skill set for this project
             </DescriptionHeading>
             <DescriptionBody>
-              Skill set is the basically a requirement for team members to
-              possess one of the skills from the skill set
+              Skill set will attract relevant individuals to work on this
+              project. It also means, only those who have required skills, will
+              be able to request for collaboration
             </DescriptionBody>
           </DescriptionItem>
           <div>
-            <SkillSelectorField />
+            <SkillSelectorField
+              selectedSkills={selectedSkills}
+              onSelect={setSelectedSkills}
+            />
           </div>
         </div>
-        <hr />
       </div>
     </div>
   );
