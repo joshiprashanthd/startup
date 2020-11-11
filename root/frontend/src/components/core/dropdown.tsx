@@ -46,9 +46,9 @@ Dropdown.Menu = function (props: any) {
 
 Dropdown.ItemHeader = function (props: any) {
   return (
-    <span className="block p-2 text-xs font-semibold text-gray-800">
-      {props.children}
-    </span>
+    <div className="p-2 text-xs font-semibold text-gray-700">
+      <span>{props.children}</span>
+    </div>
   );
 };
 
