@@ -53,12 +53,9 @@ export const CreatePage = function (props: any) {
               onSelected={(value: any) => setDuration(value)}
             >
               <Dropdown.Menu>
-                <Dropdown.Item value={1}>1 weeks</Dropdown.Item>
-                <Dropdown.Item value={2}>2 weeks</Dropdown.Item>
-                <Dropdown.Item value={3}>3 weeks</Dropdown.Item>
-                <Dropdown.Item value={4}>4 weeks</Dropdown.Item>
-                <Dropdown.Item value={5}>5 weeks</Dropdown.Item>
-                <Dropdown.Item value={6}>6 weeks</Dropdown.Item>
+                {[1, 2, 3, 4, 5, 6].map((week) => (
+                  <Dropdown.Item value={week}>{week} weeks</Dropdown.Item>
+                ))}
               </Dropdown.Menu>
             </Dropdown>
           </SelectorItem>
@@ -78,7 +75,7 @@ export const CreatePage = function (props: any) {
               label={`${maxTeamMembers} Members`}
               onSelected={setMaxTeamMembers}
             >
-              <Dropdown.Menu additionalClasses="overflow-y-scroll h-56">
+              <Dropdown.Menu additionalClasses="overflow-y-auto max-h-56">
                 {[2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
                   <Dropdown.Item value={num}>{`${num} Members`}</Dropdown.Item>
                 ))}
