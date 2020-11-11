@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Dropdown } from "../../components/core/dropdown";
 import { InputField } from "../../components/core/input-field";
 import { Navbar } from "../../components/navbar";
+import { SkillSelectorField } from "../../components/skill-selector-field";
 
 export const CreatePage = function (props: any) {
   const [title, setTitle] = useState("");
@@ -85,6 +86,20 @@ export const CreatePage = function (props: any) {
             </Dropdown>
           </SelectorItem>
         </InputItem>
+        <div>
+          <DescriptionItem>
+            <DescriptionHeading>
+              Choose skill set for this project
+            </DescriptionHeading>
+            <DescriptionBody>
+              Skill set is the basically a requirement for team members to
+              possess one of the skills from the skill set
+            </DescriptionBody>
+          </DescriptionItem>
+          <div>
+            <SkillSelectorField />
+          </div>
+        </div>
         <hr />
       </div>
     </div>
