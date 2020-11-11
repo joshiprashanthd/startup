@@ -12,7 +12,7 @@ export const AuthPage = function (props: any) {
           <span className="text-purple-500">collabs</span>
           <span className="text-black"> lets you collaborate</span>
         </h1>
-        <p className="w-8/12 text-lg text-gray-600">
+        <p className="w-8/12 text-lg text-gray-600 font-body">
           A platform where you can share your idea and build team
         </p>
       </div>
