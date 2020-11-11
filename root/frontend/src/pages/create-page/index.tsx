@@ -21,7 +21,11 @@ export const CreatePage = function (props: any) {
           Create new project
         </h1>
         <InputField label="Title" onInputChange={setTitle} />
-        <InputField label="Description" onInputChange={setDescription} />
+        <InputField
+          textareaMode={true}
+          label="Description"
+          onInputChange={setDescription}
+        />
         <hr />
         <InputItem>
           <DescriptionItem>
