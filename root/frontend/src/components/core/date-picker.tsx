@@ -1,8 +1,14 @@
 import React from "react";
 
-export const DatePicker = function (props: any) {
+interface IProps extends React.HTMLAttributes<HTMLInputElement> {
+  onSelectDate: (value: string) => void;
+}
+
+export const DatePicker: React.FC<IProps> = function ({
+  onSelectDate = (value: string) => {},
+}) {
   const handleStartingDate = (event: React.FormEvent<HTMLInputElement>) => {
-    props.onSelectDate(event.currentTarget.value);
+    onSelectDate(event.currentTarget.value);
   };
 
   return (
