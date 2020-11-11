@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { DatePicker } from "../../components/core/date-picker";
 import { Dropdown } from "../../components/core/dropdown";
 import { InputField } from "../../components/core/input-field";
 import { Navbar } from "../../components/navbar";
@@ -7,6 +8,7 @@ import { SkillSelectorField } from "../../components/skill-selector-field";
 export const CreatePage = function (props: any) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [startingDate, setStartingDate] = useState("");
   const [duration, setDuration] = useState(1);
   const [maxTeamMembers, setMaxTeamMembers] = useState(2);
   const [selectedSkills, setSelectedSkills] = useState<any[]>([]);
@@ -29,15 +31,11 @@ export const CreatePage = function (props: any) {
             <DescriptionBody>
               Generally, in industry, before starting any project, there's a
               planning session where team discuss agree upon things to do in
-              future. If you follow Agile workflow, sprint planning sessions are
-              held by scrum master
+              future.
             </DescriptionBody>
           </DescriptionItem>
           <SelectorItem>
-            <input
-              type="date"
-              className="p-2 text-sm font-medium border rounded shadow-sm cursor-pointer font-body focus:outline-none"
-            />
+            <DatePicker onSelectDate={setStartingDate} />
           </SelectorItem>
         </InputItem>
         <InputItem>
