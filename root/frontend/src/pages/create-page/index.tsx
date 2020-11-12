@@ -1,11 +1,18 @@
 import React, { useState } from "react";
+import { useMutation } from "@apollo/client";
+
+//local
 import { DatePicker } from "../../components/core/date-picker";
 import { Dropdown } from "../../components/core/dropdown";
 import { InputField } from "../../components/core/input-field";
 import { Navbar } from "../../components/navbar";
 import { SkillSelectorField } from "../../components/skill-selector-field";
+import { CREATE_PROJECT } from "../../graphql/project/mutation";
+import { Button } from "../../components/core/button";
 
 export const CreatePage = function (props: any) {
+  const [createProject, { loading }] = useMutation(CREATE_PROJECT);
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [startingDate, setStartingDate] = useState("");
@@ -13,24 +20,54 @@ export const CreatePage = function (props: any) {
   const [maxTeamMembers, setMaxTeamMembers] = useState(2);
   const [selectedSkills, setSelectedSkills] = useState<any[]>([]);
 
+  const handleOnClick = () => {
+    const startingDateInNumber = new Date(startingDate).getTime();
+    const modSkillSet = selectedSkills.map((skill) => ({ skillId: skill.id }));
+
+    createProject({
+      variables: {
+        input: {
+          details: {
+            title,
+            description,
+            startingOn: startingDateInNumber,
+            maxTeamMembers,
+            duration,
+            skillSet: modSkillSet,
+          },
+        },
+      },
+    })
+      .then((resData) => console.log(resData))
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div className="w-full min-h-screen">
       <Navbar selected="create" />
-      <div className="w-2/4 h-screen mx-auto mt-16">
+      <div className="w-2/4 min-h-screen py-16 mx-auto">
         <h1 className="text-4xl font-semibold font-display">
           Create new project
         </h1>
-        <InputField label="Title" onInputChange={setTitle} />
+        <InputField
+          label="Title"
+          secondaryLabel="(required)"
+          onInputChange={setTitle}
+        />
         <InputField
           textareaMode={true}
           label="Description"
+          secondaryLabel="(required)"
           onInputChange={setDescription}
         />
         <hr />
         <InputItem>
           <DescriptionItem>
             <DescriptionHeading>
-              Choose project starting date
+              Choose project starting date{" "}
+              <span className="text-xs font-medium text-gray-600">
+                (required)
+              </span>
             </DescriptionHeading>
             <DescriptionBody>
               Generally, in industry, before starting any project, there's a
@@ -92,7 +129,10 @@ export const CreatePage = function (props: any) {
         <div className="my-4">
           <DescriptionItem>
             <DescriptionHeading>
-              Choose skill set for this project
+              Choose skill set for this project{" "}
+              <span className="text-xs font-medium text-gray-600">
+                (required)
+              </span>
             </DescriptionHeading>
             <DescriptionBody>
               Skill set will attract relevant individuals to work on this
@@ -107,6 +147,17 @@ export const CreatePage = function (props: any) {
             />
           </div>
         </div>
+        <Button
+          onClick={handleOnClick}
+          disabled={
+            title.length === 0 ||
+            description.length === 0 ||
+            startingDate.length === 0 ||
+            selectedSkills.length === 0
+          }
+        >
+          Create Project
+        </Button>
       </div>
     </div>
   );
