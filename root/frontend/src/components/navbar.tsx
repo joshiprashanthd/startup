@@ -9,7 +9,7 @@ export const Navbar = function (props: any) {
           <div
             className={`w-24 px-2 py-3 font-bold text-center ${
               props.selected === "explore" && "text-purple-700 bg-purple-200"
-            } border-l border-r font-body`}
+            } border-l font-body`}
           >
             Explore
           </div>
@@ -18,7 +18,7 @@ export const Navbar = function (props: any) {
           <div
             className={`w-24 px-2 py-3 font-bold text-center ${
               props.selected === "issues" && "text-purple-700 bg-purple-200"
-            } border-l border-r font-body`}
+            } border-l  font-body`}
           >
             Issues
           </div>
