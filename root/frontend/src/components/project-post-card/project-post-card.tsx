@@ -25,7 +25,7 @@ export const ProjectPostCard = function (props: any) {
           />
         </div>
 
-        <div className="flex items-center">
+        <div className="flex items-center space-x-2">
           <RequestButton />
           <StarButton />
         </div>
