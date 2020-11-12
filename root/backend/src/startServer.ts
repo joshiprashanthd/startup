@@ -38,7 +38,7 @@ export default async function () {
 		app,
 		cors: {
 			credentials: true,
-			origin: "*"
+			origin: "http://localhost:9000"
 		}
 	});
 
