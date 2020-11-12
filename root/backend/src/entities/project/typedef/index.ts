@@ -37,6 +37,7 @@ export default gql`
 		id: ID!
 		details: ProjectDetails!
 		state: ProjectStateEnum!
+		isStarredByMe: Boolean!
 		createdAt: Date!
 		updatedAt: Date!
 	}
@@ -48,6 +49,7 @@ export default gql`
 
 	extend type Mutation {
 		createProject(input: StrictProjectInput!): Project! @auth
+		starProject(projectId: ID!): Boolean!
 	}
 `;
 
