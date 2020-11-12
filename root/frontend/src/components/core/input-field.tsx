@@ -66,7 +66,7 @@ const Textarea = function (props: any) {
 
   return (
     <textarea
-      className="h-56 min-w-full p-2 text-sm duration-200 border rounded outline-none appearance-none focus:shadow-outline font-body focus:outline-none"
+      className="h-56 min-w-full p-2 text-sm duration-200 border border-gray-400 rounded outline-none appearance-none focus:shadow-outline font-body focus:outline-none"
       onChange={onChangeHandler}
     ></textarea>
   );
