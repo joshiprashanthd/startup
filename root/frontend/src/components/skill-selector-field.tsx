@@ -57,7 +57,7 @@ const InputField = function (props: any) {
         type="text"
         value={value}
         onChange={handleInput}
-        className="w-full p-2 text-sm placeholder-gray-400 focus:outline-none font-body"
+        className="w-full p-2 text-sm placeholder-gray-400 duration-200 rounded outline-none focus:outline-none focus:shadow-outline font-body"
         placeholder="Enter required skills"
       />
       {value.length > 0 && (
