@@ -1,3 +1,4 @@
+import { ApolloError } from "apollo-server-express";
 import { IContext } from "../../../types";
 import { mapProject } from "../mapper";
 import { IProjectDocument, Project } from "../model";
@@ -29,6 +30,23 @@ export default {
 			);
 
 			return mapProject(project, context);
+		},
+
+		starProject: async (
+			parent: any,
+			args: { projectId: string },
+			context: IContext,
+			info: any
+		) => {
+			const project = await Project.findById(args.projectId);
+			await project.updateOne(
+				{ $push: { "details.stars": context.req.session.userId.toString() } },
+				(err, raw) => {
+					if (err) throw new ApolloError(err);
+					return false;
+				}
+			);
+			return true;
 		}
 	}
 };
