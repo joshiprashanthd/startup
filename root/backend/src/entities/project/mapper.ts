@@ -3,7 +3,7 @@ import { mapProjectRequest } from "../projectRequest/mapper";
 import { ProjectRequest } from "../projectRequest/model";
 import { mapSkillIds } from "../skill/mapper";
 import { mapUserId, mapUserIds } from "../user/mapper";
-import { IProjectDocument } from "./model";
+import { IProjectDocument, Project } from "./model";
 import { IProject } from "./typedef/types";
 
 export const mapProject = (
@@ -21,6 +21,7 @@ export const mapProject = (
 				mapProjectRequest(request, context)
 			) as any
 	},
+	isStarredByMe: project.details.stars.includes(context.req.session.userId),
 	state: project.state,
 	createdAt: project.createdAt,
 	updatedAt: project.updatedAt
