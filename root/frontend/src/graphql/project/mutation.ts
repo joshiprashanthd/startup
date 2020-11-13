@@ -7,3 +7,9 @@ export const CREATE_PROJECT = gql`
     }
   }
 `;
+
+export const TOGGLE_STAR_PROJECT = gql`
+  mutation ToggleStarProject($projectId: ID!) {
+    toggleStarProject(projectId: $projectId)
+  }
+`;
