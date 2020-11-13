@@ -19,7 +19,7 @@ export const PROJECTS = gql`
           }
         }
       }
-      isStarredByMe
+      isStarred
     }
   }
 `;
