@@ -21,7 +21,7 @@ export const mapProject = (
 				mapProjectRequest(request, context)
 			) as any
 	},
-	isStarredByMe: project.details.stars.includes(context.req.session.userId),
+	isStarred: project.details.stars.includes(context.req.session.userId),
 	state: project.state,
 	createdAt: project.createdAt,
 	updatedAt: project.updatedAt

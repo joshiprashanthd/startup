@@ -37,7 +37,7 @@ export default gql`
 		id: ID!
 		details: ProjectDetails!
 		state: ProjectStateEnum!
-		isStarredByMe: Boolean!
+		isStarred: Boolean!
 		createdAt: Date!
 		updatedAt: Date!
 	}
