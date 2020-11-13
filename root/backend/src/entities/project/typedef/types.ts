@@ -27,7 +27,7 @@ export interface IProject {
 	id: string;
 	details: IProjectDetails;
 	state: ProjectStateEnum;
-	isStarredByMe: boolean;
+	isStarred: boolean;
 	createdAt: Date;
 	updatedAt: Date;
 }
