@@ -11,12 +11,25 @@ import {
 
 export default {
 	Mutation: {
-		requestProject: async (
+		toggleRequestProject: async (
 			parent: any,
 			args: { message: string; projectId: string },
 			context: IContext,
 			info: any
 		) => {
+			const oldRequest = await ProjectRequest.findOne({
+				from: context.req.session.userId,
+				to: args.projectId
+			});
+
+			if (oldRequest) {
+				await oldRequest.deleteOne((err, raw) => {
+					if (err) throw new ApolloError(err);
+				});
+
+				return false;
+			}
+
 			const project = await Project.findById(args.projectId);
 
 			if (
@@ -25,16 +38,14 @@ export default {
 			)
 				throw new ApolloError("You cannot request your own project.");
 
-			const projectRequest = await ProjectRequest.create<
-				Partial<IProjectRequestDocument>
-			>({
+			await ProjectRequest.create<Partial<IProjectRequestDocument>>({
 				from: context.req.session.userId,
 				to: args.projectId,
 				status: ProjectRequestStatusEnum.PENDING,
 				message: args.message.length === 0 ? null : args.message
 			});
 
-			return mapProjectRequest(projectRequest, context);
+			return true;
 		},
 
 		acceptProjectRequest: async (
