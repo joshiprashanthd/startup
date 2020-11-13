@@ -1,7 +1,10 @@
+import { useMutation } from "@apollo/client";
 import moment from "moment";
 import React, { useState } from "react";
+import { REQUEST_PROJECT } from "../../graphql/projectRequest/mutation";
 import { Button } from "../core/button";
 import { InputField } from "../core/input-field";
+import { Loader } from "../core/loader";
 import { Modal } from "../core/modal";
 
 export const ProjectPostCard = function (props: any) {
@@ -28,7 +31,7 @@ export const ProjectPostCard = function (props: any) {
         </div>
 
         <div className="flex items-center space-x-2">
-          <RequestButton />
+          <RequestButton projectId={project.id} />
           <StarButton
             starred={project.isStarred}
             callback={props.toggleStarCallback}
@@ -74,20 +77,41 @@ const RequestButton = function (props: any) {
   const [message, setMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
 
+  const [requestProject, { called, loading }] = useMutation(REQUEST_PROJECT);
+
+  const handleReqeustProject = () => {
+    requestProject({
+      variables: {
+        message,
+        projectId: props.projectId,
+      },
+    }).then((resData) => {
+      setShowModal(false);
+    });
+  };
+
   return (
     <>
       {showModal && (
         <Modal>
-          <Modal.Title>Request of collaboration</Modal.Title>
+          <Modal.Title>Request for collaboration</Modal.Title>
           <InputField
             textareaMode={true}
-            label="Message"
+            label="Message for project owner"
             secondaryLabel="(optional)"
             onInputChange={setMessage}
           />
           <div className="flex justify-end space-x-3">
-            <Button onClick={() => setShowModal(false)}>Cancel</Button>
-            <Button>Send Request</Button>
+            <div className="w-40">
+              <Button onClick={() => setShowModal(false)} variant="secondary">
+                Cancel
+              </Button>
+            </div>
+            <div className="w-40">
+              <Button onClick={handleReqeustProject}>
+                {called && loading ? <Loader /> : "Send Request"}
+              </Button>
+            </div>
           </div>
         </Modal>
       )}
