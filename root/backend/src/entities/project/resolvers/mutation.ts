@@ -32,21 +32,28 @@ export default {
 			return mapProject(project, context);
 		},
 
-		starProject: async (
+		toggleStarProject: async (
 			parent: any,
 			args: { projectId: string },
 			context: IContext,
 			info: any
 		) => {
 			const project = await Project.findById(args.projectId);
-			await project.updateOne(
-				{ $push: { "details.stars": context.req.session.userId.toString() } },
-				(err, raw) => {
-					if (err) throw new ApolloError(err);
-					return false;
-				}
+
+			const isStarred = project.details.stars.includes(
+				context.req.session.userId
 			);
-			return true;
+
+			if (isStarred)
+				await project.updateOne({
+					$pull: { "details.stars": context.req.session.userId }
+				});
+			else
+				await project.updateOne({
+					$push: { "details.stars": context.req.session.userId }
+				});
+
+			return !isStarred;
 		}
 	}
 };
