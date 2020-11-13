@@ -49,7 +49,7 @@ export default gql`
 
 	extend type Mutation {
 		createProject(input: StrictProjectInput!): Project! @auth
-		starProject(projectId: ID!): Boolean!
+		toggleStarProject(projectId: ID!): Boolean!
 	}
 `;
 
