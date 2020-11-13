@@ -22,6 +22,11 @@ export const mapProject = (
 			) as any
 	},
 	isStarred: project.details.stars.includes(context.req.session.userId),
+	isRequested: async () =>
+		(await ProjectRequest.findOne({
+			from: context.req.session.userId,
+			to: project.id
+		})) !== null,
 	state: project.state,
 	createdAt: project.createdAt,
 	updatedAt: project.updatedAt

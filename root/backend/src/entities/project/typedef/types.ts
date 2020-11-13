@@ -28,6 +28,7 @@ export interface IProject {
 	details: IProjectDetails;
 	state: ProjectStateEnum;
 	isStarred: boolean;
+	isRequested: boolean | (() => Promise<boolean>);
 	createdAt: Date;
 	updatedAt: Date;
 }
