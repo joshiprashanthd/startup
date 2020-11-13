@@ -38,6 +38,7 @@ export default gql`
 		details: ProjectDetails!
 		state: ProjectStateEnum!
 		isStarred: Boolean!
+		isRequested: Boolean!
 		createdAt: Date!
 		updatedAt: Date!
 	}
