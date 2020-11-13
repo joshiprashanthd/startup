@@ -1,7 +1,7 @@
-import { useMutation } from "@apollo/client";
 import moment from "moment";
 import React, { useState } from "react";
-import { REQUEST_PROJECT } from "../../graphql/projectRequest/mutation";
+
+//local
 import { Button } from "../core/button";
 import { InputField } from "../core/input-field";
 import { Loader } from "../core/loader";
@@ -31,7 +31,10 @@ export const ProjectPostCard = function (props: any) {
         </div>
 
         <div className="flex items-center space-x-2">
-          <RequestButton projectId={project.id} />
+          <RequestButton
+            project={project}
+            callback={props.toggleRequestCallback}
+          />
           <StarButton
             starred={project.isStarred}
             callback={props.toggleStarCallback}
@@ -77,22 +80,19 @@ const RequestButton = function (props: any) {
   const [message, setMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
 
-  const [requestProject, { called, loading }] = useMutation(REQUEST_PROJECT);
+  const handleSendRequestButton = () => {
+    props.callback(message);
+    setShowModal(false);
+  };
 
-  const handleReqeustProject = () => {
-    requestProject({
-      variables: {
-        message,
-        projectId: props.projectId,
-      },
-    }).then((resData) => {
-      setShowModal(false);
-    });
+  const handleRequestButton = () => {
+    if (props.project.isRequested) props.callback(message);
+    else setShowModal(true);
   };
 
   return (
     <>
-      {showModal && (
+      {showModal && !props.project.isRequested && (
         <Modal>
           <Modal.Title>Request for collaboration</Modal.Title>
           <InputField
@@ -108,18 +108,20 @@ const RequestButton = function (props: any) {
               </Button>
             </div>
             <div className="w-40">
-              <Button onClick={handleReqeustProject}>
-                {called && loading ? <Loader /> : "Send Request"}
-              </Button>
+              <Button onClick={handleSendRequestButton}>Send Request</Button>
             </div>
           </div>
         </Modal>
       )}
       <button
-        className="px-2 py-1 border rounded shadow-sm outline-none hover:bg-gray-100 focus:outline-none"
-        onClick={() => setShowModal((prev) => !prev)}
+        className={`px-2 py-1 rounded shadow-sm outline-none  ${
+          props.project.isRequested
+            ? "bg-purple-500 text-white"
+            : "hover:bg-gray-100 border"
+        } focus:outline-none`}
+        onClick={handleRequestButton}
       >
-        Request
+        {props.project.isRequested ? "Cancel Request" : "Request"}
       </button>
     </>
   );
