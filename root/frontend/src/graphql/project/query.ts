@@ -20,6 +20,7 @@ export const PROJECTS = gql`
         }
       }
       isStarred
+      isRequested
     }
   }
 `;
