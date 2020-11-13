@@ -30,8 +30,8 @@ export default {
 			>({
 				from: context.req.session.userId,
 				to: args.projectId,
-				message: args.message,
-				status: ProjectRequestStatusEnum.PENDING
+				status: ProjectRequestStatusEnum.PENDING,
+				message: args.message.length === 0 ? null : args.message
 			});
 
 			return mapProjectRequest(projectRequest, context);
