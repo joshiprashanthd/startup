@@ -1,5 +1,8 @@
 import moment from "moment";
 import React, { useState } from "react";
+import { Button } from "../core/button";
+import { InputField } from "../core/input-field";
+import { Modal } from "../core/modal";
 
 export const ProjectPostCard = function (props: any) {
   const { project } = props;
@@ -68,10 +71,33 @@ const NameAndHandler = function (props: any) {
 };
 
 const RequestButton = function (props: any) {
+  const [message, setMessage] = useState("");
+  const [showModal, setShowModal] = useState(false);
+
   return (
-    <button className="px-2 py-1 border rounded shadow-sm outline-none hover:bg-gray-100 focus:outline-none">
-      Request
-    </button>
+    <>
+      {showModal && (
+        <Modal>
+          <Modal.Title>Request of collaboration</Modal.Title>
+          <InputField
+            textareaMode={true}
+            label="Message"
+            secondaryLabel="(optional)"
+            onInputChange={setMessage}
+          />
+          <div className="flex justify-end space-x-3">
+            <Button onClick={() => setShowModal(false)}>Cancel</Button>
+            <Button>Send Request</Button>
+          </div>
+        </Modal>
+      )}
+      <button
+        className="px-2 py-1 border rounded shadow-sm outline-none hover:bg-gray-100 focus:outline-none"
+        onClick={() => setShowModal((prev) => !prev)}
+      >
+        Request
+      </button>
+    </>
   );
 };
 
@@ -106,7 +132,7 @@ const ProjectDescription = function (props: any) {
       >
         {props.children}
         {!readMore && (
-          <div className="absolute bottom-0 left-0 z-10 w-full h-10 text-sm text-right text-purple-500 origin-top-right font-body bg-gradient-to-t from-white" />
+          <div className="absolute bottom-0 left-0 w-full h-10 text-sm text-right text-purple-500 origin-top-right font-body bg-gradient-to-t from-white" />
         )}
       </div>
       {!readMore && (
