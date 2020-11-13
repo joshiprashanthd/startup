@@ -3,7 +3,6 @@ import React, { useState } from "react";
 
 export const ProjectPostCard = function (props: any) {
   const { project } = props;
-  console.log(project);
 
   const names = project.details.creator.accountInfo.name.split(" ");
   const avatarName = names[0].charAt(0) + names[1].charAt(0);
@@ -27,7 +26,10 @@ export const ProjectPostCard = function (props: any) {
 
         <div className="flex items-center space-x-2">
           <RequestButton />
-          <StarButton />
+          <StarButton
+            starred={project.isStarred}
+            callback={props.toggleStarCallback}
+          />
         </div>
       </div>
 
@@ -75,8 +77,13 @@ const RequestButton = function (props: any) {
 
 const StarButton = function (props: any) {
   return (
-    <button className="px-2 py-1 border rounded shadow-sm outline-none hover:bg-gray-100 focus:outline-none">
-      Star
+    <button
+      className={`px-2 py-1 rounded shadow-sm outline-none  ${
+        props.starred ? "bg-purple-500 text-white" : "hover:bg-gray-100 border"
+      } focus:outline-none`}
+      onClick={props.callback}
+    >
+      {props.starred ? "Starred" : "Star"}
     </button>
   );
 };
