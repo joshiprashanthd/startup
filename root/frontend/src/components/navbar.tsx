@@ -53,9 +53,13 @@ export const Navbar = function (props: any) {
         <div>
           <Dropdown icon={<FontAwesomeIcon icon={faAngleDown} />}>
             <Dropdown.Menu width="48">
-              <Dropdown.ItemHeader>Your</Dropdown.ItemHeader>
-              <Dropdown.Item>Your Profile</Dropdown.Item>
               <Dropdown.Item>Your Projects</Dropdown.Item>
+              <Dropdown.Item>Your Starred projects</Dropdown.Item>
+              <hr />
+              <Dropdown.Item>Settings</Dropdown.Item>
+              <Dropdown.Item onClick={authContext.signOut}>
+                Sign Out
+              </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </div>
