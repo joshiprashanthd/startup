@@ -11,7 +11,6 @@ import {
 import { Loader } from "./components/core/loader";
 import AuthContext, { IAuthInfo } from "./contexts/auth-context";
 import { SIGN_OUT } from "./graphql/user/mutation";
-import { Error } from "./components/error";
 import { ME } from "./graphql/user/query";
 import { AuthPage } from "./pages/auth-page";
 import { CreatePage } from "./pages/create-page";
