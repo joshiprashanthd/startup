@@ -1,8 +1,18 @@
 import React, { ButtonHTMLAttributes } from "react";
+import classnames from "classnames/bind";
 
 interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "flat";
 }
+
+let ButtonStyles = {
+  base:
+    "w-full inline-flex items-center justify-center text-sm font-medium font-body focus:outline-none rounded outline-none",
+  primary:
+    "text-white duration-200 bg-purple-700 hover:bg-purple-800 disabled:bg-gray-300 p-2",
+  secondary: "bg-white border disabled:bg-gray-300 p-2",
+  flat: "text-black bg-white disabled:text-gray-200",
+};
 
 export const Button: React.FC<IProps> = function ({
   children,
@@ -10,21 +20,28 @@ export const Button: React.FC<IProps> = function ({
   disabled,
   ...restProps
 }) {
-  let className = `w-full inline-flex items-center justify-center p-2 text-sm font-medium text-white duration-200 bg-purple-500 rounded shadow-sm  outline-none ${
-    !disabled && "hover:bg-purple-600 "
-  } focus:outline-none ${
-    !disabled && "active:bg-purple-700"
-  } disabled:opacity-50 font-body `;
+  let cx = classnames.bind(ButtonStyles);
 
-  if (variant === "secondary")
-    className = `w-full inline-flex items-center justify-center text-sm p-2 font-medium duration-200 bg-white border rounded shadow-sm outline-none ${
-      !disabled && "hover:bg-gray-200 "
-    } focus:outline-none ${
-      !disabled && "active:bg-gray-300"
-    } disabled:opacity-50 font-body `;
+  console.log(
+    cx({
+      base: true,
+      primary: variant === "primary",
+      secondary: variant === "secondary",
+      flat: variant === "flat",
+    })
+  );
 
   return (
-    <button className={className} disabled={disabled} {...restProps}>
+    <button
+      className={cx({
+        base: true,
+        primary: variant === "primary",
+        secondary: variant === "secondary",
+        flat: variant === "flat",
+      })}
+      disabled={disabled}
+      {...restProps}
+    >
       {children}
     </button>
   );
