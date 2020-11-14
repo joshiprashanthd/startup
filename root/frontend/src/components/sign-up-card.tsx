@@ -134,7 +134,11 @@ export const SignUpCard = function (props: any) {
       </Button>
       <p className="mt-2 text-sm text-center font-body">
         Already have an account?{" "}
-        <Anchor onClick={props.toggleCard} textColor="purple-700">
+        <Anchor
+          onClick={props.toggleCard}
+          textColor="purple-700"
+          fontWeight="medium"
+        >
           Sign In
         </Anchor>
       </p>
