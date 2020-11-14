@@ -1,5 +1,3 @@
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { createContext, useContext, useState } from "react";
 
 const DropdownContext = createContext({
@@ -21,7 +19,7 @@ export const Dropdown = function (props: any) {
             className="px-3 py-2 text-sm font-medium transition duration-200 ease-in-out border rounded shadow-sm focus:outline-none focus:bg-gray-100"
           >
             {props.label}
-            <FontAwesomeIcon icon={faAngleDown} className="ml-4" />
+            {props.icon}
           </button>
         </div>
         {show && props.children}
@@ -34,7 +32,9 @@ Dropdown.Menu = function (props: any) {
   return (
     <div
       className={
-        "absolute right-0 z-10 py-1 min-w-full mt-2 text-sm origin-top-right bg-white rounded-md shadow-lg font-body" +
+        `absolute right-0 z-10 py-1 w-${
+          props.width || "auto"
+        } mt-2 text-sm origin-top-right bg-white rounded-md shadow-lg font-body` +
         " " +
         (props.additionalClasses || "")
       }
@@ -55,14 +55,14 @@ Dropdown.ItemHeader = function (props: any) {
 Dropdown.Item = function (props: any) {
   const dropdownContext = useContext(DropdownContext);
   return (
-    <p
-      className="block min-w-full p-2 text-sm cursor-pointer hover:bg-purple-500 hover:text-white"
+    <div
+      className="w-full p-2 text-sm cursor-pointer hover:bg-purple-500 hover:text-white"
       onClick={() => {
         dropdownContext.onSelected(props.value);
         dropdownContext.showDropdown(false);
       }}
     >
-      {props.children}
-    </p>
+      <span>{props.children}</span>
+    </div>
   );
 };
