@@ -1,3 +1,4 @@
+import { printSourceLocation } from "graphql";
 import React, { createContext, useContext, useState } from "react";
 
 const DropdownContext = createContext({
@@ -10,7 +11,10 @@ export const Dropdown = function (props: any) {
 
   return (
     <DropdownContext.Provider
-      value={{ onSelected: props.onSelected, showDropdown: setShow }}
+      value={{
+        onSelected: props.onSelected || ((value: any) => {}),
+        showDropdown: setShow,
+      }}
     >
       <div className="relative inline-block text-left">
         <div>
@@ -58,8 +62,9 @@ Dropdown.Item = function (props: any) {
     <div
       className="w-full p-2 text-sm cursor-pointer hover:bg-purple-500 hover:text-white"
       onClick={() => {
-        dropdownContext.onSelected(props.value);
+        if (dropdownContext.onSelected) dropdownContext.onSelected(props.value);
         dropdownContext.showDropdown(false);
+        if (props.onClick) props.onClick();
       }}
     >
       <span>{props.children}</span>
