@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import React, { useState } from "react";
 import {
   BrowserRouter as Router,
@@ -10,6 +10,8 @@ import {
 //local
 import { Loader } from "./components/core/loader";
 import AuthContext, { IAuthInfo } from "./contexts/auth-context";
+import { SIGN_OUT } from "./graphql/user/mutation";
+import { Error } from "./components/error";
 import { ME } from "./graphql/user/query";
 import { AuthPage } from "./pages/auth-page";
 import { CreatePage } from "./pages/create-page";
@@ -17,21 +19,23 @@ import { HomePage } from "./pages/home-page";
 import { IssuesPage } from "./pages/issues-page";
 
 export default function App() {
-  const { data, loading, error } = useQuery(ME);
+  const { data, loading } = useQuery(ME);
   const [user, setUser] = useState<IAuthInfo | null>(null);
+  const [signOutMutation] = useMutation(SIGN_OUT);
 
   const signIn = (user: IAuthInfo) => {
-    console.log("signIn called");
     setUser(user);
   };
-  const signOut = () => setUser(null);
 
-  if (loading) return <Loader />;
+  const signOut = () => {
+    signOutMutation()
+      .then((data) => {
+        setUser(null);
+      })
+      .catch((err) => console.log(err));
+  };
 
-  console.log(loading);
-  console.log(data);
-
-  if (user === null && data)
+  if (data && user === null)
     setUser({
       id: data.me.id,
       ...data.me.accountInfo,
@@ -48,21 +52,26 @@ export default function App() {
     >
       <Router>
         <Switch>
-          <Route path="/home">
-            <HomePage />
-          </Route>
+          {user === null && <Redirect exact from="/" to="/auth" />}
+          {user === null && !loading && (
+            <Redirect exact from="/home" to="/auth" />
+          )}
+          {user === null && !loading && (
+            <Route path="/auth">
+              <AuthPage />
+            </Route>
+          )}
+          {!loading && (
+            <Route path="/home">
+              <HomePage />
+            </Route>
+          )}
           <Route path="/issues">
             <IssuesPage />
           </Route>
           <Route path="/create">
             <CreatePage />
           </Route>
-          {user === null && (
-            <Route path="/auth">
-              <AuthPage />
-            </Route>
-          )}
-          {user === null && <Redirect exact from="/" to="/auth" />}
           {user !== null && <Redirect exact from="/auth" to="/home" />}
           {user !== null && <Redirect exact from="/" to="/home" />}
         </Switch>
