@@ -66,7 +66,11 @@ export const SignInCard = function (props: any) {
       </Button>
       <p className="mt-2 text-sm text-center font-body">
         New here?{" "}
-        <Anchor onClick={props.toggleCard} textColor="purple-700">
+        <Anchor
+          onClick={props.toggleCard}
+          textColor="purple-700"
+          fontWeight="medium"
+        >
           Sign Up
         </Anchor>
       </p>
