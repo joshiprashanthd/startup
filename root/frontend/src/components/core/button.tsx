@@ -10,7 +10,7 @@ let ButtonStyles = {
     "w-full inline-flex items-center justify-center text-sm font-medium font-body focus:outline-none rounded outline-none",
   primary:
     "text-white duration-200 bg-purple-700 hover:bg-purple-800 disabled:bg-gray-300 p-2",
-  secondary: "bg-white border disabled:bg-gray-300 p-2",
+  secondary: "bg-white border hover:bg-gray-100 disabled:bg-gray-300 p-2",
   flat: "text-black bg-white disabled:text-gray-200",
 };
 
