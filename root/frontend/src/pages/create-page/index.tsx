@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 
 //local
 import { DatePicker } from "../../components/core/date-picker";
@@ -91,10 +93,11 @@ export const CreatePage = function (props: any) {
           </DescriptionItem>
           <SelectorItem>
             <Dropdown
+              icon={<FontAwesomeIcon icon={faAngleDown} className="ml-4" />}
               label={`${duration} Weeks`}
               onSelected={(value: any) => setDuration(value)}
             >
-              <Dropdown.Menu>
+              <Dropdown.Menu width="32">
                 {[1, 2, 3, 4, 5, 6].map((week) => (
                   <Dropdown.Item value={week}>{week} weeks</Dropdown.Item>
                 ))}
@@ -114,10 +117,14 @@ export const CreatePage = function (props: any) {
           </DescriptionItem>
           <SelectorItem>
             <Dropdown
+              icon={<FontAwesomeIcon icon={faAngleDown} className="ml-4" />}
               label={`${maxTeamMembers} Members`}
               onSelected={setMaxTeamMembers}
             >
-              <Dropdown.Menu additionalClasses="overflow-y-auto max-h-56">
+              <Dropdown.Menu
+                additionalClasses="overflow-y-auto max-h-56"
+                width="32"
+              >
                 {[2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
                   <Dropdown.Item value={num}>{`${num} Members`}</Dropdown.Item>
                 ))}
