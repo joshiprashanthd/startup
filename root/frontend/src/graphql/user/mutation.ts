@@ -25,3 +25,9 @@ export const CREATE_USER_MUTATION = gql`
     }
   }
 `;
+
+export const SIGN_OUT = gql`
+  mutation {
+    signOut
+  }
+`;
