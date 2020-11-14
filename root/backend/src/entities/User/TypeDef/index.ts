@@ -33,6 +33,7 @@ export default gql`
 
 	extend type Query {
 		users: [User!]
+		me: User!
 	}
 
 	extend type Mutation {
