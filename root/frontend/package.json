@@ -16,6 +16,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.12",
     "@types/react-router-dom": "^5.1.6",
+    "classnames": "^2.2.6",
     "fuse.js": "^6.4.3",
     "graphql": "^15.4.0",
     "react": "^17.0.1",
@@ -27,6 +28,7 @@
     "twin.macro": "^1.12.0"
   },
   "devDependencies": {
+    "@types/classnames": "^2.2.11",
     "@types/react": "^16.9.55",
     "@types/react-dom": "^16.9.9",
     "@types/webpack": "^4.41.24",
