@@ -8,6 +8,7 @@ import { Button } from "./core/button";
 import { Alert } from "./core/alert";
 import { SIGN_IN_MUTATION } from "../graphql/user/mutation";
 import AuthContext, { IAuthInfo } from "../contexts/auth-context";
+import { Anchor } from "./core/anchor";
 
 export const SignInCard = function (props: any) {
   const authContext = useContext(AuthContext);
@@ -64,16 +65,11 @@ export const SignInCard = function (props: any) {
         {loading ? <Loader /> : "Sign In"}
       </Button>
       <p className="mt-2 text-sm text-center font-body">
-        New here? <Link onClick={props.toggleCard}>Sign Up</Link>
+        New here?{" "}
+        <Anchor onClick={props.toggleCard} textColor="purple-700">
+          Sign Up
+        </Anchor>
       </p>
     </div>
-  );
-};
-
-const Link = function (props: any) {
-  return (
-    <span className="text-blue-700 cursor-pointer hover:underline" {...props}>
-      {props.children}
-    </span>
   );
 };

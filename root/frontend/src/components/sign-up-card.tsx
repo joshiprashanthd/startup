@@ -10,6 +10,7 @@ import {
   validatePassword,
 } from "../utils/input/validators";
 import { Alert } from "./core/alert";
+import { Anchor } from "./core/anchor";
 import { Button } from "./core/button";
 import { InputField } from "./core/input-field";
 import { Loader } from "./core/loader";
@@ -132,19 +133,11 @@ export const SignUpCard = function (props: any) {
         {loading ? <Loader /> : "Sign Up"}
       </Button>
       <p className="mt-2 text-sm text-center font-body">
-        Already have an account? <Link onClick={props.toggleCard}>Sign In</Link>
+        Already have an account?{" "}
+        <Anchor onClick={props.toggleCard} textColor="purple-700">
+          Sign In
+        </Anchor>
       </p>
     </div>
-  );
-};
-
-const Link = function (props: any) {
-  return (
-    <span
-      className="text-blue-700 border-purple-600 rounded-full cursor-pointer hover:underline border-1"
-      {...props}
-    >
-      {props.children}
-    </span>
   );
 };
