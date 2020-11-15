@@ -361,6 +361,7 @@ module.exports = {
       screen: "100vh",
     }),
     maxWidth: (theme, { breakpoints }) => ({
+      ...theme("spacing"),
       none: "none",
       xs: "20rem",
       sm: "24rem",
@@ -375,15 +376,16 @@ module.exports = {
       full: "100%",
       ...breakpoints(theme("screens")),
     }),
-    minHeight: {
+    minHeight: (theme) => ({
+      ...theme("spacing"),
       0: "0",
       full: "100%",
       screen: "100vh",
-    },
-    minWidth: {
-      0: "0",
+    }),
+    minWidth: (theme) => ({
+      ...theme("spacing"),
       full: "100%",
-    },
+    }),
     objectPosition: {
       bottom: "bottom",
       center: "center",
