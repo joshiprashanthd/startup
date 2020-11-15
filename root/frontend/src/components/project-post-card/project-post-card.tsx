@@ -1,3 +1,10 @@
+import {
+  fas,
+  faSpinner,
+  faStar,
+  faStarHalf,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
 import React, { useState } from "react";
 
@@ -6,6 +13,7 @@ import { Button } from "../core/button";
 import { InputField } from "../core/input-field";
 import { Loader } from "../core/loader";
 import { Modal } from "../core/modal";
+import { SizedBox } from "../core/sized-box";
 
 export const ProjectPostCard = function (props: any) {
   const { project } = props;
@@ -113,30 +121,22 @@ const RequestButton = function (props: any) {
           </div>
         </Modal>
       )}
-      <button
-        className={`px-2 py-1 rounded shadow-sm outline-none  ${
-          props.project.isRequested
-            ? "bg-purple-500 text-white"
-            : "hover:bg-gray-100 border"
-        } focus:outline-none`}
-        onClick={handleRequestButton}
-      >
-        {props.project.isRequested ? "Cancel Request" : "Request"}
-      </button>
+      <SizedBox width={20}>
+        <Button variant="secondary" onClick={handleRequestButton}>
+          {props.project.isRequested ? "Cancel Request" : "Request"}
+        </Button>
+      </SizedBox>
     </>
   );
 };
 
 const StarButton = function (props: any) {
   return (
-    <button
-      className={`px-2 py-1 rounded shadow-sm outline-none  ${
-        props.starred ? "bg-purple-500 text-white" : "hover:bg-gray-100 border"
-      } focus:outline-none`}
-      onClick={props.callback}
-    >
-      {props.starred ? "Starred" : "Star"}
-    </button>
+    <SizedBox width={20}>
+      <Button variant="secondary" onClick={props.callback}>
+        {props.starred ? "Unstar" : "Star"}
+      </Button>
+    </SizedBox>
   );
 };
 
