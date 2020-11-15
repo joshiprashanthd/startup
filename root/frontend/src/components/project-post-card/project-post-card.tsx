@@ -129,7 +129,10 @@ const RequestButton = function (props: any) {
         </Modal>
       )}
       <SizedBox width={20}>
-        <Button variant="secondary" onClick={handleRequestButton}>
+        <Button
+          variant={props.project.isRequested ? "primary" : "secondary"}
+          onClick={handleRequestButton}
+        >
           {props.project.isRequested ? "Cancel Request" : "Request"}
         </Button>
       </SizedBox>
@@ -140,7 +143,10 @@ const RequestButton = function (props: any) {
 const StarButton = function (props: any) {
   return (
     <SizedBox width={20}>
-      <Button variant="secondary" onClick={props.callback}>
+      <Button
+        variant={props.starred ? "primary" : "secondary"}
+        onClick={props.callback}
+      >
         {props.starred ? "Unstar" : "Star"}
       </Button>
     </SizedBox>
