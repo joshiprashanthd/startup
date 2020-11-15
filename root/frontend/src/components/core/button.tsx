@@ -23,15 +23,6 @@ export const Button: React.FC<IProps> = function ({
 }) {
   let cx = classnames.bind(ButtonStyles);
 
-  console.log(
-    cx({
-      base: true,
-      primary: variant === "primary",
-      secondary: variant === "secondary",
-      flat: variant === "flat",
-    })
-  );
-
   return (
     <button
       className={cx({

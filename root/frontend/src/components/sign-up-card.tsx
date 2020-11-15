@@ -69,7 +69,6 @@ export const SignUpCard = function (props: any) {
         })
         .catch((err) => {
           setExists([]);
-          console.log(err.message);
           if ((err.message as string).includes("email"))
             setExists((prev) => [...prev, "email"]);
           if ((err.message as string).includes("handler"))
