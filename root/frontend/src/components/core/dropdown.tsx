@@ -15,13 +15,20 @@ interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   onSelected?: (value: any) => void;
   label?: string;
   icon?: any;
+  variant?: any;
 }
 
 export const Dropdown: React.FC<IProps> & {
   Menu: React.FC<any>;
   ItemHeader: React.FC<any>;
   Item: React.FC<any>;
-} = function ({ children, onSelected = null, label = null, icon = null }) {
+} = function ({
+  children,
+  onSelected = null,
+  label = null,
+  icon = null,
+  variant = "primary",
+}) {
   const [show, setShow] = useState(false);
 
   return (
@@ -33,7 +40,7 @@ export const Dropdown: React.FC<IProps> & {
     >
       <div className="relative inline-block text-left">
         <div>
-          <Button onClick={() => setShow((prev) => !prev)}>
+          <Button variant={variant} onClick={() => setShow((prev) => !prev)}>
             {label}
             {icon}
           </Button>
@@ -51,7 +58,7 @@ const Menu: React.FC<{ width?: any; height?: any }> = function ({
 }) {
   return (
     <div
-      className={`absolute right-0 z-10 py-1 w-${width} h-${height} overflow-y-auto mt-2 mb-4 text-sm origin-top-right bg-white rounded-md shadow-lg font-body`}
+      className={`absolute right-0 z-10 py-1 w-${width} h-${height} overflow-y-auto mt-2 mb-4 text-sm origin-top-right bg-white rounded-md shadow-xl font-body`}
     >
       {children}
     </div>
