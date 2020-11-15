@@ -11,6 +11,7 @@ import { Navbar } from "../../components/navbar";
 import { SkillSelectorField } from "../../components/skill-selector-field";
 import { CREATE_PROJECT } from "../../graphql/project/mutation";
 import { Button } from "../../components/core/button";
+import { SizedBox } from "../../components/core/sized-box";
 
 export const CreatePage = function (props: any) {
   const [createProject, { loading }] = useMutation(CREATE_PROJECT);
@@ -153,17 +154,19 @@ export const CreatePage = function (props: any) {
             />
           </div>
         </div>
-        <Button
-          onClick={handleOnClick}
-          disabled={
-            title.length === 0 ||
-            description.length === 0 ||
-            startingDate.length === 0 ||
-            selectedSkills.length === 0
-          }
-        >
-          Create Project
-        </Button>
+        <SizedBox width={32}>
+          <Button
+            onClick={handleOnClick}
+            disabled={
+              title.length === 0 ||
+              description.length === 0 ||
+              startingDate.length === 0 ||
+              selectedSkills.length === 0
+            }
+          >
+            Create Project
+          </Button>
+        </SizedBox>
       </div>
     </div>
   );
