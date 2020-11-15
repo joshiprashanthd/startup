@@ -93,6 +93,7 @@ export const CreatePage = function (props: any) {
           </DescriptionItem>
           <SelectorItem>
             <Dropdown
+              variant="secondary"
               icon={<FontAwesomeIcon icon={faAngleDown} className="ml-4" />}
               label={`${duration} Weeks`}
               onSelected={(value: any) => setDuration(value)}
@@ -117,6 +118,7 @@ export const CreatePage = function (props: any) {
           </DescriptionItem>
           <SelectorItem>
             <Dropdown
+              variant="secondary"
               icon={<FontAwesomeIcon icon={faAngleDown} className="ml-4" />}
               label={`${maxTeamMembers} Members`}
               onSelected={setMaxTeamMembers}
