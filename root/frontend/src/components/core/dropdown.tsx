@@ -1,72 +1,90 @@
 import React, { createContext, useContext, useState } from "react";
+import { Button } from "./button";
 
-const DropdownContext = createContext({
-  onSelected: (value: any) => {},
-  showDropdown: (value: any) => {},
+interface IDropdownContext {
+  onSelected: ((value: any) => void) | null;
+  showDropdown: ((value: any) => void) | null;
+}
+
+const DropdownContext = createContext<IDropdownContext>({
+  onSelected: null,
+  showDropdown: null,
 });
 
-export const Dropdown = function (props: any) {
+interface IProps extends React.HTMLAttributes<HTMLDivElement> {
+  onSelected?: (value: any) => void;
+  label?: string;
+  icon?: any;
+}
+
+export const Dropdown: React.FC<IProps> & {
+  Menu: React.FC<any>;
+  ItemHeader: React.FC<any>;
+  Item: React.FC<any>;
+} = function ({ children, onSelected = null, label = null, icon = null }) {
   const [show, setShow] = useState(false);
 
   return (
     <DropdownContext.Provider
       value={{
-        onSelected: props.onSelected || ((value: any) => {}),
+        onSelected: onSelected,
         showDropdown: setShow,
       }}
     >
       <div className="relative inline-block text-left">
         <div>
-          <button
-            onClick={() => setShow((prev) => !prev)}
-            className="px-3 py-2 text-sm font-medium transition duration-200 ease-in-out border rounded shadow-sm focus:outline-none focus:bg-gray-100"
-          >
-            {props.label}
-            {props.icon}
-          </button>
+          <Button onClick={() => setShow((prev) => !prev)}>
+            {label}
+            {icon}
+          </Button>
         </div>
-        {show && props.children}
+        {show && children}
       </div>
     </DropdownContext.Provider>
   );
 };
 
-Dropdown.Menu = function (props: any) {
+const Menu: React.FC<{ width?: any; height?: any }> = function ({
+  children,
+  width = "auto",
+  height = "auto",
+}) {
   return (
     <div
-      className={
-        `absolute right-0 z-10 py-1 w-${
-          props.width || "auto"
-        } mt-2 text-sm origin-top-right bg-white rounded-md shadow-lg font-body` +
-        " " +
-        (props.additionalClasses || "")
-      }
+      className={`absolute right-0 z-10 py-1 w-${width} h-${height} overflow-y-auto mt-2 mb-4 text-sm origin-top-right bg-white rounded-md shadow-lg font-body`}
     >
-      {props.children}
+      {children}
     </div>
   );
 };
 
-Dropdown.ItemHeader = function (props: any) {
+const ItemHeader: React.FC = function ({ children }) {
   return (
-    <div className="p-2 text-xs font-semibold text-gray-700">
-      <span>{props.children}</span>
+    <div className="p-2 text-sm font-semibold text-gray-700 uppercase">
+      <span>{children}</span>
     </div>
   );
 };
 
-Dropdown.Item = function (props: any) {
+const Item: React.FC<
+  React.HTMLAttributes<HTMLDivElement> & { value: any }
+> = function ({ children, value, onClick, ...restProps }) {
   const dropdownContext = useContext(DropdownContext);
   return (
     <div
       className="w-full p-2 text-sm cursor-pointer hover:bg-purple-500 hover:text-white"
-      onClick={() => {
-        if (dropdownContext.onSelected) dropdownContext.onSelected(props.value);
-        dropdownContext.showDropdown(false);
-        if (props.onClick) props.onClick();
+      onClick={(event) => {
+        if (dropdownContext.onSelected) dropdownContext.onSelected(value);
+        if (dropdownContext.showDropdown) dropdownContext.showDropdown(false);
+        if (onClick) onClick(event);
       }}
+      {...restProps}
     >
-      <span>{props.children}</span>
+      <span>{children}</span>
     </div>
   );
 };
+
+Dropdown.Menu = Menu;
+Dropdown.ItemHeader = ItemHeader;
+Dropdown.Item = Item;
