@@ -16,13 +16,12 @@ export const Chip: React.FC<IProps> = function ({
 }) {
   return (
     <div
-      className={`flex items-center mx-1 font-medium text-sm py-1 px-2 rounded text-white bg-${color}-500`}
+      className={`flex items-center mx-1 font-medium text-xs py-1 px-2 rounded-full text-${color}-700 bg-${color}-100`}
     >
       {children}
       <FontAwesomeIcon
         icon={faTimes}
-        color="white"
-        className="ml-2 cursor-pointer"
+        className={`ml-2 cursor-pointer text-${color}-700`}
         onClick={() => onDelete(value)}
       />
     </div>
