@@ -1,19 +1,14 @@
-import {
-  fas,
-  faSpinner,
-  faStar,
-  faStarHalf,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 //local
 import { Button } from "../core/button";
 import { InputField } from "../core/input-field";
-import { Loader } from "../core/loader";
 import { Modal } from "../core/modal";
 import { SizedBox } from "../core/sized-box";
+import { Toast } from "../core/toast";
+import AuthContext from "../../contexts/auth-context";
+import projectPostCard from ".";
 
 export const ProjectPostCard = function (props: any) {
   const { project } = props;
@@ -85,8 +80,10 @@ const NameAndHandler = function (props: any) {
 };
 
 const RequestButton = function (props: any) {
+  const authContext = useContext(AuthContext);
   const [message, setMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [showToast, setShowToast] = useState(false);
 
   const handleSendRequestButton = () => {
     props.callback(message);
@@ -94,12 +91,22 @@ const RequestButton = function (props: any) {
   };
 
   const handleRequestButton = () => {
-    if (props.project.isRequested) props.callback(message);
+    if (
+      props.project.details.creator.accountInfo.handler ===
+      authContext.user?.handler
+    )
+      setShowToast(true);
+    else if (props.project.isRequested) props.callback(message);
     else setShowModal(true);
   };
 
   return (
     <>
+      {showToast && (
+        <Toast variant="error" onClose={() => setShowToast(false)}>
+          You cannot request your own project
+        </Toast>
+      )}
       {showModal && !props.project.isRequested && (
         <Modal>
           <Modal.Title>Request for collaboration</Modal.Title>
