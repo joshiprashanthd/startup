@@ -121,10 +121,7 @@ export const CreatePage = function (props: any) {
               label={`${maxTeamMembers} Members`}
               onSelected={setMaxTeamMembers}
             >
-              <Dropdown.Menu
-                additionalClasses="overflow-y-auto max-h-56"
-                width="32"
-              >
+              <Dropdown.Menu height={64} width={32}>
                 {[2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
                   <Dropdown.Item value={num}>{`${num} Members`}</Dropdown.Item>
                 ))}
