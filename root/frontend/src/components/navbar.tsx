@@ -51,7 +51,10 @@ export const Navbar = function (props: any) {
           <span className="font-medium">{authContext.user?.name}</span>
         </div>
         <div>
-          <Dropdown icon={<FontAwesomeIcon icon={faAngleDown} />}>
+          <Dropdown
+            icon={<FontAwesomeIcon icon={faAngleDown} />}
+            variant="flat"
+          >
             <Dropdown.Menu width="48">
               <Dropdown.Item>Your Projects</Dropdown.Item>
               <Dropdown.Item>Your Starred projects</Dropdown.Item>
