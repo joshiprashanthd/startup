@@ -14,7 +14,6 @@ export default function (props: any) {
 
   const [toggleRequestProject] = useMutation(TOGGLE_REQUEST_PROJECT, {
     onCompleted: (data) => {
-      console.log(data);
       setRequested(data.toggleRequestProject);
     },
     onError: (err) => console.log(err),
