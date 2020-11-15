@@ -128,7 +128,7 @@ const RequestButton = function (props: any) {
           </div>
         </Modal>
       )}
-      <SizedBox width={20}>
+      <SizedBox minWidth={20}>
         <Button
           variant={props.project.isRequested ? "primary" : "secondary"}
           onClick={handleRequestButton}
