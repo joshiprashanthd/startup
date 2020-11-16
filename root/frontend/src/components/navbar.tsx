@@ -43,7 +43,7 @@ export const Navbar = function (props: any) {
         </Link>
       </div>
       <div className="flex items-center justify-end flex-1">
-        <div className="grid w-8 h-8 mr-4 text-base font-semibold text-black bg-purple-400 rounded place-items-center">
+        <div className="grid w-8 h-8 mr-4 text-base font-bold text-purple-700 bg-purple-100 rounded place-items-center">
           {(authContext.user?.name?.split(" ")[0].charAt(0) as string) +
             authContext.user?.name?.split(" ")[1].charAt(0)}
         </div>
