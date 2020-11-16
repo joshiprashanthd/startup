@@ -8,7 +8,6 @@ import {
 } from "react-router-dom";
 
 //local
-import { Loader } from "./components/core/loader";
 import AuthContext, { IAuthInfo } from "./contexts/auth-context";
 import { SIGN_OUT } from "./graphql/user/mutation";
 import { ME } from "./graphql/user/query";
@@ -16,6 +15,7 @@ import { AuthPage } from "./pages/auth-page";
 import { CreatePage } from "./pages/create-page";
 import { HomePage } from "./pages/home-page";
 import { IssuesPage } from "./pages/issues-page";
+import { ProfilePage } from "./pages/profile-page";
 
 export default function App() {
   const { data, loading } = useQuery(ME);
@@ -65,6 +65,12 @@ export default function App() {
               <HomePage />
             </Route>
           )}
+          <Route path="/profile/:handler">
+            <ProfilePage />
+          </Route>
+          <Route path="/profile">
+            <ProfilePage />
+          </Route>
           <Route path="/issues">
             <IssuesPage />
           </Route>
