@@ -50,7 +50,7 @@ export const CreatePage = function (props: any) {
     <Page>
       <Navbar selected="create" />
       <div className="w-2/5 mx-auto">
-        <h1 className="text-4xl font-display">Create new project</h1>
+        <h1 className="text-3xl font-display">Create new project</h1>
         <InputField
           label="Title"
           secondaryLabel="(required)"
