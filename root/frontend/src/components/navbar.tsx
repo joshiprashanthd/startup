@@ -57,7 +57,7 @@ export const Navbar = function (props: any) {
             icon={<FontAwesomeIcon icon={faAngleDown} />}
             variant="flat"
           >
-            <Dropdown.Menu width="48">
+            <Dropdown.Menu>
               <Dropdown.Item>Your Projects</Dropdown.Item>
               <Dropdown.Item>Your Starred projects</Dropdown.Item>
               <hr />
