@@ -10,9 +10,8 @@ import { Dropdown } from "./core/dropdown";
 
 export const Navbar = function (props: any) {
   const authContext = useContext(AuthContext);
-
   return (
-    <div className="flex flex-row w-full h-12 px-6 py-0 bg-white shadow-sm">
+    <div className="fixed top-0 z-10 flex flex-row w-full h-12 px-6 py-0 bg-white shadow-lg">
       <div className="flex-1"></div>
       <div className="flex flex-row justify-center flex-1 w-auto">
         <Link to="/home">
