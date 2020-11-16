@@ -11,12 +11,12 @@ import { Dropdown } from "./core/dropdown";
 export const Navbar = function (props: any) {
   const authContext = useContext(AuthContext);
   return (
-    <div className="fixed top-0 z-10 flex flex-row w-full h-12 px-6 py-0 bg-white shadow-lg">
+    <div className="fixed top-0 z-10 flex flex-row w-full h-16 px-6 py-0 bg-white shadow">
       <div className="flex-1"></div>
       <div className="flex flex-row justify-center flex-1 w-auto">
         <Link to="/home">
           <div
-            className={`w-24 px-2 py-3 font-bold text-center ${
+            className={`w-24 h-full px-2 py-3 grid place-items-center font-bold ${
               props.selected === "explore" && "text-purple-700 bg-purple-100"
             } border-l font-body`}
           >
@@ -25,7 +25,7 @@ export const Navbar = function (props: any) {
         </Link>
         <Link to="/issues">
           <div
-            className={`w-24 px-2 py-3 font-bold text-center ${
+            className={`w-24 h-full px-2 py-3 grid place-items-center font-bold ${
               props.selected === "issues" && "text-purple-700 bg-purple-100"
             } border-l  font-body`}
           >
@@ -34,7 +34,7 @@ export const Navbar = function (props: any) {
         </Link>
         <Link to="/create">
           <div
-            className={`w-24 px-2 py-3 font-bold text-center ${
+            className={`w-24 h-full grid place-items-center px-2 py-3 font-bold  ${
               props.selected === "create" && "text-purple-700 bg-purple-100"
             } border-l border-r font-body`}
           >
