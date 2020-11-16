@@ -1,15 +1,17 @@
-import { useQuery } from "@apollo/client";
 import React from "react";
+import { useQuery } from "@apollo/client";
+
+//local
+import { Page } from "../../components/core/page";
 import { Navbar } from "../../components/navbar";
 import { ME_PROFILE_PAGE } from "../../graphql/user/query";
 
 export const ProfilePage = function (props: any) {
-  const { data, loading, error } = useQuery(ME_PROFILE_PAGE);
-  console.log(data);
+  const { data } = useQuery(ME_PROFILE_PAGE);
   return (
-    <div className="w-full min-h-screen">
+    <Page>
       <Navbar />
       <h1 className="text-4xl font-display">User profile</h1>
-    </div>
+    </Page>
   );
 };

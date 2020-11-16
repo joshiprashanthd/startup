@@ -12,6 +12,7 @@ import { SkillSelectorField } from "../../components/skill-selector-field";
 import { CREATE_PROJECT } from "../../graphql/project/mutation";
 import { Button } from "../../components/core/button";
 import { SizedBox } from "../../components/core/sized-box";
+import { Page } from "../../components/core/page";
 
 export const CreatePage = function (props: any) {
   const [createProject, { loading }] = useMutation(CREATE_PROJECT);
@@ -46,12 +47,10 @@ export const CreatePage = function (props: any) {
   };
 
   return (
-    <div className="w-full min-h-screen">
+    <Page>
       <Navbar selected="create" />
-      <div className="w-2/4 min-h-screen py-16 mx-auto">
-        <h1 className="text-4xl font-semibold font-display">
-          Create new project
-        </h1>
+      <div className="w-2/5 mx-auto">
+        <h1 className="text-4xl font-display">Create new project</h1>
         <InputField
           label="Title"
           secondaryLabel="(required)"
@@ -168,7 +167,7 @@ export const CreatePage = function (props: any) {
           </Button>
         </SizedBox>
       </div>
-    </div>
+    </Page>
   );
 };
 
