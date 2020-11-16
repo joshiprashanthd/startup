@@ -53,12 +53,12 @@ export const Dropdown: React.FC<IProps> & {
 
 const Menu: React.FC<{ width?: any; height?: any }> = function ({
   children,
-  width = "auto",
+  width = "full",
   height = "auto",
 }) {
   return (
     <div
-      className={`absolute right-0 z-10 py-1 w-${width} h-${height} overflow-y-auto mt-2 mb-4 text-sm origin-top-right bg-white rounded-md shadow-xl font-body`}
+      className={`absolute border right-0 z-10 py-1 w-${width} h-${height} overflow-y-auto mt-2 mb-4 text-sm origin-top-right bg-white rounded-md shadow-lg font-body whitespace-no-wrap`}
     >
       {children}
     </div>
@@ -79,7 +79,7 @@ const Item: React.FC<
   const dropdownContext = useContext(DropdownContext);
   return (
     <div
-      className="w-full p-2 text-sm cursor-pointer hover:bg-purple-500 hover:text-white"
+      className="w-full px-3 py-1 text-sm cursor-pointer hover:bg-purple-700 hover:text-white"
       onClick={(event) => {
         if (dropdownContext.onSelected) dropdownContext.onSelected(value);
         if (dropdownContext.showDropdown) dropdownContext.showDropdown(false);
