@@ -47,9 +47,9 @@ const Input = function (props: any) {
 
   return (
     <input
-      className={`w-full p-2 text-sm duration-200 border ${
+      className={`w-full p-2 text-sm duration-200 bg-gray-100 ${
         props.error ? "border-red-600" : ""
-      } border-gray-400 rounded outline-none focus:border-transparent active:border-none focus:shadow-outline${
+      } border-gray-400 rounded outline-none focus:border-transparent focus:bg-white active:border-none focus:shadow-outline${
         props.error ? "-red" : ""
       } font-body`}
       spellCheck="false"
@@ -66,7 +66,7 @@ const Textarea = function (props: any) {
 
   return (
     <textarea
-      className="h-24 min-w-full p-2 text-sm duration-200 border border-gray-400 rounded outline-none appearance-none focus:shadow-outline font-body focus:outline-none"
+      className="h-24 min-w-full p-2 text-sm duration-200 bg-gray-100 border-gray-400 rounded outline-none appearance-none focus:shadow-outline focus:bg-white font-body focus:outline-none"
       onChange={onChangeHandler}
     ></textarea>
   );
