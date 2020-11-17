@@ -4,26 +4,30 @@ import React from "react";
 
 interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   color?: string;
-  value: string;
-  onDelete: (value: string) => void;
+  value?: string;
+  onDelete?: (value: string) => void;
 }
 
 export const Chip: React.FC<IProps> = function ({
   color = "purple",
-  onDelete = (value: string) => {},
+  onDelete = null,
   value,
   children,
 }) {
   return (
     <div
-      className={`flex items-center mx-1 font-medium text-xs py-1 px-2 rounded-full text-${color}-700 bg-${color}-100`}
+      className={`flex w-fit-content items-center mx-1 font-medium text-xs py-1 px-2 rounded-full text-${color}-700 bg-${color}-100`}
     >
       {children}
-      <FontAwesomeIcon
-        icon={faTimes}
-        className={`ml-2 cursor-pointer text-${color}-700`}
-        onClick={() => onDelete(value)}
-      />
+      {onDelete && (
+        <FontAwesomeIcon
+          icon={faTimes}
+          className={`ml-2 cursor-pointer text-${color}-700`}
+          onClick={() => {
+            onDelete(value || "");
+          }}
+        />
+      )}
     </div>
   );
 };
