@@ -472,6 +472,7 @@ module.exports = {
       "9/12": "75%",
       "10/12": "83.333333%",
       "11/12": "91.666667%",
+      "fit-content": "fit-content",
       full: "100%",
       screen: "100vw",
     }),
