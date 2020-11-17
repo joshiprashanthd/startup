@@ -35,10 +35,7 @@ export const ProfilePage = function (props: any) {
               </div>
               <div>
                 {data.me.personalInfo.interests.map((skill: any) => (
-                  <Chip onDelete={() => {}} key={skill.name} value={skill.name}>
-                    {" "}
-                    {skill.name}{" "}
-                  </Chip>
+                  <Chip key={skill.name}>{skill.name}</Chip>
                 ))}
               </div>
             </div>
