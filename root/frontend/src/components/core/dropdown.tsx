@@ -53,7 +53,7 @@ export const Dropdown: React.FC<IProps> & {
 
 const Menu: React.FC<{ width?: any; height?: any }> = function ({
   children,
-  width = "full",
+  width = "auto",
   height = "auto",
 }) {
   return (
