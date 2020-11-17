@@ -19,11 +19,10 @@ export const SkillSelectorField = function (props: any) {
   };
 
   return (
-    <div className="flex items-center w-full my-2 text-left border rounded shadow-sm">
+    <div className="flex items-center w-full my-2 space-x-2 text-left border rounded shadow-sm">
       {props.selectedSkills.map((skill: { id: any; name: any }) => (
         <Chip onDelete={handleOnDelete} key={skill.id} value={skill.id}>
-          {" "}
-          {skill.name}{" "}
+          {skill.name}
         </Chip>
       ))}
       <InputField
