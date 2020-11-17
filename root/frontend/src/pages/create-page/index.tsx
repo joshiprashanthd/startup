@@ -49,7 +49,7 @@ export const CreatePage = function (props: any) {
   return (
     <Page>
       <Navbar selected="create" />
-      <div className="w-2/5 mx-auto">
+      <div className="w-1/2 mx-auto">
         <h1 className="text-3xl font-display">Create new project</h1>
         <InputField
           label="Title"
@@ -98,7 +98,7 @@ export const CreatePage = function (props: any) {
               label={`${duration} Weeks`}
               onSelected={(value: any) => setDuration(value)}
             >
-              <Dropdown.Menu width="32">
+              <Dropdown.Menu>
                 {[1, 2, 3, 4, 5, 6].map((week) => (
                   <Dropdown.Item value={week}>{week} weeks</Dropdown.Item>
                 ))}
@@ -123,7 +123,7 @@ export const CreatePage = function (props: any) {
               label={`${maxTeamMembers} Members`}
               onSelected={setMaxTeamMembers}
             >
-              <Dropdown.Menu height={64} width={32}>
+              <Dropdown.Menu height={64}>
                 {[2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
                   <Dropdown.Item value={num}>{`${num} Members`}</Dropdown.Item>
                 ))}
