@@ -16,7 +16,7 @@ export const Chip: React.FC<IProps> = function ({
 }) {
   return (
     <div
-      className={`flex w-fit-content items-center mx-1 font-medium text-xs py-1 px-2 rounded-full text-${color}-700 bg-${color}-100`}
+      className={`flex w-fit-content items-center font-medium text-xs py-1 px-2 rounded-full text-${color}-700 bg-${color}-100`}
     >
       {children}
       {onDelete && (
