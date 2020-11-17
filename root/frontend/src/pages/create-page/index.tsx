@@ -98,7 +98,7 @@ export const CreatePage = function (props: any) {
               label={`${duration} Weeks`}
               onSelected={(value: any) => setDuration(value)}
             >
-              <Dropdown.Menu>
+              <Dropdown.Menu width="32">
                 {[1, 2, 3, 4, 5, 6].map((week) => (
                   <Dropdown.Item value={week}>{week} weeks</Dropdown.Item>
                 ))}
