@@ -53,7 +53,7 @@ export default gql`
 
 	type UserPersonalInfo {
 		bio: String
-		birthDate: Date!
+		birthDate: Date
 		interests: [Skill!]
 	}
 
