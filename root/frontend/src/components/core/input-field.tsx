@@ -20,8 +20,8 @@ export const InputField: React.FC<IProps> = function ({
   textareaMode = false,
 }) {
   return (
-    <div className="my-4">
-      <Label secondary={secondaryLabel}>{label}</Label>
+    <div className={`${label && "my-4"}`}>
+      {label && <Label secondary={secondaryLabel}>{label}</Label>}
       {!textareaMode && (
         <Input type={inputType} onChange={onInputChange} error={showError} />
       )}
