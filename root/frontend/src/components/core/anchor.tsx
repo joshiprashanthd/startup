@@ -1,7 +1,7 @@
 import React from "react";
 import classnames from "classnames";
 
-interface IProps extends React.HTMLAttributes<HTMLAnchorElement> {
+interface IProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   textColor?: string;
   fontWeight?: string;
   fontSize?: string;
