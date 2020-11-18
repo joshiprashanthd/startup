@@ -1,7 +1,7 @@
 import React from "react";
 import classnames from "classnames";
 
-interface IProps extends React.HTMLAttributes<HTMLSpanElement> {
+interface IProps extends React.HTMLAttributes<HTMLAnchorElement> {
   textColor?: string;
   fontWeight?: string;
   fontSize?: string;
@@ -19,7 +19,7 @@ export const Anchor: React.FC<IProps> = function ({
   ...restProps
 }) {
   return (
-    <span
+    <a
       className={classnames(
         `text-${textColor} cursor-pointer ${
           hoverUnderline && "hover:underline"
@@ -28,6 +28,6 @@ export const Anchor: React.FC<IProps> = function ({
       {...restProps}
     >
       {children}
-    </span>
+    </a>
   );
 };
