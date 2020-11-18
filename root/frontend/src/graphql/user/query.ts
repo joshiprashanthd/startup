@@ -26,6 +26,7 @@ export const ME_PROFILE_PAGE = gql`
         bio
         birthDate
         interests {
+          id
           name
         }
       }
