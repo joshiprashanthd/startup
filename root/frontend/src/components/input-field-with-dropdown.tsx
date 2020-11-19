@@ -31,7 +31,7 @@ export const InputFieldWithDropdown: React.FC<IProps> & {
 
 const Dropdown: React.FC = function ({ children }) {
   return (
-    <div className="absolute object-left-top w-56 py-1 mt-2 mb-4 overflow-y-auto text-sm bg-white rounded shadow-lg max-h-48 font-body">
+    <div className="absolute object-left-top w-56 py-1 mt-2 mb-4 overflow-y-auto text-sm bg-white border rounded shadow-lg max-h-48 font-body">
       {children}
     </div>
   );
