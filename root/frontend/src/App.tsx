@@ -27,7 +27,7 @@ export default function App() {
           {auth.user === null && <Redirect exact from="/" to="/auth" />}
           {auth.user === null && <Redirect exact from="/home" to="/auth" />}
           <Route path="/home" component={HomePage} />
-          <Route path="/profile/:handler" component={ProfilePage} />
+          <Route path="/profile/:userId" component={ProfilePage} />
           <Route path="/profile" component={ProfilePage} />
           <Route path="/issues" component={IssuesPage} />
           <Route path="/create" component={CreatePage} />
