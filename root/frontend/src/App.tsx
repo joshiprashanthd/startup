@@ -22,30 +22,17 @@ export default function App() {
     <AuthProvider value={auth}>
       <Router>
         <Switch>
+          {auth.user && <Redirect exact from="/auth" to="/home" />}
+          {auth.user && <Redirect exact from="/" to="/home" />}
           {auth.user === null && <Redirect exact from="/" to="/auth" />}
-          {auth.user && !auth.loading && (
-            <Redirect exact from="/auth" to="/home" />
-          )}
-          {!auth.loading && (
-            <Route path="/home">
-              <HomePage />
-            </Route>
-          )}
-          <Route path="/profile/:handler">
-            <ProfilePage />
-          </Route>
-          <Route path="/profile">
-            <ProfilePage />
-          </Route>
-          <Route path="/issues">
-            <IssuesPage />
-          </Route>
-          <Route path="/create">
-            <CreatePage />
-          </Route>
-          <Route path="/auth">
-            <AuthPage />
-          </Route>
+          {auth.user === null && <Redirect exact from="/home" to="/auth" />}
+          <Route path="/home" component={HomePage} />
+          <Route path="/profile/:handler" component={ProfilePage} />
+          <Route path="/profile" component={ProfilePage} />
+          <Route path="/issues" component={IssuesPage} />
+          <Route path="/create" component={CreatePage} />
+          <Route path="/auth" component={AuthPage} />
+          <Route path="/" component={AuthPage} />
         </Switch>
       </Router>
     </AuthProvider>
