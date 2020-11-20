@@ -24,7 +24,7 @@ export const DatePicker: React.FC<IProps> = function ({
       type="date"
       value={value}
       onChange={handleStartingDate}
-      className="p-2 text-sm font-medium border rounded shadow-sm cursor-pointer font-body focus:outline-none"
+      className="p-2 text-sm font-medium border rounded cursor-pointer font-body focus:outline-none"
     />
   );
 };
