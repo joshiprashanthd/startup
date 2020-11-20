@@ -13,6 +13,7 @@ export const PROJECTS = gql`
           name
         }
         creator {
+          id
           accountInfo {
             name
             handler
