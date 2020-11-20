@@ -9,6 +9,7 @@ import { SizedBox } from "../core/sized-box";
 import { Toast } from "../core/toast";
 import AuthContext from "../../contexts/auth-context";
 import projectPostCard from ".";
+import { Anchor } from "../core/anchor";
 
 export const ProjectPostCard = function (props: any) {
   const { project } = props;
@@ -73,7 +74,9 @@ const Avatar = function (props: any) {
 const NameAndHandler = function (props: any) {
   return (
     <div className="flex flex-col justify-start ml-2 leading-5">
-      <span className="text-base font-medium font-body">{props.name}</span>
+      <Anchor fontSize="base" fontWeight="medium">
+        {props.name}
+      </Anchor>
       <span className="text-sm text-gray-600 font-body">@{props.handler}</span>
     </div>
   );
