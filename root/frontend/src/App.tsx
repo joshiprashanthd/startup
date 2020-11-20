@@ -1,5 +1,5 @@
-import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
-import React, { useState } from "react";
+import { useQuery } from "@apollo/client";
+import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Redirect,
@@ -8,9 +8,10 @@ import {
 } from "react-router-dom";
 
 //local
-import AuthContext, { IAuthInfo } from "./contexts/auth-context";
-import { SIGN_OUT } from "./graphql/user/mutation";
+import { AuthProvider } from "./components/auth-provider";
+import { IAuthInfo } from "./contexts/auth-context";
 import { ME } from "./graphql/user/query";
+import { useProvideAuth } from "./hooks/useProvideAuth";
 import { AuthPage } from "./pages/auth-page";
 import { CreatePage } from "./pages/create-page";
 import { HomePage } from "./pages/home-page";
@@ -18,53 +19,30 @@ import { IssuesPage } from "./pages/issues-page";
 import { ProfilePage } from "./pages/profile-page";
 
 export default function App() {
-  const { data, loading } = useQuery(ME);
-  const [user, setUser] = useState<IAuthInfo | null>(null);
-  const [signOutMutation] = useMutation(SIGN_OUT);
+  const { data } = useQuery(ME);
+  const auth = useProvideAuth();
 
-  const signIn = (user: IAuthInfo) => {
-    setUser(user);
-  };
-
-  const signOut = () => {
-    signOutMutation()
-      .then((data) => {
-        setUser(null);
-      })
-      .catch((err) => console.log(err));
-  };
-
-  if (data && user === null)
-    setUser({
-      id: data.me.id,
-      ...data.me.accountInfo,
-    });
+  useEffect(() => {
+    if (data) {
+      const user: IAuthInfo = {
+        id: data.me.id,
+        email: data.me.accountInfo.email,
+        handler: data.me.accountInfo.handler,
+        name: data.me.accountInfo.name,
+      };
+      auth.signIn(user);
+    }
+  }, [data]);
 
   return (
-    <AuthContext.Provider
-      value={{
-        user: user,
-        signIn: signIn,
-        signOut: signOut,
-        signUp: null,
-      }}
-    >
+    <AuthProvider value={auth}>
       <Router>
         <Switch>
-          {user === null && <Redirect exact from="/" to="/auth" />}
-          {user === null && !loading && (
-            <Redirect exact from="/home" to="/auth" />
-          )}
-          {user === null && !loading && (
-            <Route path="/auth">
-              <AuthPage />
-            </Route>
-          )}
-          {!loading && (
-            <Route path="/home">
-              <HomePage />
-            </Route>
-          )}
+          {auth.user === null && <Redirect exact from="/" to="/auth" />}
+          {auth.user && <Redirect exact from="/auth" to="/home" />}
+          <Route path="/home">
+            <HomePage />
+          </Route>
           <Route path="/profile/:handler">
             <ProfilePage />
           </Route>
@@ -77,10 +55,11 @@ export default function App() {
           <Route path="/create">
             <CreatePage />
           </Route>
-          {user !== null && <Redirect exact from="/auth" to="/home" />}
-          {user !== null && <Redirect exact from="/" to="/home" />}
+          <Route path="/auth">
+            <AuthPage />
+          </Route>
         </Switch>
       </Router>
-    </AuthContext.Provider>
+    </AuthProvider>
   );
 }
