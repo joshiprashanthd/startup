@@ -33,3 +33,24 @@ export const ME_PROFILE_PAGE = gql`
     }
   }
 `;
+
+export const USER = gql`
+  query User($userId: ID!) {
+    user(userId: $userId) {
+      id
+      accountInfo {
+        name
+        email
+        handler
+      }
+      personalInfo {
+        bio
+        birthDate
+        interests {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
