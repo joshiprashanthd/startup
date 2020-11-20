@@ -117,14 +117,14 @@ const RequestButton = function (props: any) {
             onInputChange={setMessage}
           />
           <div className="flex justify-end space-x-3">
-            <div className="w-40">
+            <SizedBox width={32}>
               <Button onClick={() => setShowModal(false)} variant="secondary">
                 Cancel
               </Button>
-            </div>
-            <div className="w-40">
+            </SizedBox>
+            <SizedBox width={32}>
               <Button onClick={handleSendRequestButton}>Send Request</Button>
-            </div>
+            </SizedBox>
           </div>
         </Modal>
       )}
