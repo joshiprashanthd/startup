@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useQuery } from "@apollo/client";
+import React, { useEffect, useState } from "react";
+import { useMutation, useQuery } from "@apollo/client";
 import fuse from "fuse.js";
 
 //local
@@ -16,17 +16,23 @@ import { Button } from "../../components/core/button";
 import { SizedBox } from "../../components/core/sized-box";
 import { InputField } from "../../components/core/input-field";
 import { DatePicker } from "../../components/core/date-picker";
+import { EDIT_USER } from "../../graphql/user/mutation";
+import moment from "moment";
+import { Alert } from "../../components/core/alert";
 
 export const ProfilePage = function (props: any) {
-  const { data, loading } = useQuery(ME_PROFILE_PAGE);
+  const { data, error, loading, refetch } = useQuery(ME_PROFILE_PAGE);
+
   return (
     <Page>
+      {loading && <Loader />}
+      {error && <Alert variant="error">Some error occurred</Alert>}
       {data && (
         <>
           <Navbar />
-          <div className="flex w-4/5 mx-auto">
-            <LeftPane data={data} />
-            <RightPane data={data} />
+          <div className="w-3/6 mx-auto space-y-4">
+            <UserNameAndHandler data={data} />
+            <PersonalInfoSection data={data} refetchData={refetch} />
           </div>
         </>
       )}
@@ -35,86 +41,80 @@ export const ProfilePage = function (props: any) {
 };
 
 const Bio = function (props: any) {
-  const { edit, data } = props;
+  const { edit, data, set } = props;
+
+  if (edit)
+    return <InputField onInputChange={set} initialValue={data} label="Bio" />;
   return (
-    <div className="mb-2">
+    <div className="mb-4">
       <h1 className="text-sm font-medium text-gray-700 font-body">Bio</h1>
-      {edit ? (
-        <SizedBox width={56}>
-          <InputField />
-        </SizedBox>
-      ) : (
-        <span className="font-body">
-          {data || "Add something about you..."}
-        </span>
-      )}
+      <span className="font-body">{data || "Add something about you..."}</span>
     </div>
   );
 };
 
 const Name = function (props: any) {
-  const { edit, data } = props;
+  const { edit, data, set } = props;
+
+  if (edit)
+    return <InputField onInputChange={set} initialValue={data} label="Name" />;
+
   return (
-    <div className="mb-2">
+    <div className="mb-4">
       <h1 className="text-sm font-medium text-gray-700 font-body">Name</h1>
-      {edit ? (
-        <SizedBox width={56}>
-          <InputField />
-        </SizedBox>
-      ) : (
-        <span className="font-body">{data}</span>
-      )}
+      <span className="font-body">{data}</span>
     </div>
   );
 };
 
 const Email = function (props: any) {
-  const { edit, data } = props;
+  const { edit, data, set } = props;
+
+  if (edit)
+    return <InputField onInputChange={set} initialValue={data} label="Email" />;
+
   return (
-    <div className="mb-2">
+    <div className="mb-4">
       <h1 className="text-sm font-medium text-gray-700 font-body">Email</h1>
-      {edit ? (
-        <SizedBox width={56}>
-          <InputField />
-        </SizedBox>
-      ) : (
-        <span className="font-body">{data}</span>
-      )}
+      <span className="font-body">{data}</span>
     </div>
   );
 };
 
 const Handler = function (props: any) {
-  const { edit, data } = props;
+  const { edit, data, set } = props;
+
+  if (edit)
+    return (
+      <InputField onInputChange={set} initialValue={data} label="Handler" />
+    );
 
   return (
-    <div className="mb-2">
+    <div className="mb-4">
       <h1 className="text-sm font-medium text-gray-700 font-body">Handler</h1>
-      {edit ? (
-        <SizedBox width={56}>
-          <InputField />
-        </SizedBox>
-      ) : (
-        <span className="font-body">{data}</span>
-      )}
+      <span className="font-body">{data}</span>
     </div>
   );
 };
 
 const BirthDate = function (props: any) {
-  const { edit, data } = props;
+  const { edit, data, set } = props;
 
   return (
-    <div className="mb-2">
-      <h1 className="text-sm font-medium text-gray-700 font-body">
+    <div className="mb-4">
+      <h1
+        className={`${
+          edit && "mb-2"
+        } text-sm font-medium text-gray-700 font-body`}
+      >
         Birth date
       </h1>
       {edit ? (
-        <SizedBox width={64}>
-          <DatePicker onSelectDate={props.set} />
-        </SizedBox>
+        <DatePicker onSelectDate={set} initialValue={data} />
       ) : (
-        <span className="font-body">{data || "Not given"}</span>
+        <span className="font-body">
+          {moment.utc(data).format("Do MMM, YYYY") || "Not given"}
+        </span>
       )}
     </div>
   );
@@ -130,25 +130,25 @@ const Interests = function (props: any) {
   );
   const [value, setValue] = useState("");
 
-  const handleOnDelete = (id: string) => {
-    setSelected((prev) => prev.filter((skill) => skill.id !== id));
+  useEffect(() => {
     props.set(selected.map((skill) => skill.id));
-  };
+  }, [selected]);
 
-  const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleOnDelete = (id: string) =>
+    setSelected((prev) => prev.filter((skill) => skill.id !== id));
+
+  const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     setValue(event.currentTarget.value);
-  };
 
   const handleOnSelect = (value: { name: string; id: string }) => {
     setSelected((prev) => [...prev, value]);
-    props.set(selected.map((skill) => skill.id));
     setValue("");
   };
 
   return (
     <div>
-      <h1 className="mb-1 text-sm font-medium text-gray-700 font-body">
-        Skills
+      <h1 className="mb-2 text-sm font-medium text-gray-700 font-body">
+        Interests
       </h1>
       <div className="flex space-x-2">
         {props.edit &&
@@ -202,20 +202,24 @@ const Interests = function (props: any) {
         </>
       )}
       {!props.edit &&
-        props.data.map((skill: { name: string; id: string }) => (
-          <Chip key={skill.name}>{skill.name}</Chip>
+        (props.data.length > 0 ? (
+          <div className="flex space-x-2">
+            {props.data.map((skill: { name: string; id: string }) => (
+              <Chip key={skill.name}>{skill.name}</Chip>
+            ))}
+          </div>
+        ) : (
+          <span>No interests</span>
         ))}
     </div>
   );
 };
 
-const LeftPane = function (props: any) {
+const UserNameAndHandler = function (props: any) {
   return (
-    <div className="p-4 text-left border left">
-      <div className="grid w-40 h-40 text-6xl font-bold text-white uppercase bg-purple-700 rounded-xl place-items-center">
-        {extractInitials(props.data.me.accountInfo.name)}
-      </div>
-      <div className="mt-4 leading-8">
+    <div className="flex items-center w-full px-8 py-4 bg-white border rounded">
+      <UserAvatar data={props.data.me.accountInfo.name} />
+      <div className="leading-8">
         <h1 className="text-4xl font-normal font-display">
           {props.data.me.accountInfo.name}
         </h1>
@@ -227,28 +231,59 @@ const LeftPane = function (props: any) {
   );
 };
 
-const RightPane = function (props: any) {
-  const { data } = props;
+const UserAvatar = function (props: any) {
   return (
-    <div className="w-full px-8 py-4 bg-white border right">
-      <PersonalInformationSection data={data} />
+    <div className="grid w-20 h-20 mr-8 text-2xl font-bold text-white uppercase bg-purple-700 rounded-xl place-items-center">
+      {extractInitials(props.data)}
     </div>
   );
 };
 
-const PersonalInformationSection = function (props: any) {
-  const { data, loading } = props;
+const PersonalInfoSection = function (props: any) {
+  const { data } = props;
   const [edit, setEdit] = useState(false);
   const [name, setName] = useState(data.me.accountInfo.name);
   const [handler, setHandler] = useState(data.me.accountInfo.handler);
   const [email, setEmail] = useState(data.me.accountInfo.email);
   const [birthDate, setBirthDate] = useState(data.me.personalInfo.birthDate);
   const [bio, setBio] = useState(data.me.personalInfo.bio);
-  const [skills, setSkills] = useState<string[]>([]);
+  const [skills, setSkills] = useState<string[]>(
+    data.me.personalInfo.interests.map((obj: { id: string }) => obj.id)
+  );
+
+  const [editUser, { loading }] = useMutation(EDIT_USER);
+
+  const onSaveHandler = () => {
+    editUser({
+      variables: {
+        input: {
+          userId: data.me.id,
+          accountInfo: {
+            name: name.length === 0 ? data.me.acocountInfo.name : name,
+            handler:
+              handler.length === 0 ? data.me.accountInfo.handler : handler,
+            email: email.length === 0 ? data.me.accountInfo.email : email,
+          },
+          personalInfo: {
+            interests: skills.map((id) => ({
+              skillId: id,
+            })),
+            bio,
+            birthDate: new Date(birthDate).getTime(),
+          },
+        },
+      },
+    })
+      .then((resData) => {
+        setEdit(false);
+        props.refetchData();
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
-    <div className="my-4">
-      <div className="flex items-center justify-between">
+    <div className="w-full px-8 py-4 bg-white border rounded">
+      <div className="flex items-center justify-between mb-4">
         <h1 className="text-lg font-medium font-body">Personal Information</h1>
         {!edit && (
           <Anchor
@@ -283,13 +318,15 @@ const PersonalInformationSection = function (props: any) {
 
       {edit && (
         <div className="flex mt-4 space-x-2">
-          <SizedBox width={24}>
+          <SizedBox width={32}>
             <Button variant="secondary" onClick={() => setEdit(false)}>
               Cancel
             </Button>
           </SizedBox>
-          <SizedBox width={24}>
-            <Button onClick={() => setEdit(false)}>Save</Button>
+          <SizedBox width={32}>
+            <Button onClick={onSaveHandler}>
+              {loading ? <Loader /> : "Save"}
+            </Button>
           </SizedBox>
         </div>
       )}
