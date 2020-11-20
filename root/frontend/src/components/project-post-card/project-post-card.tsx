@@ -10,6 +10,7 @@ import { Toast } from "../core/toast";
 import AuthContext from "../../contexts/auth-context";
 import projectPostCard from ".";
 import { Anchor } from "../core/anchor";
+import { Link } from "react-router-dom";
 
 export const ProjectPostCard = function (props: any) {
   const { project } = props;
@@ -29,6 +30,7 @@ export const ProjectPostCard = function (props: any) {
         <div className="flex items-center">
           <Avatar name={avatarName} />
           <NameAndHandler
+            userId={project.details.creator.id}
             name={project.details.creator.accountInfo.name}
             handler={project.details.creator.accountInfo.handler}
           />
@@ -75,7 +77,7 @@ const NameAndHandler = function (props: any) {
   return (
     <div className="flex flex-col justify-start ml-2 leading-5">
       <Anchor fontSize="base" fontWeight="medium">
-        {props.name}
+        <Link to={`profile/${props.userId}`}>{props.name}</Link>
       </Anchor>
       <span className="text-sm text-gray-600 font-body">@{props.handler}</span>
     </div>
