@@ -33,6 +33,7 @@ export default gql`
 
 	extend type Query {
 		users: [User!]
+		user(userId: ID!): User!
 		me: User! @auth
 	}
 

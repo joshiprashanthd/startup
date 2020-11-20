@@ -8,6 +8,12 @@ export default {
 		users: async (parent: any, args: any, context: IContext, info: any) =>
 			(await User.find({})).map(userDoc => mapUser(userDoc, context)),
 		me: async (parent: any, args: any, context: IContext, info: any) =>
-			mapUser(await User.findById(context.req.session.userId), context)
+			mapUser(await User.findById(context.req.session.userId), context),
+		user: async (
+			parent: any,
+			args: { userId: string },
+			context: IContext,
+			info: any
+		) => mapUser(await User.findById(args.userId), context)
 	}
 };
