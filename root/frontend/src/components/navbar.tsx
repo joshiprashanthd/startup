@@ -1,15 +1,17 @@
+import { useReactiveVar } from "@apollo/client";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 //local
 import AuthContext, { IAuthContext, IAuthInfo } from "../contexts/auth-context";
+import { useAuth } from "../hooks/useAuth";
 import { Anchor } from "./core/anchor";
 import { Dropdown } from "./core/dropdown";
 
 export const Navbar = function (props: any) {
-  const authContext = useContext(AuthContext);
+  const auth = useAuth();
   return (
     <div className="fixed top-0 z-10 flex flex-row w-full h-16 px-6 py-0 bg-white shadow">
       <div className="flex-1"></div>
@@ -44,12 +46,12 @@ export const Navbar = function (props: any) {
       </div>
       <div className="flex items-center justify-end flex-1">
         <div className="grid w-8 h-8 mr-4 text-base font-bold text-purple-700 bg-purple-100 rounded place-items-center">
-          {(authContext.user?.name?.split(" ")[0].charAt(0) as string) +
-            authContext.user?.name?.split(" ")[1].charAt(0)}
+          {(auth.user?.name?.split(" ")[0].charAt(0) as string) +
+            auth.user?.name?.split(" ")[1].charAt(0)}
         </div>
         <div className="mr-4">
           <Anchor fontWeight="semibold">
-            <Link to="/profile">{authContext.user?.name}</Link>
+            <Link to="/profile">{auth.user?.name}</Link>
           </Anchor>
         </div>
         <div>
@@ -62,8 +64,13 @@ export const Navbar = function (props: any) {
               <Dropdown.Item>Your Starred projects</Dropdown.Item>
               <hr />
               <Dropdown.Item>Settings</Dropdown.Item>
-              <Dropdown.Item onClick={authContext.signOut}>
+              <Dropdown.Item
+                onClick={() => {
+                  if (auth.signOut) auth.signOut();
+                }}
+              >
                 Sign Out
+                {auth.user === null && <Redirect exact to="/auth" />}
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
