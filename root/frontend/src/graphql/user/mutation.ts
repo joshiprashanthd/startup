@@ -31,3 +31,11 @@ export const SIGN_OUT = gql`
     signOut
   }
 `;
+
+export const EDIT_USER = gql`
+  mutation EditUser($input: LooseUserInput!) {
+    editUser(input: $input) {
+      id
+    }
+  }
+`;
