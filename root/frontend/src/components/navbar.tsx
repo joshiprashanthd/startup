@@ -1,16 +1,26 @@
+import { useMutation } from "@apollo/client";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router-dom";
 
 //local
+import { SIGN_OUT } from "../graphql/user/mutation";
 import { useAuth } from "../hooks/useAuth";
 import extractInitials from "../utils/extractInitials";
 import { Anchor } from "./core/anchor";
 import { Dropdown } from "./core/dropdown";
 
 export const Navbar = function (props: any) {
+  const [mutate] = useMutation(SIGN_OUT);
   const auth = useAuth();
+
+  const handleSignOut = () => {
+    mutate()
+      .then((resData) => auth.signOut && auth.signOut())
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div className="fixed top-0 z-10 flex flex-row w-full h-16 px-6 py-0 bg-white shadow">
       <div className="flex-1"></div>
@@ -62,13 +72,7 @@ export const Navbar = function (props: any) {
               <Dropdown.Item>Your Starred projects</Dropdown.Item>
               <hr />
               <Dropdown.Item>Settings</Dropdown.Item>
-              <Dropdown.Item
-                onClick={() => {
-                  if (auth.signOut) auth.signOut();
-                }}
-              >
-                Sign Out
-              </Dropdown.Item>
+              <Dropdown.Item onClick={handleSignOut}>Sign Out</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </div>
