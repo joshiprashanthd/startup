@@ -8,6 +8,7 @@ import {
 
 //local
 import { AuthProvider } from "./components/auth-provider";
+import { useAuth } from "./hooks/useAuth";
 import { useProvideAuth } from "./hooks/useProvideAuth";
 import { AuthPage } from "./pages/auth-page";
 import { CreatePage } from "./pages/create-page";
@@ -21,20 +22,55 @@ export default function App() {
   return (
     <AuthProvider value={auth}>
       <Router>
-        <Switch>
-          {auth.user && <Redirect exact from="/auth" to="/home" />}
-          {auth.user && <Redirect exact from="/" to="/home" />}
-          {auth.user === null && <Redirect exact from="/" to="/auth" />}
-          {auth.user === null && <Redirect exact from="/home" to="/auth" />}
-          <Route path="/home" component={HomePage} />
-          <Route path="/profile/:userId" component={ProfilePage} />
-          <Route path="/profile" component={ProfilePage} />
-          <Route path="/issues" component={IssuesPage} />
-          <Route path="/create" component={CreatePage} />
-          <Route path="/auth" component={AuthPage} />
-          <Route path="/" component={AuthPage} />
-        </Switch>
+        {!auth.loading && (
+          <Switch>
+            {!auth.user && <Redirect exact from="/" to="/auth" />}
+            {auth.user && <Redirect exact from="/auth" to="/home" />}
+            {!auth.user && <Redirect exact from="/home" to="/auth" />}
+            {!auth.user && <Redirect exact from="/profile" to="/auth" />}
+
+            <Route path="/auth">
+              <AuthPage />
+            </Route>
+            <Route path="/profile/:userId">
+              <ProfilePage />
+            </Route>
+            <Route path="/profile">
+              <ProfilePage />
+            </Route>
+            <Route path="/issues">
+              <IssuesPage />
+            </Route>
+            <Route path="/create">
+              <CreatePage />
+            </Route>
+            <Route path="/home">
+              <HomePage />
+            </Route>
+          </Switch>
+        )}
       </Router>
     </AuthProvider>
   );
 }
+
+const PrivateRoute = function (props: any) {
+  let auth = useAuth();
+  return (
+    <Route
+      {...props.rest}
+      render={({ location }) =>
+        auth.user ? (
+          props.children
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/auth",
+              state: { from: location },
+            }}
+          />
+        )
+      }
+    />
+  );
+};
