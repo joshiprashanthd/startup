@@ -9,7 +9,6 @@ import { ME } from "../graphql/user/query";
 export const useProvideAuth = function () {
   const [user, setUser] = useState<IAuthInfo | null>(null);
   const { data, loading } = useQuery(ME);
-  const [mutate] = useMutation(SIGN_OUT);
 
   useEffect(() => {
     if (data) {
@@ -23,24 +22,11 @@ export const useProvideAuth = function () {
     }
   }, [data]);
 
-  const signIn = (user: IAuthInfo, callback?: () => void): void => {
+  const signIn = (user: IAuthInfo): void => {
     setUser(user);
-    if (callback) callback();
   };
 
-  const signOut = (
-    onResponse?: (data: any) => void,
-    onError?: (err: any) => void
-  ) => {
-    mutate()
-      .then((data) => {
-        setUser(null);
-        if (onResponse) onResponse(data);
-      })
-      .catch((err) => {
-        if (onError) onError(err);
-      });
-  };
+  const signOut = () => setUser(null);
 
   return {
     user,
