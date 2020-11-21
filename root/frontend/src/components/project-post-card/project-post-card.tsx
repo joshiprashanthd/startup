@@ -8,12 +8,15 @@ import { Modal } from "../core/modal";
 import { SizedBox } from "../core/sized-box";
 import { Toast } from "../core/toast";
 import AuthContext from "../../contexts/auth-context";
-import projectPostCard from ".";
 import { Anchor } from "../core/anchor";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
+import { Chip } from "../core/chip";
 
 export const ProjectPostCard = function (props: any) {
   const { project } = props;
+
+  const auth = useAuth();
 
   const names = project.details.creator.accountInfo.name.split(" ");
   const avatarName = names[0].charAt(0) + names[1].charAt(0);
@@ -47,7 +50,11 @@ export const ProjectPostCard = function (props: any) {
           />
         </div>
       </div>
-
+      {auth.user?.id === project.details.creator.id && (
+        <div className="mt-2">
+          <Chip color="purple">Owned</Chip>
+        </div>
+      )}
       <div className="mt-2">
         <ProjectTitle>{project.details.title}</ProjectTitle>
         <ProjectDescription>{project.details.description}</ProjectDescription>
