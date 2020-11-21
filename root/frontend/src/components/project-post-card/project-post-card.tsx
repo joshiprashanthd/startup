@@ -52,8 +52,27 @@ export const ProjectPostCard = function (props: any) {
       </div>
 
       <div className="flex space-x-2">
+        <Chip
+          color={(() => {
+            switch (project.state) {
+              case "OPEN":
+                return "green";
+              case "CLOSED":
+                return "red";
+              case "STARTED":
+                return "purple";
+              case "ENDED":
+                return "black";
+            }
+          })()}
+          style="solid"
+        >
+          {project.state.toLowerCase()}
+        </Chip>
         {auth.user?.id === project.details.creator.id && (
-          <Chip color="purple">Owned</Chip>
+          <Chip color="purple" style="solid">
+            Owned
+          </Chip>
         )}
         {skills.map((name: any) => (
           <Chip color="blue">{name}</Chip>
