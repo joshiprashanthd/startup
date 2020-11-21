@@ -12,6 +12,7 @@ export interface IAuthContext {
   signIn: ((user: IAuthInfo) => void) | null;
   signOut: (() => void) | null;
   signUp: ((user: IAuthInfo) => void) | null;
+  loading: boolean;
 }
 
 export default createContext<IAuthContext>({
@@ -19,4 +20,5 @@ export default createContext<IAuthContext>({
   signIn: null,
   signOut: null,
   signUp: null,
+  loading: false,
 });
