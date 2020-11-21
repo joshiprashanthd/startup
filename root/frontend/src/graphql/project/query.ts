@@ -7,8 +7,6 @@ export const PROJECTS = gql`
       details {
         title
         description
-        duration
-        startingOn
         skillSet {
           name
         }
@@ -20,6 +18,7 @@ export const PROJECTS = gql`
           }
         }
       }
+      state
       isStarred
       isRequested
     }
