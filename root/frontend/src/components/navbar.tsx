@@ -7,6 +7,7 @@ import { Link, Redirect } from "react-router-dom";
 //local
 import AuthContext, { IAuthContext, IAuthInfo } from "../contexts/auth-context";
 import { useAuth } from "../hooks/useAuth";
+import extractInitials from "../utils/extractInitials";
 import { Anchor } from "./core/anchor";
 import { Dropdown } from "./core/dropdown";
 
@@ -45,9 +46,8 @@ export const Navbar = function (props: any) {
         </Link>
       </div>
       <div className="flex items-center justify-end flex-1">
-        <div className="grid w-8 h-8 mr-4 text-base font-bold text-purple-700 bg-purple-100 rounded place-items-center">
-          {(auth.user?.name?.split(" ")[0].charAt(0) as string) +
-            auth.user?.name?.split(" ")[1].charAt(0)}
+        <div className="grid w-8 h-8 mr-4 text-base font-bold text-purple-700 bg-purple-100 rounded place-items-center font-body">
+          {extractInitials(auth.user?.name as string)}
         </div>
         <div className="mr-4">
           <Anchor fontWeight="semibold">
