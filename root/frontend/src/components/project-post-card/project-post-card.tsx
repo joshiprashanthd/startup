@@ -28,7 +28,7 @@ export const ProjectPostCard = function (props: any) {
   );
 
   return (
-    <div className="w-4/5 p-4 my-4 bg-white border rounded shadow">
+    <div className="w-4/5 p-4 my-4 space-y-2 bg-white border rounded shadow">
       <div className="flex items-center justify-between">
         <div className="flex items-center">
           <Avatar name={avatarName} />
@@ -51,7 +51,7 @@ export const ProjectPostCard = function (props: any) {
         </div>
       </div>
 
-      <div className="flex mt-2 space-x-2">
+      <div className="flex space-x-2">
         {auth.user?.id === project.details.creator.id && (
           <Chip color="purple">Owned</Chip>
         )}
@@ -59,17 +59,10 @@ export const ProjectPostCard = function (props: any) {
           <Chip color="blue">{name}</Chip>
         ))}
       </div>
-      <div className="mt-2">
+
+      <div>
         <ProjectTitle>{project.details.title}</ProjectTitle>
         <ProjectDescription>{project.details.description}</ProjectDescription>
-      </div>
-
-      <div className="flex items-center mt-4 space-x-2">
-        <ExtraInfo header="Starting On" info={startingDate} />
-        <ExtraInfo
-          header="Duration"
-          info={`${project.details.duration} Weeks`}
-        />
       </div>
     </div>
   );
@@ -197,18 +190,6 @@ const ProjectDescription = function (props: any) {
           Read More
         </span>
       )}
-    </div>
-  );
-};
-
-const ExtraInfo = function (props: any) {
-  return (
-    <div className="flex-1 p-2 text-center duration-200 border rounded cursor-default">
-      <span className="text-sm font-medium text-gray-600 font-body">
-        {props.header}
-      </span>
-      <br />
-      <span className="text-sm font-body">{props.info}</span>
     </div>
   );
 };
