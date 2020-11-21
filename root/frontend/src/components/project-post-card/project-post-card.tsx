@@ -187,28 +187,5 @@ const ProjectTitle = function (props: any) {
 };
 
 const ProjectDescription = function (props: any) {
-  const [readMore, setReadMore] = useState(false);
-
-  return (
-    <div>
-      <div
-        className={`relative ${
-          !readMore && "h-32"
-        } overflow-hidden font-body text-sm`}
-      >
-        {props.children}
-        {!readMore && (
-          <div className="absolute bottom-0 left-0 w-full h-10 text-sm text-right text-purple-500 origin-top-right font-body bg-gradient-to-t from-white" />
-        )}
-      </div>
-      {!readMore && (
-        <span
-          className="text-sm font-medium text-purple-500 cursor-pointer hover:underline"
-          onClick={() => setReadMore(true)}
-        >
-          Read More
-        </span>
-      )}
-    </div>
-  );
+  return <div>{props.children}</div>;
 };
