@@ -8,11 +8,11 @@ import { DatePicker } from "../../components/core/date-picker";
 import { Dropdown } from "../../components/core/dropdown";
 import { InputField } from "../../components/core/input-field";
 import { Navbar } from "../../components/navbar";
-import { SkillSelectorField } from "../../components/skill-selector-field";
 import { CREATE_PROJECT } from "../../graphql/project/mutation";
 import { Button } from "../../components/core/button";
 import { SizedBox } from "../../components/core/sized-box";
 import { Page } from "../../components/core/page";
+import { SkillSelectorField } from "../../components/skill-selector-field";
 
 export const CreatePage = function (props: any) {
   const [createProject, { loading }] = useMutation(CREATE_PROJECT);
@@ -147,12 +147,10 @@ export const CreatePage = function (props: any) {
             </DescriptionBody>
           </DescriptionItem>
           <div>
-            <SkillSelectorField
-              selectedSkills={selectedSkills}
-              onSelect={setSelectedSkills}
-            />
+            <SkillSelectorField onSelect={setSelectedSkills} />
           </div>
         </div>
+        <hr className="mb-4" />
         <SizedBox width={32}>
           <Button
             onClick={handleOnClick}
