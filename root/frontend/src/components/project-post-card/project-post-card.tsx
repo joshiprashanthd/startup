@@ -28,7 +28,7 @@ export const ProjectPostCard = function (props: any) {
   );
 
   return (
-    <div className="w-4/5 p-4 my-4 space-y-2 bg-white border rounded shadow">
+    <div className="w-4/5 p-4 my-4 space-y-2 bg-white border rounded shadow-md">
       <div className="flex items-center justify-between">
         <div className="flex items-center">
           <Avatar name={avatarName} />
