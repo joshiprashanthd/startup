@@ -91,7 +91,7 @@ export const ProjectPostCard = function (props: any) {
 
 const Avatar = function (props: any) {
   return (
-    <div className="grid w-10 h-10 font-bold text-white bg-blue-300 rounded font-body place-items-center">
+    <div className="grid w-10 h-10 font-bold text-white bg-blue-700 rounded font-body place-items-center">
       {props.name}
     </div>
   );
