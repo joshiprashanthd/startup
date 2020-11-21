@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useRef, useState } from "react";
+import { useOnClickOutside } from "../../hooks/useOnClickOutside";
 import { Button } from "./button";
 
 interface IDropdownContext {
@@ -30,6 +31,8 @@ export const Dropdown: React.FC<IProps> & {
   variant = "primary",
 }) {
   const [show, setShow] = useState(false);
+  const ref = useRef(null);
+  useOnClickOutside(ref, () => setShow(false));
 
   return (
     <DropdownContext.Provider
@@ -38,7 +41,7 @@ export const Dropdown: React.FC<IProps> & {
         showDropdown: setShow,
       }}
     >
-      <div className="relative inline-block text-left">
+      <div className="relative inline-block text-left" ref={ref}>
         <div>
           <Button variant={variant} onClick={() => setShow((prev) => !prev)}>
             {label}

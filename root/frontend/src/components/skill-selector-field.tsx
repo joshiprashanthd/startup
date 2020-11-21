@@ -1,7 +1,8 @@
 import { useLazyQuery, useQuery } from "@apollo/client";
 import Fuse from "fuse.js";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { SKILLS_WITH_NAME_ID } from "../graphql/skill/query";
+import { useOnClickOutside } from "../hooks/useOnClickOutside";
 
 //local
 import { Chip } from "./core/chip";
@@ -12,6 +13,9 @@ export const SkillSelectorField = function (props: any) {
   const { data, loading } = useQuery(SKILLS_WITH_NAME_ID);
   const [selected, setSelected] = useState<{ name: string; id: string }[]>([]);
   const [value, setValue] = useState("");
+  const ref = useRef(null);
+
+  useOnClickOutside(ref, () => setValue(""));
 
   useEffect(() => {
     props.onSelect(selected.map((skill) => skill.id));
@@ -29,10 +33,7 @@ export const SkillSelectorField = function (props: any) {
   };
 
   return (
-    <div>
-      <h1 className="mb-2 text-sm font-medium text-gray-700 font-body">
-        Interests
-      </h1>
+    <div ref={ref}>
       <div className="flex space-x-2">
         {selected.length > 0 &&
           selected.map((skill) => (

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useRef } from "react";
+import { useOnClickOutside } from "../hooks/useOnClickOutside";
 
 interface IProps {
   onChange: (value: React.ChangeEvent<HTMLInputElement>) => void;
@@ -15,8 +16,16 @@ export const InputFieldWithDropdown: React.FC<IProps> & {
   value,
   inputPlaceholder = "Enter text",
 }) {
+  const ref = useRef(null);
+
+  useOnClickOutside(ref, () =>
+    onChange({
+      currentTarget: { value: "" },
+    } as React.ChangeEvent<HTMLInputElement>)
+  );
+
   return (
-    <div className="relative w-full text-left">
+    <div className="relative w-full text-left" ref={ref}>
       <input
         type="text"
         value={value}
