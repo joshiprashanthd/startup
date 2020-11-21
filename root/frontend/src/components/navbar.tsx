@@ -1,11 +1,9 @@
-import { useReactiveVar } from "@apollo/client";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useContext } from "react";
-import { Link, Redirect } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 
 //local
-import AuthContext, { IAuthContext, IAuthInfo } from "../contexts/auth-context";
 import { useAuth } from "../hooks/useAuth";
 import extractInitials from "../utils/extractInitials";
 import { Anchor } from "./core/anchor";
@@ -70,7 +68,6 @@ export const Navbar = function (props: any) {
                 }}
               >
                 Sign Out
-                {auth.user === null && <Redirect exact to="/auth" />}
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
