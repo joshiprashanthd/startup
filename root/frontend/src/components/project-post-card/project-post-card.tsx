@@ -40,10 +40,12 @@ export const ProjectPostCard = function (props: any) {
         </div>
 
         <div className="flex items-center space-x-2">
-          <RequestButton
-            project={project}
-            callback={props.toggleRequestCallback}
-          />
+          {auth.user?.id !== project.details.creator.id && (
+            <RequestButton
+              project={project}
+              callback={props.toggleRequestCallback}
+            />
+          )}
           <StarButton
             starred={project.isStarred}
             callback={props.toggleStarCallback}
