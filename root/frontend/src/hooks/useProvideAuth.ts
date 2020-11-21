@@ -19,7 +19,7 @@ export const useProvideAuth = function () {
         handler: data.me.accountInfo.handler,
         name: data.me.accountInfo.name,
       };
-      signIn(user);
+      setUser(user);
     }
   }, [data]);
 
