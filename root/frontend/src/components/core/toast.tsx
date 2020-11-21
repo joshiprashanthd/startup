@@ -16,11 +16,12 @@ interface IProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const ToastStyles = {
-  base: "fixed bottom-0 right-0 p-2 mb-8 mr-8 shadow-lg rounded",
-  info: "bg-blue-100 text-blue-600",
-  warning: "bg-orange-100 text-orange-600",
-  success: "bg-green-100 text-green-600",
-  error: "bg-red-100 text-red-600",
+  base:
+    "fixed bottom-0 right-0 py-2 mb-8 mr-8 shadow-lg text-sm rounded font-body",
+  info: "bg-blue-700 text-white",
+  warning: "bg-orange-700 text-white",
+  success: "bg-green-700 text-white",
+  error: "bg-red-700 text-white",
 };
 
 const cx = classnames.bind(ToastStyles);
@@ -69,12 +70,12 @@ export const Toast: React.FC<IProps> = function ({
             success: variant === "success",
           })}
         >
-          <FontAwesomeIcon icon={icon} className="mr-4" />
+          <FontAwesomeIcon icon={icon} className="mx-4" />
           {children}
           <FontAwesomeIcon
             icon={faTimes}
             onClick={handleClose}
-            className="ml-2 cursor-pointer"
+            className="mx-4 cursor-pointer"
           />
         </div>
       )}
