@@ -23,9 +23,9 @@ export const ProjectPostCard = function (props: any) {
   const startingDate = moment
     .utc(project.details.startingOn)
     .format("Do MMM, YYYY");
-  const skills = project.details.skillSet
-    .map((skill: { name: any }) => skill.name)
-    .join(", ");
+  const skills = project.details.skillSet.map(
+    (skill: { name: any }) => skill.name
+  );
 
   return (
     <div className="w-4/5 p-4 my-4 bg-white border rounded shadow">
@@ -50,19 +50,22 @@ export const ProjectPostCard = function (props: any) {
           />
         </div>
       </div>
-      {auth.user?.id === project.details.creator.id && (
-        <div className="mt-2">
+
+      <div className="flex mt-2 space-x-2">
+        {auth.user?.id === project.details.creator.id && (
           <Chip color="purple">Owned</Chip>
-        </div>
-      )}
+        )}
+        {skills.map((name: any) => (
+          <Chip color="blue">{name}</Chip>
+        ))}
+      </div>
       <div className="mt-2">
         <ProjectTitle>{project.details.title}</ProjectTitle>
         <ProjectDescription>{project.details.description}</ProjectDescription>
       </div>
 
-      <div className="flex items-center mt-4">
+      <div className="flex items-center mt-4 space-x-2">
         <ExtraInfo header="Starting On" info={startingDate} />
-        <ExtraInfo header="Required Skills" info={skills} />
         <ExtraInfo
           header="Duration"
           info={`${project.details.duration} Weeks`}
@@ -200,14 +203,12 @@ const ProjectDescription = function (props: any) {
 
 const ExtraInfo = function (props: any) {
   return (
-    <div className="flex-1 p-2 mr-2 text-center duration-200 border rounded cursor-default hover:bg-purple-500 group">
-      <span className="text-sm font-medium text-gray-600 group-hover:text-white font-body">
+    <div className="flex-1 p-2 text-center duration-200 border rounded cursor-default">
+      <span className="text-sm font-medium text-gray-600 font-body">
         {props.header}
       </span>
       <br />
-      <span className="text-sm group-hover:text-white font-body">
-        {props.info}
-      </span>
+      <span className="text-sm font-body">{props.info}</span>
     </div>
   );
 };
