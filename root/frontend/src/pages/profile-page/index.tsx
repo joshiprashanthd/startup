@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import fuse from "fuse.js";
+import moment from "moment";
+import { useParams } from "react-router";
 
 //local
 import { Page } from "../../components/core/page";
 import { Navbar } from "../../components/navbar";
-import { ME_PROFILE_PAGE } from "../../graphql/user/query";
+import { USER } from "../../graphql/user/query";
 import { Chip } from "../../components/core/chip";
 import extractInitials from "../../utils/extractInitials";
 import { SKILLS_WITH_NAME_ID } from "../../graphql/skill/query";
@@ -17,16 +19,20 @@ import { SizedBox } from "../../components/core/sized-box";
 import { InputField } from "../../components/core/input-field";
 import { DatePicker } from "../../components/core/date-picker";
 import { EDIT_USER } from "../../graphql/user/mutation";
-import moment from "moment";
-import { Alert } from "../../components/core/alert";
+import { useAuth } from "../../hooks/useAuth";
 
 export const ProfilePage = function (props: any) {
-  const { data, error, loading, refetch } = useQuery(ME_PROFILE_PAGE);
+  const auth = useAuth();
+  const { userId } = useParams<{ userId?: string }>();
+  const { data, error, loading, refetch } = useQuery(USER, {
+    variables: {
+      userId: userId || auth.user?.id,
+    },
+  });
 
   return (
     <Page>
       {loading && <Loader />}
-      {error && <Alert variant="error">Some error occurred</Alert>}
       {data && (
         <>
           <Navbar />
@@ -218,13 +224,13 @@ const Interests = function (props: any) {
 const UserNameAndHandler = function (props: any) {
   return (
     <div className="flex items-center w-full px-8 py-4 bg-white border rounded">
-      <UserAvatar data={props.data.me.accountInfo.name} />
+      <UserAvatar data={props.data.user.accountInfo.name} />
       <div className="leading-8">
         <h1 className="text-4xl font-normal font-display">
-          {props.data.me.accountInfo.name}
+          {props.data.user.accountInfo.name}
         </h1>
         <h1 className="text-xl font-light text-gray-700 text-display">
-          @{props.data.me.accountInfo.handler}
+          @{props.data.user.accountInfo.handler}
         </h1>
       </div>
     </div>
@@ -241,14 +247,16 @@ const UserAvatar = function (props: any) {
 
 const PersonalInfoSection = function (props: any) {
   const { data } = props;
+
+  const auth = useAuth();
   const [edit, setEdit] = useState(false);
-  const [name, setName] = useState(data.me.accountInfo.name);
-  const [handler, setHandler] = useState(data.me.accountInfo.handler);
-  const [email, setEmail] = useState(data.me.accountInfo.email);
-  const [birthDate, setBirthDate] = useState(data.me.personalInfo.birthDate);
-  const [bio, setBio] = useState(data.me.personalInfo.bio);
+  const [name, setName] = useState(data.user.accountInfo.name);
+  const [handler, setHandler] = useState(data.user.accountInfo.handler);
+  const [email, setEmail] = useState(data.user.accountInfo.email);
+  const [birthDate, setBirthDate] = useState(data.user.personalInfo.birthDate);
+  const [bio, setBio] = useState(data.user.personalInfo.bio);
   const [skills, setSkills] = useState<string[]>(
-    data.me.personalInfo.interests.map((obj: { id: string }) => obj.id)
+    data.user.personalInfo.interests.map((obj: { id: string }) => obj.id)
   );
 
   const [editUser, { loading }] = useMutation(EDIT_USER);
@@ -257,12 +265,12 @@ const PersonalInfoSection = function (props: any) {
     editUser({
       variables: {
         input: {
-          userId: data.me.id,
+          userId: data.user.id,
           accountInfo: {
-            name: name.length === 0 ? data.me.acocountInfo.name : name,
+            name: name.length === 0 ? data.user.acocountInfo.name : name,
             handler:
-              handler.length === 0 ? data.me.accountInfo.handler : handler,
-            email: email.length === 0 ? data.me.accountInfo.email : email,
+              handler.length === 0 ? data.user.accountInfo.handler : handler,
+            email: email.length === 0 ? data.user.accountInfo.email : email,
           },
           personalInfo: {
             interests: skills.map((id) => ({
@@ -285,7 +293,7 @@ const PersonalInfoSection = function (props: any) {
     <div className="w-full px-8 py-4 bg-white border rounded">
       <div className="flex items-center justify-between mb-4">
         <h1 className="text-lg font-medium font-body">Personal Information</h1>
-        {!edit && (
+        {!edit && auth.user?.id === data.user.id && (
           <Anchor
             fontSize="sm"
             fontWeight="medium"
@@ -297,21 +305,21 @@ const PersonalInfoSection = function (props: any) {
         )}
       </div>
 
-      <Name data={data.me.accountInfo.name} edit={edit} set={setName} />
+      <Name data={data.user.accountInfo.name} edit={edit} set={setName} />
       <Handler
-        data={data.me.accountInfo.handler}
+        data={data.user.accountInfo.handler}
         edit={edit}
         set={setHandler}
       />
-      <Email data={data.me.accountInfo.email} edit={edit} set={setEmail} />
+      <Email data={data.user.accountInfo.email} edit={edit} set={setEmail} />
       <BirthDate
-        data={data.me.personalInfo.birthDate}
+        data={data.user.personalInfo.birthDate}
         edit={edit}
         set={setBirthDate}
       />
-      <Bio data={data.me.personalInfo.bio} edit={edit} set={setBio} />
+      <Bio data={data.user.personalInfo.bio} edit={edit} set={setBio} />
       <Interests
-        data={data.me.personalInfo.interests}
+        data={data.user.personalInfo.interests}
         edit={edit}
         set={setSkills}
       />
