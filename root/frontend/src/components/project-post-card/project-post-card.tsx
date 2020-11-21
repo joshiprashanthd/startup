@@ -187,5 +187,5 @@ const ProjectTitle = function (props: any) {
 };
 
 const ProjectDescription = function (props: any) {
-  return <div>{props.children}</div>;
+  return <div className="text-sm font-body">{props.children}</div>;
 };
