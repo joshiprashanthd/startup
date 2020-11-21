@@ -1,9 +1,8 @@
-import { useMutation, useQuery } from "@apollo/client";
-import { useCallback, useEffect, useState } from "react";
+import { useQuery } from "@apollo/client";
+import { useEffect, useState } from "react";
 
 //local
 import { IAuthInfo } from "../contexts/auth-context";
-import { SIGN_OUT } from "../graphql/user/mutation";
 import { ME } from "../graphql/user/query";
 
 export const useProvideAuth = function () {
