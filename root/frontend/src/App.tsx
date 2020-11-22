@@ -15,6 +15,7 @@ import { CreatePage } from "./pages/create-page";
 import { HomePage } from "./pages/home-page";
 import { IssuesPage } from "./pages/issues-page";
 import { ProfilePage } from "./pages/profile-page";
+import { ProjectPage } from "./pages/project-page";
 
 export default function App() {
   const auth = useProvideAuth();
@@ -31,6 +32,9 @@ export default function App() {
 
             <Route path="/auth">
               <AuthPage />
+            </Route>
+            <Route path="/project/:projectId">
+              <ProjectPage />
             </Route>
             <Route path="/profile/:userId">
               <ProfilePage />
