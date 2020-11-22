@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 
 //local
-import { AuthProvider } from "./components/auth-provider";
+import { AuthProvider } from "./providers/auth-provider";
 import { useAuth } from "./hooks/useAuth";
 import { useProvideAuth } from "./hooks/useProvideAuth";
 import { AuthPage } from "./pages/auth-page";
