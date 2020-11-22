@@ -84,7 +84,7 @@ export const ProjectPostCard = function (props: any) {
       </div>
 
       <div>
-        <ProjectTitle>{project.details.title}</ProjectTitle>
+        <ProjectTitle id={project.id}>{project.details.title}</ProjectTitle>
         <ProjectDescription>{project.details.description}</ProjectDescription>
       </div>
     </div>
@@ -186,7 +186,14 @@ const StarButton = function (props: any) {
 
 const ProjectTitle = function (props: any) {
   return (
-    <span className="text-xl font-medium font-display">{props.children}</span>
+    <Anchor>
+      <Link
+        className="text-xl font-medium font-display"
+        to={`/project/${props.id}`}
+      >
+        {props.children}
+      </Link>
+    </Anchor>
   );
 };
 
