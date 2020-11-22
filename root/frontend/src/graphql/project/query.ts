@@ -24,3 +24,38 @@ export const PROJECTS = gql`
     }
   }
 `;
+
+export const PROJECT_BY_ID = gql`
+  query ProjectById($projectId: ID!) {
+    projectById(projectId: $projectId) {
+      id
+      details {
+        title
+        description
+        skillSet {
+          id
+          name
+        }
+        creator {
+          id
+          accountInfo {
+            name
+            handler
+          }
+        }
+        requests {
+          from {
+            creator {
+              accountInfo {
+                name
+              }
+            }
+          }
+        }
+      }
+      state
+      isStarred
+      isRequested
+    }
+  }
+`;
