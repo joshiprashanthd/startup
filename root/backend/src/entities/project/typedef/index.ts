@@ -46,6 +46,7 @@ export default gql`
 	extend type Query {
 		projects: [Project!]
 		projectsByUserInterests(userId: ID!): [Project!]
+		projectById(projectId: ID!): Project!
 	}
 
 	extend type Mutation {

@@ -19,6 +19,12 @@ export default {
 			return (
 				await Project.find({ "details.skillSet": { $in: skillIds } })
 			).map(project => mapProject(project, context));
-		}
+		},
+		projectById: async (
+			parent: any,
+			args: { projectId: string },
+			context: IContext,
+			info: any
+		) => mapProject(await Project.findById(args.projectId), context)
 	}
 };
