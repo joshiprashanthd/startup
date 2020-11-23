@@ -45,10 +45,8 @@ export const PROJECT_BY_ID = gql`
         }
         requests {
           from {
-            creator {
-              accountInfo {
-                name
-              }
+            accountInfo {
+              name
             }
           }
         }
