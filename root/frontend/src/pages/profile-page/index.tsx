@@ -33,14 +33,12 @@ export const ProfilePage = function (props: any) {
   return (
     <Page>
       {loading && <Loader />}
+      <Navbar />
       {data && (
-        <>
-          <Navbar />
-          <div className="w-3/6 mx-auto space-y-4">
-            <UserNameAndHandler data={data} />
-            <PersonalInfoSection data={data} refetchData={refetch} />
-          </div>
-        </>
+        <div className="w-3/6 mx-auto space-y-4">
+          <UserNameAndHandler data={data} />
+          <PersonalInfoSection data={data} refetchData={refetch} />
+        </div>
       )}
     </Page>
   );
