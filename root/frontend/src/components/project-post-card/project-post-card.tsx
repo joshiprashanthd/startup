@@ -77,7 +77,9 @@ export const ProjectPostCard = function (props: any) {
           </Chip>
         )}
         {skills.map((name: any) => (
-          <Chip color="blue">{name}</Chip>
+          <Chip color="blue" key={name}>
+            {name}
+          </Chip>
         ))}
       </div>
 
