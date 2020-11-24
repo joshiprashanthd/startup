@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useMutation } from "@apollo/client";
+import { useHistory, useLocation } from "react-router-dom";
 
 //local
 import { InputField } from "./core/input-field";
@@ -11,6 +12,10 @@ import AuthContext, { IAuthInfo } from "../contexts/auth-context";
 import { Anchor } from "./core/anchor";
 
 export const SignInCard = function (props: any) {
+  const location = useLocation<any>();
+  const history = useHistory<any>();
+  const { from } = location.state || { from: { pathname: "/home" } };
+
   const authContext = useContext(AuthContext);
 
   const [signIn, { loading }] = useMutation(SIGN_IN_MUTATION);
@@ -37,6 +42,7 @@ export const SignInCard = function (props: any) {
         };
 
         (authContext as any).signIn(user);
+        history.replace(from);
       })
       .catch((err) => {
         if ((err.message as string).includes("email"))

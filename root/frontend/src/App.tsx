@@ -8,7 +8,6 @@ import {
 
 //local
 import { AuthProvider } from "./providers/auth-provider";
-import { useAuth } from "./hooks/useAuth";
 import { useProvideAuth } from "./hooks/useProvideAuth";
 import { AuthPage } from "./pages/auth-page";
 import { CreatePage } from "./pages/create-page";
@@ -57,24 +56,3 @@ export default function App() {
     </AuthProvider>
   );
 }
-
-const PrivateRoute = function (props: any) {
-  let auth = useAuth();
-  return (
-    <Route
-      {...props.rest}
-      render={({ location }) =>
-        auth.user ? (
-          props.children
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/auth",
-              state: { from: location },
-            }}
-          />
-        )
-      }
-    />
-  );
-};
