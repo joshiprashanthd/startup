@@ -32,6 +32,8 @@ export const PROJECT_BY_ID = gql`
       details {
         title
         description
+        duration
+        startingOn
         skillSet {
           id
           name
