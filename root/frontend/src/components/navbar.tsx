@@ -2,7 +2,7 @@ import { useMutation } from "@apollo/client";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 
 //local
 import { SIGN_OUT } from "../graphql/user/mutation";
@@ -12,12 +12,19 @@ import { Anchor } from "./core/anchor";
 import { Dropdown } from "./core/dropdown";
 
 export const Navbar = function (props: any) {
+  const location = useLocation<any>();
+  const history = useHistory();
   const [mutate] = useMutation(SIGN_OUT);
   const auth = useAuth();
 
   const handleSignOut = () => {
     mutate()
-      .then((resData) => auth.signOut && auth.signOut())
+      .then((resData) => {
+        if (auth.signOut) {
+          auth.signOut();
+          history.push("/auth");
+        }
+      })
       .catch((err) => console.log(err));
   };
 
