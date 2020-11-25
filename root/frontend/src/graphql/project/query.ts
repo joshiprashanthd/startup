@@ -47,9 +47,13 @@ export const PROJECT_BY_ID = gql`
           }
         }
         requests {
+          id
+          message
           from {
+            id
             accountInfo {
               name
+              handler
             }
           }
         }
