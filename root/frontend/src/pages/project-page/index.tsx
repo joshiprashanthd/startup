@@ -52,18 +52,20 @@ export const ProjectPage = function (props: any) {
                 handler={data.projectById.details.creator.accountInfo.handler}
                 userId={data.projectById.details.creator.id}
               />
-              {auth.user?.id !== data.projectById.details.creator.id && (
-                <RequestButton
-                  projectId={projectId}
+              <div className="flex space-x-4">
+                {auth.user?.id !== data.projectById.details.creator.id && (
+                  <RequestButton
+                    projectId={projectId}
+                    refetchData={refetch}
+                    requested={data.projectById.isRequested}
+                  />
+                )}
+                <StarButton
                   refetchData={refetch}
-                  requested={data.projectById.isRequested}
+                  projectId={data.projectById.id}
+                  starred={data.projectById.isStarred}
                 />
-              )}
-              <StarButton
-                refetchData={refetch}
-                projectId={data.projectById.id}
-                starred={data.projectById.isStarred}
-              />
+              </div>
             </div>
             <SizedBox height={2} />
             <StateChip state={data.projectById.state} />
