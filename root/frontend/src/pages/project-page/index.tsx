@@ -40,31 +40,29 @@ export const ProjectPage = function (props: any) {
         <div className="w-1/2 mx-auto space-y-4">
           <div className="px-8 py-4 border rounded">
             <div className="flex justify-between">
-              <ProjectTitle
+              <Title
                 title={data.projectById.details.title}
                 handler={data.projectById.details.creator.accountInfo.handler}
                 userId={data.projectById.details.creator.id}
               />
               {auth.user?.id !== data.projectById.details.creator.id && (
-                <ProjectRequestButton
+                <RequestButton
                   projectId={projectId}
                   refetchData={refetch}
                   requested={data.projectById.isRequested}
                 />
               )}
-              <ProjectStarButton
+              <StarButton
                 refetchData={refetch}
                 projectId={data.projectById.id}
                 starred={data.projectById.isStarred}
               />
             </div>
             <SizedBox height={2} />
-            <ProjectStateChip state={data.projectById.state} />
+            <StateChip state={data.projectById.state} />
           </div>
           <div className="px-8 py-4 border rounded">
-            <ProjectDescription
-              description={data.projectById.details.description}
-            />
+            <Description description={data.projectById.details.description} />
           </div>
           <div className="px-8 py-4 border rounded">
             <ProjectInfo project={data.projectById} />
@@ -75,7 +73,7 @@ export const ProjectPage = function (props: any) {
   );
 };
 
-const ProjectTitle = function (props: any) {
+const Title = function (props: any) {
   return (
     <div>
       <h1 className="text-3xl font-medium font-display">{props.title}</h1>
@@ -91,7 +89,7 @@ const ProjectTitle = function (props: any) {
   );
 };
 
-const ProjectRequestButton = function (props: any) {
+const RequestButton = function (props: any) {
   const [mutate, { loading }] = useMutation(TOGGLE_REQUEST_PROJECT);
   const [message, setMessage] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -180,7 +178,7 @@ const ProjectRequestButton = function (props: any) {
   );
 };
 
-const ProjectStarButton = function (props: any) {
+const StarButton = function (props: any) {
   const [mutate] = useMutation(TOGGLE_STAR_PROJECT);
 
   const handleClick = () => {
@@ -204,7 +202,7 @@ const ProjectStarButton = function (props: any) {
     </SizedBox>
   );
 };
-const ProjectDescription = function (props: any) {
+const Description = function (props: any) {
   return (
     <div>
       <h1 className="mb-4 text-lg font-medium font-body">Description</h1>
@@ -235,7 +233,7 @@ const StartingDate = function (props: any) {
   );
 };
 
-const ProjectStateChip = function (props: any) {
+const StateChip = function (props: any) {
   return (
     <Chip
       color={(() => {
