@@ -6,10 +6,12 @@ import { ProjectStateEnum } from "../model/types";
 type Nullable<T> = T | null;
 
 export interface IStrictProjectInput {
-	details: Omit<IProjectDetails, "stars" | "creator">;
+	details: Omit<IProjectDetails, "stars" | "creator" | "requests">;
 }
 
-export interface ILooseProjectDetailsInput {}
+export interface ILooseProjectDetailsInput {
+	details?: Omit<Partial<IProjectDetails>, "stars" | "creator" | "requests">;
+}
 
 interface IProjectDetails {
 	title: string;
