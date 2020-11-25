@@ -1,8 +1,10 @@
 import { ApolloError } from "apollo-server-express";
+import { ProjectTypeDef } from "..";
+import { attemptSignIn } from "../../../helpers/functions/authentication";
 import { IContext } from "../../../types";
 import { mapProject } from "../mapper";
 import { IProjectDocument, Project } from "../model";
-import { IStrictProjectInput } from "../typedef/types";
+import { ILooseProjectInput, IStrictProjectInput } from "../typedef/types";
 
 type DeepPartial<T> = {
 	[K in keyof T]?: Partial<T[K]>;
@@ -30,6 +32,47 @@ export default {
 			);
 
 			return mapProject(project, context);
+		},
+
+		editProject: async (
+			parent: any,
+			args: { input: ILooseProjectInput },
+			context: IContext,
+			info: any
+		) => {
+			const project = await Project.findById(args.input.projectId);
+
+			if (!project) throw new ApolloError("Project not found.");
+
+			if (
+				project.details.creator.toString() !==
+				context.req.session.userId.toString()
+			)
+				throw new ApolloError("You cannot edit this project.");
+
+			let skillSet = project.details.skillSet;
+
+			if ("skillSet" in args.input.details) {
+				const set = args.input.details.skillSet as any;
+				skillSet = set.map(obj => obj.skillId);
+			}
+
+			const doc = {
+				details:
+					"details" in args.input
+						? {
+								...project.toObject().details,
+								...args.input.details,
+								skillSet
+						  }
+						: project.toObject().details
+			};
+
+			await project.updateOne(doc, (err, raw) => {
+				if (err) throw new ApolloError(err);
+			});
+
+			return mapProject(Object.assign(project, doc), context);
 		},
 
 		toggleStarProject: async (
