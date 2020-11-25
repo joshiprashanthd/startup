@@ -13,3 +13,11 @@ export const TOGGLE_STAR_PROJECT = gql`
     toggleStarProject(projectId: $projectId)
   }
 `;
+
+export const EDIT_PROJECT = gql`
+  mutation EditProject($input: LooseProjectInput!) {
+    editProject(input: $input) {
+      id
+    }
+  }
+`;
