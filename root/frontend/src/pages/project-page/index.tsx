@@ -233,6 +233,17 @@ const StartingDate = function (props: any) {
   );
 };
 
+const MaxTeamMembers = function (props: any) {
+  return (
+    <div>
+      <p className="text-sm font-medium text-gray-700 font-body">
+        Max team members
+      </p>
+      <p className="font-body">{props.data}</p>
+    </div>
+  );
+};
+
 const StateChip = function (props: any) {
   return (
     <Chip
@@ -263,6 +274,7 @@ const ProjectInfo = function (props: any) {
       </h1>
 
       <div className="space-y-4">
+        <MaxTeamMembers data={props.project.details.maxTeamMembers} />
         <StartingDate data={props.project.details.startingOn} />
         <Duration data={props.project.details.duration} />
         <ProjectSkills data={props.project.details.skillSet} />
