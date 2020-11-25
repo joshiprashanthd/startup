@@ -9,7 +9,7 @@ export interface IStrictProjectInput {
 	details: Omit<IProjectDetails, "stars" | "creator" | "requests">;
 }
 
-export interface ILooseProjectDetailsInput {
+export interface ILooseProjectInput {
 	details?: Omit<Partial<IProjectDetails>, "stars" | "creator" | "requests">;
 }
 
