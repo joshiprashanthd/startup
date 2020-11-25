@@ -1,7 +1,11 @@
 import { useMutation, useQuery } from "@apollo/client";
-import React, { useState } from "react";
+import Fuse from "fuse.js";
+import moment from "moment";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
+
+//local
 import { Anchor } from "../../components/core/anchor";
 import { Button } from "../../components/core/button";
 import { Chip } from "../../components/core/chip";
@@ -11,10 +15,12 @@ import { Modal } from "../../components/core/modal";
 import { Page } from "../../components/core/page";
 import { SizedBox } from "../../components/core/sized-box";
 import { Toast } from "../../components/core/toast";
+import { InputFieldWithDropdown } from "../../components/input-field-with-dropdown";
 import { Navbar } from "../../components/navbar";
 import { TOGGLE_STAR_PROJECT } from "../../graphql/project/mutation";
 import { PROJECT_BY_ID } from "../../graphql/project/query";
 import { TOGGLE_REQUEST_PROJECT } from "../../graphql/projectRequest/mutation";
+import { SKILLS_WITH_NAME_ID } from "../../graphql/skill/query";
 import { useAuth } from "../../hooks/useAuth";
 
 export const ProjectPage = function (props: any) {
@@ -61,7 +67,7 @@ export const ProjectPage = function (props: any) {
             />
           </div>
           <div className="px-8 py-4 border rounded">
-            <ProjectInfo />
+            <ProjectInfo project={data.projectById} />
           </div>
         </div>
       )}
@@ -211,7 +217,20 @@ const Duration = function (props: any) {
   return (
     <div>
       <p className="text-sm font-medium text-gray-700 font-body">Duration</p>
-      <p className="font-body">6 weeks</p>
+      <p className="font-body">{props.data} weeks</p>
+    </div>
+  );
+};
+
+const StartingDate = function (props: any) {
+  return (
+    <div>
+      <p className="text-sm font-medium text-gray-700 font-body">
+        Starting from
+      </p>
+      <p className="font-body">
+        {moment.utc(props.data).format("Do MMM, YYYY")}
+      </p>
     </div>
   );
 };
@@ -244,7 +263,107 @@ const ProjectInfo = function (props: any) {
       <h1 className="mb-4 text-lg font-medium font-body">
         Project Information
       </h1>
-      <Duration />
+
+      <div className="space-y-4">
+        <StartingDate data={props.project.details.startingOn} />
+        <Duration data={props.project.details.duration} />
+        <ProjectSkills data={props.project.details.skillSet} />
+      </div>
+    </div>
+  );
+};
+
+const ProjectSkills = function (props: any) {
+  const { data, loading } = useQuery(SKILLS_WITH_NAME_ID);
+  const [selected, setSelected] = useState<{ name: string; id: string }[]>(
+    props.data.map((skill: { name: string; id: string }) => ({
+      name: skill.name,
+      id: skill.id,
+    }))
+  );
+  const [value, setValue] = useState("");
+
+  useEffect(() => {
+    if (props.set) props.set(selected.map((skill) => skill.id));
+  }, [selected]);
+
+  const handleOnDelete = (id: string) =>
+    setSelected((prev) => prev.filter((skill) => skill.id !== id));
+
+  const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setValue(event.currentTarget.value);
+
+  const handleOnSelect = (value: { name: string; id: string }) => {
+    setSelected((prev) => [...prev, value]);
+    setValue("");
+  };
+
+  return (
+    <div>
+      <h1 className="mb-2 text-sm font-medium text-gray-700 font-body">
+        Skill Set
+      </h1>
+      <div className="flex space-x-2">
+        {props.edit &&
+          selected.map((skill) => (
+            <Chip onDelete={handleOnDelete} value={skill.id} key={skill.id}>
+              {skill.name}
+            </Chip>
+          ))}
+      </div>
+      {props.edit && (
+        <>
+          <InputFieldWithDropdown
+            onChange={handleOnChange}
+            value={value}
+            inputPlaceholder="Enter skill..."
+          >
+            <InputFieldWithDropdown.Dropdown>
+              {loading && <Loader color="purple-700" />}
+              {data &&
+                new Fuse<any>(
+                  data.skills.filter(
+                    (skill: { id: string }) =>
+                      !selected.find((obj) => obj.id === skill.id)
+                  ),
+                  { keys: ["name", "description"] }
+                )
+                  .search(value)
+                  .map(
+                    (skill: {
+                      item: {
+                        id: string;
+                        name: string;
+                        description: string;
+                      };
+                    }) => (
+                      <InputFieldWithDropdown.DropdownItem
+                        onSelect={handleOnSelect}
+                        value={{ name: skill.item.name, id: skill.item.id }}
+                      >
+                        <p className="text-sm font-medium font-body group-hover:text-white">
+                          {skill.item.name}
+                        </p>
+                        <span className="text-xs text-gray-700 group-hover:text-white">
+                          {skill.item.description}
+                        </span>
+                      </InputFieldWithDropdown.DropdownItem>
+                    )
+                  )}
+            </InputFieldWithDropdown.Dropdown>
+          </InputFieldWithDropdown>
+        </>
+      )}
+      {!props.edit &&
+        (props.data.length > 0 ? (
+          <div className="flex space-x-2">
+            {props.data.map((skill: { name: string; id: string }) => (
+              <Chip key={skill.name}>{skill.name}</Chip>
+            ))}
+          </div>
+        ) : (
+          <span>No skills required</span>
+        ))}
     </div>
   );
 };
