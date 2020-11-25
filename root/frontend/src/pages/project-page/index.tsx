@@ -1,4 +1,6 @@
 import { useMutation, useQuery } from "@apollo/client";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Fuse from "fuse.js";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
@@ -9,6 +11,8 @@ import { Link } from "react-router-dom";
 import { Anchor } from "../../components/core/anchor";
 import { Button } from "../../components/core/button";
 import { Chip } from "../../components/core/chip";
+import { DatePicker } from "../../components/core/date-picker";
+import { Dropdown } from "../../components/core/dropdown";
 import { InputField } from "../../components/core/input-field";
 import { Loader } from "../../components/core/loader";
 import { Modal } from "../../components/core/modal";
@@ -17,7 +21,10 @@ import { SizedBox } from "../../components/core/sized-box";
 import { Toast } from "../../components/core/toast";
 import { InputFieldWithDropdown } from "../../components/input-field-with-dropdown";
 import { Navbar } from "../../components/navbar";
-import { TOGGLE_STAR_PROJECT } from "../../graphql/project/mutation";
+import {
+  EDIT_PROJECT,
+  TOGGLE_STAR_PROJECT,
+} from "../../graphql/project/mutation";
 import { PROJECT_BY_ID } from "../../graphql/project/query";
 import { TOGGLE_REQUEST_PROJECT } from "../../graphql/projectRequest/mutation";
 import { SKILLS_WITH_NAME_ID } from "../../graphql/skill/query";
@@ -65,7 +72,7 @@ export const ProjectPage = function (props: any) {
             <Description description={data.projectById.details.description} />
           </div>
           <div className="px-8 py-4 border rounded">
-            <ProjectInfo project={data.projectById} />
+            <ProjectInfo project={data.projectById} refetchData={refetch} />
           </div>
         </div>
       )}
@@ -212,34 +219,98 @@ const Description = function (props: any) {
 };
 
 const Duration = function (props: any) {
+  const [value, setValue] = useState(props.data);
+
   return (
     <div>
-      <p className="text-sm font-medium text-gray-700 font-body">Duration</p>
-      <p className="font-body">{props.data} weeks</p>
+      <p
+        className={`${
+          props.edit && "mb-2"
+        } text-sm font-medium text-gray-700 font-body`}
+      >
+        Duration
+      </p>
+      {props.edit ? (
+        <Dropdown
+          variant="secondary"
+          icon={<FontAwesomeIcon icon={faAngleDown} className="ml-4" />}
+          label={`${value} Weeks`}
+          onSelected={(value) => {
+            setValue(value);
+            props.set(value);
+          }}
+        >
+          <Dropdown.Menu width="32">
+            {[1, 2, 3, 4, 5, 6].map((week) => (
+              <Dropdown.Item key={week} value={week}>
+                {week} weeks
+              </Dropdown.Item>
+            ))}
+          </Dropdown.Menu>
+        </Dropdown>
+      ) : (
+        <p className="font-body">{props.data} weeks</p>
+      )}
     </div>
   );
 };
 
 const StartingDate = function (props: any) {
+  const { edit, data, set } = props;
+
   return (
-    <div>
-      <p className="text-sm font-medium text-gray-700 font-body">
-        Starting from
-      </p>
-      <p className="font-body">
-        {moment.utc(props.data).format("Do MMM, YYYY")}
-      </p>
+    <div className="mb-4">
+      <h1
+        className={`${
+          edit && "mb-2"
+        } text-sm font-medium text-gray-700 font-body`}
+      >
+        Starting date
+      </h1>
+      {edit ? (
+        <DatePicker onSelectDate={set} initialValue={data} />
+      ) : (
+        <span className="font-body">
+          {moment.utc(data).format("Do MMM, YYYY")}
+        </span>
+      )}
     </div>
   );
 };
 
 const MaxTeamMembers = function (props: any) {
+  const [value, setValue] = useState(props.data);
+
   return (
     <div>
-      <p className="text-sm font-medium text-gray-700 font-body">
+      <p
+        className={`${
+          props.edit && "mb-2"
+        } text-sm font-medium text-gray-700 font-body`}
+      >
         Max team members
       </p>
-      <p className="font-body">{props.data}</p>
+      {props.edit ? (
+        <Dropdown
+          variant="secondary"
+          icon={<FontAwesomeIcon icon={faAngleDown} className="ml-4" />}
+          label={`${value} Members`}
+          onSelected={(value) => {
+            setValue(value);
+            props.set(value);
+          }}
+        >
+          <Dropdown.Menu width="32" height="48">
+            {[2, 3, 4, 5, 6, 7, 8, 9, 10].map((week) => (
+              <Dropdown.Item key={week} value={week}>
+                {week} members
+              </Dropdown.Item>
+            ))}
+          </Dropdown.Menu>
+        </Dropdown>
+      ) : (
+        <p className="font-body">{props.data}</p>
+      )}
     </div>
   );
 };
@@ -267,18 +338,123 @@ const StateChip = function (props: any) {
 };
 
 const ProjectInfo = function (props: any) {
+  const auth = useAuth();
+
+  const [mutate, { loading }] = useMutation(EDIT_PROJECT);
+
+  const [edit, setEdit] = useState(false);
+
+  const [title, setTitle] = useState(props.project.details.title);
+  const [description, setDescription] = useState(
+    props.project.details.description
+  );
+  const [maxTeamMembers, setMaxTeamMembers] = useState(
+    props.project.details.maxTeamMembers
+  );
+  const [startingDate, setStartingDate] = useState(
+    props.project.details.startingOn
+  );
+  const [duration, setDuration] = useState(props.project.details.duration);
+  const [skills, setSkills] = useState(
+    props.project.details.skillSet.map((obj: { id: string }) => obj.id)
+  );
+
+  const onSaveHandler = () => {
+    mutate({
+      variables: {
+        input: {
+          projectId: props.project.id,
+          details: {
+            title: title.length > 0 ? title : props.project.details.title,
+            description:
+              description.length > 0
+                ? description
+                : props.project.details.description,
+            maxTeamMembers,
+            startingOn: new Date(startingDate).getTime(),
+            duration,
+            skillSet: skills.map((id: any) => ({
+              skillId: id,
+            })),
+          },
+        },
+      },
+    })
+      .then((resData) => {
+        setEdit(false);
+        props.refetchData();
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div>
-      <h1 className="mb-4 text-lg font-medium font-body">
-        Project Information
-      </h1>
+      <div className="flex items-center justify-between mb-4">
+        <h1 className="text-lg font-medium font-body">Project Information</h1>
+        {!edit && auth.user?.id === props.project.details.creator.id && (
+          <Anchor
+            fontSize="sm"
+            fontWeight="medium"
+            textColor="gray-700"
+            onClick={() => setEdit(true)}
+          >
+            Edit
+          </Anchor>
+        )}
+      </div>
 
       <div className="space-y-4">
-        <MaxTeamMembers data={props.project.details.maxTeamMembers} />
-        <StartingDate data={props.project.details.startingOn} />
-        <Duration data={props.project.details.duration} />
-        <ProjectSkills data={props.project.details.skillSet} />
+        {edit && (
+          <InputField
+            initialValue={title}
+            label="Title"
+            onInputChange={setTitle}
+          />
+        )}
+        {edit && (
+          <InputField
+            initialValue={description}
+            textareaMode
+            label="Description"
+            onInputChange={setDescription}
+          />
+        )}
+        <MaxTeamMembers
+          data={props.project.details.maxTeamMembers}
+          edit={edit}
+          set={setMaxTeamMembers}
+        />
+        <StartingDate
+          data={props.project.details.startingOn}
+          edit={edit}
+          set={setStartingDate}
+        />
+        <Duration
+          data={props.project.details.duration}
+          edit={edit}
+          set={setDuration}
+        />
+        <ProjectSkills
+          data={props.project.details.skillSet}
+          edit={edit}
+          set={setSkills}
+        />
       </div>
+
+      {edit && (
+        <div className="flex mt-4 space-x-2">
+          <SizedBox width={32}>
+            <Button variant="secondary" onClick={() => setEdit(false)}>
+              Cancel
+            </Button>
+          </SizedBox>
+          <SizedBox width={32}>
+            <Button onClick={onSaveHandler}>
+              {loading ? <Loader /> : "Save"}
+            </Button>
+          </SizedBox>
+        </div>
+      )}
     </div>
   );
 };
