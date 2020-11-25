@@ -34,6 +34,7 @@ export const PROJECT_BY_ID = gql`
         description
         duration
         startingOn
+        maxTeamMembers
         skillSet {
           id
           name
