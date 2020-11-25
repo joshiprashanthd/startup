@@ -14,6 +14,19 @@ export default gql`
 		details: StrictProjectDetailsInput!
 	}
 
+	input LooseProjectDetailsInput {
+		title: String
+		description: String
+		startingOn: Date
+		maxTeamMembers: Int
+		duration: Int
+		skillSet: [SkillIdInput!]
+	}
+
+	input LooseProjectInput {
+		details: LooseProjectDetailsInput
+	}
+
 	enum ProjectStateEnum {
 		OPEN
 		CLOSED
@@ -50,7 +63,8 @@ export default gql`
 
 	extend type Mutation {
 		createProject(input: StrictProjectInput!): Project! @auth
-		toggleStarProject(projectId: ID!): Boolean!
+		editProject(input: LooseProjectInput!): Project! @auth
+		toggleStarProject(projectId: ID!): Boolean! @auth
 	}
 `;
 
