@@ -24,6 +24,7 @@ export default gql`
 	}
 
 	input LooseProjectInput {
+		projectId: ID!
 		details: LooseProjectDetailsInput
 	}
 
@@ -68,8 +69,4 @@ export default gql`
 	}
 `;
 
-export {
-	ILooseProjectDetailsInput,
-	IProject,
-	IStrictProjectInput
-} from "./types";
+export { ILooseProjectInput, IProject, IStrictProjectInput } from "./types";

@@ -10,6 +10,7 @@ export interface IStrictProjectInput {
 }
 
 export interface ILooseProjectInput {
+	projectId: IProject["id"];
 	details?: Omit<Partial<IProjectDetails>, "stars" | "creator" | "requests">;
 }
 
