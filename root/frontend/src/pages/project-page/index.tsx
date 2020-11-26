@@ -32,6 +32,7 @@ import {
 } from "../../graphql/projectRequest/mutation";
 import { SKILLS_WITH_NAME_ID } from "../../graphql/skill/query";
 import { useAuth } from "../../hooks/useAuth";
+import extractInitials from "../../utils/extractInitials";
 
 export const ProjectPage = function (props: any) {
   const auth = useAuth();
@@ -82,7 +83,7 @@ export const ProjectPage = function (props: any) {
               <TeamSection project={data.projectById} refetchData={refetch} />
             </div>
           </div>
-          <Requests project={data.projectById} />
+          <Requests project={data.projectById} refetchData={refetch} />
         </div>
       )}
     </Page>
@@ -96,6 +97,7 @@ const Requests = function (props: any) {
       <div className="mt-4 space-y-4">
         {props.project.details.requests.map((request: any) => (
           <UserRequest
+            refetchData={props.refetchData}
             requestId={request.id}
             userId={request.from.id}
             name={request.from.accountInfo.name}
@@ -118,7 +120,10 @@ const UserRequest = function (props: any) {
         projectRequestId: props.requestId,
       },
     })
-      .then((resData) => console.log(resData))
+      .then((resData) => {
+        setShowModal(false);
+        props.refetchData();
+      })
       .catch((err) => console.error(err));
   };
 
@@ -664,7 +669,11 @@ const TeamSection = function (props: any) {
       <h1 className="text-lg font-medium font-body">Team</h1>
       <div className="mt-4">
         {props.project.work.team.map((user: any) => (
-          <User userId={user.id} name={user.name} handler={user.handler} />
+          <User
+            userId={user.id}
+            name={user.accountInfo.name}
+            handler={user.accountInfo.handler}
+          />
         ))}
       </div>
     </div>
@@ -673,15 +682,20 @@ const TeamSection = function (props: any) {
 
 const User = function (props: any) {
   return (
-    <div className="my-4">
-      <Anchor>
-        <Link to={`/profile/${props.userId}`}>
-          <span className="font-medium font-body">{props.name}</span>
-          <span className="text-sm font-medium text-gray-700 font-body">
-            {props.handler}
-          </span>
-        </Link>
-      </Anchor>
+    <div className="flex items-center my-4 space-x-4">
+      <div className="grid w-10 h-10 font-bold text-white bg-blue-700 rounded font-body place-items-center">
+        {extractInitials(props.name)}
+      </div>
+      <div>
+        <Anchor>
+          <Link to={`/profile/${props.userId}`}>
+            <span className="font-medium font-body">{props.name}</span>
+          </Link>
+        </Anchor>
+        <p className="text-sm font-medium text-gray-700 font-body">
+          {props.handler}
+        </p>
+      </div>
     </div>
   );
 };
