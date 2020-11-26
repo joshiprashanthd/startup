@@ -5,3 +5,11 @@ export const TOGGLE_REQUEST_PROJECT = gql`
     toggleRequestProject(message: $message, projectId: $projectId)
   }
 `;
+
+export const ACCEPT_PROJECT_REQUEST = gql`
+  mutation AcceptProjectRequest($projectRequestId: ID!) {
+    acceptProjectRequest(projectRequestId: $projectRequestId) {
+      id
+    }
+  }
+`;
