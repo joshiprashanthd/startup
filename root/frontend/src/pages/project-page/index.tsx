@@ -95,16 +95,18 @@ const Requests = function (props: any) {
     <div className="w-1/4 p-4 border rounded">
       <h1 className="text-lg font-medium font-body">Requests</h1>
       <div className="mt-4 space-y-4">
-        {props.project.details.requests.map((request: any) => (
-          <UserRequest
-            refetchData={props.refetchData}
-            requestId={request.id}
-            userId={request.from.id}
-            name={request.from.accountInfo.name}
-            handler={request.from.accountInfo.handler}
-            message={request.message}
-          />
-        ))}
+        {props.project.details.requests
+          .filter((request: any) => request.status !== "ACCEPTED")
+          .map((request: any) => (
+            <UserRequest
+              refetchData={props.refetchData}
+              requestId={request.id}
+              userId={request.from.id}
+              name={request.from.accountInfo.name}
+              handler={request.from.accountInfo.handler}
+              message={request.message}
+            />
+          ))}
       </div>
     </div>
   );
