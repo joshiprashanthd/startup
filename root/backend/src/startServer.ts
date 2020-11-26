@@ -42,7 +42,7 @@ export default async function () {
 		}
 	});
 
-	app.listen({ port: 4000 }, () => {
+	app.listen({ port: process.env.PORT || 4000 }, () => {
 		console.log(`[SERVER] ready at http://localhost:4000${server.graphqlPath}`);
 	});
 }
