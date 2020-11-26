@@ -75,6 +75,8 @@ export default {
 				{ new: true }
 			);
 
+			await project.updateOne({ $push: { "work.team": result.from } });
+
 			return mapProjectRequest(result, context);
 		}
 	}
