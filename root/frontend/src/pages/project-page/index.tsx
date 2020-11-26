@@ -26,7 +26,10 @@ import {
   TOGGLE_STAR_PROJECT,
 } from "../../graphql/project/mutation";
 import { PROJECT_BY_ID } from "../../graphql/project/query";
-import { TOGGLE_REQUEST_PROJECT } from "../../graphql/projectRequest/mutation";
+import {
+  ACCEPT_PROJECT_REQUEST,
+  TOGGLE_REQUEST_PROJECT,
+} from "../../graphql/projectRequest/mutation";
 import { SKILLS_WITH_NAME_ID } from "../../graphql/skill/query";
 import { useAuth } from "../../hooks/useAuth";
 
@@ -44,39 +47,128 @@ export const ProjectPage = function (props: any) {
       <Navbar />
       {loading && <Loader />}
       {data && (
-        <div className="w-1/2 mx-auto space-y-4">
-          <div className="px-8 py-4 border rounded">
-            <div className="flex justify-between">
-              <Title
-                title={data.projectById.details.title}
-                handler={data.projectById.details.creator.accountInfo.handler}
-                userId={data.projectById.details.creator.id}
-              />
-              {auth.user?.id !== data.projectById.details.creator.id && (
-                <RequestButton
-                  projectId={projectId}
-                  refetchData={refetch}
-                  requested={data.projectById.isRequested}
+        <div className="flex w-8/12 mx-auto space-x-4">
+          <div className="w-8/12 space-y-4">
+            <div className="px-8 py-4 border rounded">
+              <div className="flex justify-between">
+                <Title
+                  title={data.projectById.details.title}
+                  handler={data.projectById.details.creator.accountInfo.handler}
+                  userId={data.projectById.details.creator.id}
                 />
-              )}
-              <StarButton
-                refetchData={refetch}
-                projectId={data.projectById.id}
-                starred={data.projectById.isStarred}
-              />
+                {auth.user?.id !== data.projectById.details.creator.id && (
+                  <RequestButton
+                    projectId={projectId}
+                    refetchData={refetch}
+                    requested={data.projectById.isRequested}
+                  />
+                )}
+                <StarButton
+                  refetchData={refetch}
+                  projectId={data.projectById.id}
+                  starred={data.projectById.isStarred}
+                />
+              </div>
+              <SizedBox height={2} />
+              <StateChip state={data.projectById.state} />
             </div>
-            <SizedBox height={2} />
-            <StateChip state={data.projectById.state} />
+            <div className="px-8 py-4 border rounded">
+              <Description description={data.projectById.details.description} />
+            </div>
+            <div className="px-8 py-4 border rounded">
+              <ProjectInfo project={data.projectById} refetchData={refetch} />
+            </div>
           </div>
-          <div className="px-8 py-4 border rounded">
-            <Description description={data.projectById.details.description} />
-          </div>
-          <div className="px-8 py-4 border rounded">
-            <ProjectInfo project={data.projectById} refetchData={refetch} />
-          </div>
+          <Requests project={data.projectById} />
         </div>
       )}
     </Page>
+  );
+};
+
+const Requests = function (props: any) {
+  return (
+    <div className="w-1/4 p-4 border rounded">
+      <h1 className="text-lg font-medium font-body">Requests</h1>
+      <div className="mt-4 space-y-4">
+        {props.project.details.requests.map((request: any) => (
+          <UserRequest
+            requestId={request.id}
+            userId={request.from.id}
+            name={request.from.accountInfo.name}
+            handler={request.from.accountInfo.handler}
+            message={request.message}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const UserRequest = function (props: any) {
+  const [mutate] = useMutation(ACCEPT_PROJECT_REQUEST);
+  const [showModal, setShowModal] = useState(false);
+
+  const acceptRequest = () => {
+    mutate({
+      variables: {
+        projectRequestId: props.requestId,
+      },
+    })
+      .then((resData) => console.log(resData))
+      .catch((err) => console.error(err));
+  };
+
+  return (
+    <>
+      {showModal && (
+        <Modal>
+          <Modal.Title>
+            Request from{" "}
+            <Anchor>
+              <Link to={`/profile/${props.userId}`}>
+                <span className="text-lg font-display">{props.name}</span>
+              </Link>
+            </Anchor>
+          </Modal.Title>
+          <div className="my-4">
+            <h1 className="mb-2 text-sm font-medium font-body">Message</h1>
+            <p className="text-sm font-body">
+              {props.message || "No message is given"}
+            </p>
+          </div>
+          <div className="flex justify-end space-x-2">
+            <SizedBox width={32}>
+              <Button onClick={() => setShowModal(false)} variant="secondary">
+                Cancel
+              </Button>
+            </SizedBox>
+            <SizedBox width={32}>
+              <Button onClick={acceptRequest}>Accept</Button>
+            </SizedBox>
+          </div>
+        </Modal>
+      )}
+      <div className="flex items-center justify-between">
+        <div className="leading-5">
+          <p className="font-medium font-body">
+            <Anchor fontWeight="medium">
+              <Link to={`/profile/${props.userId}`}>{props.name}</Link>
+            </Anchor>
+          </p>
+          <p className="text-sm text-gray-700 font-body">@{props.handler}</p>
+        </div>
+        <div>
+          <Anchor
+            fontSize="sm"
+            fontWeight="medium"
+            onClick={() => setShowModal(true)}
+          >
+            View request
+          </Anchor>
+        </div>
+      </div>
+    </>
   );
 };
 
