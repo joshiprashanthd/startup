@@ -58,6 +58,15 @@ export const PROJECT_BY_ID = gql`
           }
         }
       }
+      work {
+        team {
+          id
+          accountInfo {
+            name
+            handler
+          }
+        }
+      }
       state
       isStarred
       isRequested
