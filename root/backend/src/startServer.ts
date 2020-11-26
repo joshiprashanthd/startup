@@ -1,5 +1,8 @@
 import { ApolloServer } from "apollo-server-express";
 import express from "express";
+import * as dotenv from "dotenv";
+
+dotenv.config({ path: "../../../.env" });
 
 //local
 import { TypeDefs, Resolvers } from "./entities";
