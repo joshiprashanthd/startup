@@ -105,7 +105,7 @@ const BirthDate = function (props: any) {
   const { edit, data, set } = props;
 
   return (
-    <div className="mb-4">
+    <div>
       <h1
         className={`${
           edit && "mb-2"
@@ -303,18 +303,34 @@ const PersonalInfoSection = function (props: any) {
         )}
       </div>
 
-      <Name data={data.user.accountInfo.name} edit={edit} set={setName} />
-      <Handler
-        data={data.user.accountInfo.handler}
-        edit={edit}
-        set={setHandler}
-      />
-      <Email data={data.user.accountInfo.email} edit={edit} set={setEmail} />
-      <BirthDate
-        data={data.user.personalInfo.birthDate}
-        edit={edit}
-        set={setBirthDate}
-      />
+      <div className="flex items-start space-x-4">
+        <div className="flex-1">
+          <Name data={data.user.accountInfo.name} edit={edit} set={setName} />
+        </div>
+        <div className="flex-1">
+          <Handler
+            data={data.user.accountInfo.handler}
+            edit={edit}
+            set={setHandler}
+          />
+        </div>
+      </div>
+      <div className="flex items-center space-x-4">
+        <div className="flex-1">
+          <Email
+            data={data.user.accountInfo.email}
+            edit={edit}
+            set={setEmail}
+          />
+        </div>
+        <div className="flex-1">
+          <BirthDate
+            data={data.user.personalInfo.birthDate}
+            edit={edit}
+            set={setBirthDate}
+          />
+        </div>
+      </div>
       <Bio data={data.user.personalInfo.bio} edit={edit} set={setBio} />
       <Interests
         data={data.user.personalInfo.interests}
