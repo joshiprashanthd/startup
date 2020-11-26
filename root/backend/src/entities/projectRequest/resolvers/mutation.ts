@@ -67,6 +67,9 @@ export default {
 					"Your are not allowed to accept this request."
 				);
 
+			if (projectRequest.status === ProjectRequestStatusEnum.ACCEPTED)
+				throw new ApolloError("Request is already accepted.");
+
 			const result = await ProjectRequest.findByIdAndUpdate(
 				projectRequest.id,
 				{
