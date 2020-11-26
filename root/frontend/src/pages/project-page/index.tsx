@@ -527,8 +527,6 @@ const ProjectInfo = function (props: any) {
               set={setStartingDate}
             />
           </div>
-        </div>
-        <div className="flex items-start">
           <div className="flex-1">
             <Duration
               data={props.project.details.duration}
@@ -536,14 +534,12 @@ const ProjectInfo = function (props: any) {
               set={setDuration}
             />
           </div>
-          <div className="flex-1">
-            <ProjectSkills
-              data={props.project.details.skillSet}
-              edit={edit}
-              set={setSkills}
-            />
-          </div>
         </div>
+        <ProjectSkills
+          data={props.project.details.skillSet}
+          edit={edit}
+          set={setSkills}
+        />
       </div>
 
       {edit && (
@@ -594,7 +590,7 @@ const ProjectSkills = function (props: any) {
       <h1 className="mb-2 text-sm font-medium text-gray-700 font-body">
         Skill Set
       </h1>
-      <div className="flex flex-wrap flex-grow-0 space-x-2 space-y-2">
+      <div className="flex flex-wrap items-center space-x-2">
         {props.edit &&
           selected.map((skill) => (
             <Chip onDelete={handleOnDelete} value={skill.id} key={skill.id}>
