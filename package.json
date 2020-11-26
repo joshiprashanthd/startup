@@ -10,7 +10,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "concurrently \"npm run backend\"",
+    "start": "concurrently \"npm run backend\" \"npm run frontend\"",
     "backend": "cd ./root/backend && npm start",
     "frontend": "cd ./root/frontend && npm run serve"
   },
