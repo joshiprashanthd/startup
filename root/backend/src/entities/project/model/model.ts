@@ -15,6 +15,9 @@ const ProjectSchema = new Schema<IProjectDocument>(
 			skillSet: [{ type: Schema.Types.ObjectId, ref: "Skill" }],
 			stars: [{ type: Schema.Types.ObjectId, ref: "User" }]
 		},
+		work: {
+			team: [{ type: Schema.Types.ObjectId, ref: "User" }]
+		},
 		state: {
 			type: String,
 			enum: ["OPEN", "CLOSED", "STARTED", "ENDED"],

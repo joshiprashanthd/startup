@@ -28,6 +28,9 @@ export const mapProject = (
 			to: project.id
 		})) !== null,
 	state: project.state,
+	work: {
+		team: mapUserIds(project.work.team, context)
+	},
 	createdAt: project.createdAt,
 	updatedAt: project.updatedAt
 });

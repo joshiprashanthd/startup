@@ -47,10 +47,15 @@ export default gql`
 		requests: [ProjectRequest!]
 	}
 
+	type ProjectWork {
+		team: [User!]
+	}
+
 	type Project {
 		id: ID!
 		details: ProjectDetails!
 		state: ProjectStateEnum!
+		work: ProjectWork!
 		isStarred: Boolean!
 		isRequested: Boolean!
 		createdAt: Date!
