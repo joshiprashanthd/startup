@@ -78,6 +78,9 @@ export const ProjectPage = function (props: any) {
             <div className="px-8 py-4 border rounded">
               <ProjectInfo project={data.projectById} refetchData={refetch} />
             </div>
+            <div className="px-8 py-4 border rounded">
+              <TeamSection project={data.projectById} refetchData={refetch} />
+            </div>
           </div>
           <Requests project={data.projectById} />
         </div>
@@ -651,6 +654,34 @@ const ProjectSkills = function (props: any) {
         ) : (
           <span>No skills required</span>
         ))}
+    </div>
+  );
+};
+
+const TeamSection = function (props: any) {
+  return (
+    <div>
+      <h1 className="text-lg font-medium font-body">Team</h1>
+      <div className="mt-4">
+        {props.project.work.team.map((user: any) => (
+          <User userId={user.id} name={user.name} handler={user.handler} />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const User = function (props: any) {
+  return (
+    <div className="my-4">
+      <Anchor>
+        <Link to={`/profile/${props.userId}`}>
+          <span className="font-medium font-body">{props.name}</span>
+          <span className="text-sm font-medium text-gray-700 font-body">
+            {props.handler}
+          </span>
+        </Link>
+      </Anchor>
     </div>
   );
 };
