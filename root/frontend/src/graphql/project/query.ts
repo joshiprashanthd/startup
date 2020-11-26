@@ -49,6 +49,7 @@ export const PROJECT_BY_ID = gql`
         requests {
           id
           message
+          status
           from {
             id
             accountInfo {
