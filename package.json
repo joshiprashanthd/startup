@@ -1,0 +1,27 @@
+{
+  "name": "startup",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "concurrently": "^5.3.0",
+    "moment": "^2.29.1",
+    "webpack-cli": "^4.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "backend": "cd ./root/backend && npm start",
+    "frontend": "cd ./root/frontend && npm run serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joshiprashanthd/startup.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joshiprashanthd/startup/issues"
+  },
+  "homepage": "https://github.com/joshiprashanthd/startup#readme"
+}
