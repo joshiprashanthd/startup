@@ -26,10 +26,15 @@ interface IProjectDetails {
 	requests: Nullable<IProjectRequest[]> | (() => Promise<IProjectRequest[]>);
 }
 
+interface IProjectWork {
+	team: IUser[] | (() => Promise<IUser[]>);
+}
+
 export interface IProject {
 	id: string;
 	details: IProjectDetails;
 	state: ProjectStateEnum;
+	work: IProjectWork;
 	isStarred: boolean;
 	isRequested: boolean | (() => Promise<boolean>);
 	createdAt: Date;
