@@ -48,7 +48,7 @@ export const ProjectPage = function (props: any) {
       <Navbar />
       {loading && <Loader />}
       {data && (
-        <div className="flex w-8/12 mx-auto space-x-4">
+        <div className="flex justify-center w-8/12 mx-auto space-x-4">
           <div className="w-8/12 space-y-4">
             <div className="px-8 py-4 border rounded">
               <div className="flex justify-between">
@@ -83,7 +83,9 @@ export const ProjectPage = function (props: any) {
               <TeamSection project={data.projectById} refetchData={refetch} />
             </div>
           </div>
-          <Requests project={data.projectById} refetchData={refetch} />
+          {auth.user?.id === data.projectById.details.creator.id && (
+            <Requests project={data.projectById} refetchData={refetch} />
+          )}
         </div>
       )}
     </Page>
