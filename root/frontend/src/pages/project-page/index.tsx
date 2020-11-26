@@ -301,6 +301,7 @@ const StarButton = function (props: any) {
     </SizedBox>
   );
 };
+
 const Description = function (props: any) {
   return (
     <div>
@@ -511,26 +512,38 @@ const ProjectInfo = function (props: any) {
             onInputChange={setDescription}
           />
         )}
-        <MaxTeamMembers
-          data={props.project.details.maxTeamMembers}
-          edit={edit}
-          set={setMaxTeamMembers}
-        />
-        <StartingDate
-          data={props.project.details.startingOn}
-          edit={edit}
-          set={setStartingDate}
-        />
-        <Duration
-          data={props.project.details.duration}
-          edit={edit}
-          set={setDuration}
-        />
-        <ProjectSkills
-          data={props.project.details.skillSet}
-          edit={edit}
-          set={setSkills}
-        />
+        <div className="flex items-start">
+          <div className="flex-1">
+            <MaxTeamMembers
+              data={props.project.details.maxTeamMembers}
+              edit={edit}
+              set={setMaxTeamMembers}
+            />
+          </div>
+          <div className="flex-1">
+            <StartingDate
+              data={props.project.details.startingOn}
+              edit={edit}
+              set={setStartingDate}
+            />
+          </div>
+        </div>
+        <div className="flex items-start">
+          <div className="flex-1">
+            <Duration
+              data={props.project.details.duration}
+              edit={edit}
+              set={setDuration}
+            />
+          </div>
+          <div className="flex-1">
+            <ProjectSkills
+              data={props.project.details.skillSet}
+              edit={edit}
+              set={setSkills}
+            />
+          </div>
+        </div>
       </div>
 
       {edit && (
@@ -581,7 +594,7 @@ const ProjectSkills = function (props: any) {
       <h1 className="mb-2 text-sm font-medium text-gray-700 font-body">
         Skill Set
       </h1>
-      <div className="flex space-x-2">
+      <div className="flex flex-wrap flex-grow-0 space-x-2 space-y-2">
         {props.edit &&
           selected.map((skill) => (
             <Chip onDelete={handleOnDelete} value={skill.id} key={skill.id}>
