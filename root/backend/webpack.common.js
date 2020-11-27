@@ -1,8 +1,8 @@
 const path = require("path");
 const nodeExternals = require("webpack-node-externals");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
-	mode: "development",
 	externals: [nodeExternals()],
 	target: "node",
 	entry: {
@@ -10,10 +10,6 @@ module.exports = {
 	},
 	resolve: {
 		extensions: [".ts", ".js"]
-	},
-	devServer: {
-		contentBase: path.join(__dirname, "dist"),
-		compress: true
 	},
 	module: {
 		rules: [
@@ -24,8 +20,9 @@ module.exports = {
 			}
 		]
 	},
+	plugins: [new CleanWebpackPlugin()],
 	output: {
-		filename: "[name].js",
+		filename: "[name].bundle.js",
 		path: path.resolve(__dirname, "dist")
 	}
 };
