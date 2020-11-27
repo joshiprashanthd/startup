@@ -7,7 +7,7 @@ import App from "./App";
 import "./styles/styles.css";
 
 const client = new ApolloClient({
-  uri: "collabs1.herokuapp.com/graphql",
+  uri: "https://collabs1.herokuapp.com/graphql",
   cache: new InMemoryCache(),
   credentials: "include",
 });
