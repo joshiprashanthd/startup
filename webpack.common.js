@@ -1,6 +1,8 @@
 const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const webpack = require("webpack");
+const CompressionPlugin = require("compression-webpack-plugin")
 
 module.exports = {
   entry: {
@@ -49,5 +51,7 @@ module.exports = {
       template: path.join(__dirname, "public", "index.html"),
       inject: "body",
     }),
+    new webpack.optimize.AggressiveMergingPlugin(),
+    new CompressionPlugin(),
   ],
 };
