@@ -10,6 +10,9 @@
     "serve:webpack": "webpack --watch --config webpack.dev.js",
     "serve:nodemon": "nodemon dist/app.bundle.js"
   },
+  "engines": {
+    "node": "12.x"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
