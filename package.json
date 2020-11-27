@@ -12,7 +12,7 @@
   "scripts": {
     "start": "concurrently \"npm run backend\" \"npm run frontend\"",
     "backend": "cd ./root/backend && npm start",
-    "frontend": "cd ./root/frontend && npm run serve"
+    "frontend": "cd ./root/frontend && npm start"
   },
   "repository": {
     "type": "git",
