@@ -15,6 +15,7 @@ import { HomePage } from "./pages/home-page";
 import { IssuesPage } from "./pages/issues-page";
 import { ProfilePage } from "./pages/profile-page";
 import { ProjectPage } from "./pages/project-page";
+import { NotFoundPage } from "./pages/not-found-page";
 
 export default function App() {
   const auth = useProvideAuth();
@@ -25,30 +26,26 @@ export default function App() {
         {!auth.loading && (
           <Switch>
             {!auth.user && <Redirect exact from="/" to="/auth" />}
-            {auth.user && <Redirect exact from="/auth" to="/home" />}
-            {!auth.user && <Redirect exact from="/home" to="/auth" />}
-            {!auth.user && <Redirect exact from="/profile" to="/auth" />}
-
             <Route path="/auth">
               <AuthPage />
             </Route>
-            <Route path="/project/:projectId">
-              <ProjectPage />
-            </Route>
-            <Route path="/profile/:userId">
-              <ProfilePage />
-            </Route>
-            <Route path="/profile">
-              <ProfilePage />
-            </Route>
-            <Route path="/issues">
-              <IssuesPage />
-            </Route>
-            <Route path="/create">
-              <CreatePage />
-            </Route>
-            <Route path="/home">
-              <HomePage />
+            <Route
+              path="/project/:projectId"
+              render={() => auth.user && <ProjectPage />}
+            />
+            <Route
+              path="/profile/:userId"
+              render={() => auth.user && <ProfilePage />}
+            />
+            <Route
+              path="/profile"
+              render={() => auth.user && <ProfilePage />}
+            />
+            <Route path="/issues" render={() => auth.user && <IssuesPage />} />
+            <Route path="/create" render={() => auth.user && <CreatePage />} />
+            <Route path="/home" render={() => auth.user && <HomePage />} />
+            <Route path="/">
+              <NotFoundPage />
             </Route>
           </Switch>
         )}
