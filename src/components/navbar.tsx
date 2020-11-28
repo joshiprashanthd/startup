@@ -14,7 +14,7 @@ import { Dropdown } from "./core/dropdown";
 export const Navbar = function (props: any) {
   const location = useLocation<any>();
   const history = useHistory();
-  const [mutate] = useMutation(SIGN_OUT);
+  const [mutate, { client }] = useMutation(SIGN_OUT);
   const auth = useAuth();
 
   const handleSignOut = () => {
@@ -22,6 +22,7 @@ export const Navbar = function (props: any) {
       .then((resData) => {
         if (auth.signOut) {
           auth.signOut();
+          client.resetStore();
           history.push("/auth");
         }
       })
