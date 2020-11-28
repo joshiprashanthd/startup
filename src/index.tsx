@@ -14,7 +14,7 @@ const clientUri =
 const client = new ApolloClient({
   uri: clientUri,
   cache: new InMemoryCache(),
-  credentials: "include",
+  credentials: "same-origin",
 });
 
 ReactDOM.render(
