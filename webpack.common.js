@@ -46,7 +46,9 @@ module.exports = {
     publicPath: "/",
   },
   plugins: [
-    new CleanWebpackPlugin(),
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: ["!_redirects"],
+    }),
     new HtmlWebpackPlugin({
       title: "YourCollab",
       template: path.join(__dirname, "public", "index.html"),
