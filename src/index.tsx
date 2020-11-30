@@ -18,7 +18,7 @@ const clientUri =
 
 const link = new HttpLink({
   uri: clientUri,
-  credentials: "include",
+  credentials: "same-origin",
 });
 
 const client = new ApolloClient({
