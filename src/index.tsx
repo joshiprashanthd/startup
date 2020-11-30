@@ -25,6 +25,9 @@ const client = new ApolloClient({
   link,
   cache: new InMemoryCache(),
   credentials: "include",
+  headers: {
+    "Access-Control-Allow-Origin": clientUri,
+  },
 });
 
 ReactDOM.render(
