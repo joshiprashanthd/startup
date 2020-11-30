@@ -11,8 +11,6 @@ const clientUri =
     ? "https://collabs1.herokuapp.com/graphql"
     : "http://localhost:4000/graphql";
 
-console.log("Client uri : ", clientUri);
-
 const client = new ApolloClient({
   uri: clientUri,
   cache: new InMemoryCache(),
