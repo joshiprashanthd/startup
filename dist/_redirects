@@ -1,2 +1,6 @@
 /*    /index.html   200
-/graphql   https://collabs1.heroku.com/graphql   200
+[[redirects]]
+  from = "/graphql"
+  to = "https://collabs1.heroku.com/graphql"
+  status = 200
+  force = true
