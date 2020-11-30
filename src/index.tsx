@@ -1,4 +1,9 @@
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+} from "@apollo/client";
 import React from "react";
 import ReactDOM from "react-dom";
 
@@ -11,8 +16,13 @@ const clientUri =
     ? "https://collabs1.herokuapp.com/graphql"
     : "http://localhost:4000/graphql";
 
-const client = new ApolloClient({
+const link = createHttpLink({
   uri: clientUri,
+  credentials: "include",
+});
+
+const client = new ApolloClient({
+  link,
   cache: new InMemoryCache(),
   credentials: "include",
 });
