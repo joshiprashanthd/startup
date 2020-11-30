@@ -13,21 +13,17 @@ import "./styles/styles.css";
 
 const clientUri =
   process.env.NODE_ENV === "production"
-    ? "https://collabs1.herokuapp.com/graphql"
+    ? "/graphql"
     : "http://localhost:4000/graphql";
 
 const link = createHttpLink({
   uri: clientUri,
-  credentials: "include",
+  credentials: "same-origin",
 });
 
 const client = new ApolloClient({
   link,
   cache: new InMemoryCache(),
-  credentials: "include",
-  headers: {
-    "Access-Control-Allow-Origin": clientUri,
-  },
 });
 
 ReactDOM.render(
