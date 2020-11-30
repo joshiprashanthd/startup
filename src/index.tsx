@@ -13,7 +13,7 @@ import "./styles/styles.css";
 
 const clientUri =
   process.env.NODE_ENV === "production"
-    ? "/graphql"
+    ? "https://collabs1.heroku.com/graphql"
     : "http://localhost:4000/graphql";
 
 const link = createHttpLink({
