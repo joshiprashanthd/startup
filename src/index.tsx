@@ -13,12 +13,12 @@ import "./styles/styles.css";
 
 const clientUri =
   process.env.NODE_ENV === "production"
-    ? "https://collabs1.heroku.com/graphql"
+    ? "https://collabs1.herokuapp.com/graphql"
     : "http://localhost:4000/graphql";
 
 const link = createHttpLink({
   uri: clientUri,
-  credentials: "same-origin",
+  credentials: "include",
 });
 
 const client = new ApolloClient({
